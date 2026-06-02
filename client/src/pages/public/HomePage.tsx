@@ -33,7 +33,7 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="container hero-section">
+      <div className="container">
         <div className="hero-wrapper">
           <div className="flex-columns">
             <div className="gerald-and-pizza">

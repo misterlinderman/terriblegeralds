@@ -1,5 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import '../../styles/admin.css';
 
 const adminLinks = [
   { to: '/admin', label: 'Dashboard', end: true },

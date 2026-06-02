@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useContactModal } from '../../context/ContactModalContext';
 
@@ -11,6 +12,7 @@ const navItems = [
 
 export default function SiteHeader() {
   const { openContact } = useContactModal();
+  const [navOpen, setNavOpen] = useState(false);
 
   return (
     <header className="site-header">
@@ -25,8 +27,18 @@ export default function SiteHeader() {
               alt="Terrible Gerald's Pizza"
             />
           </Link>
+          <button
+            type="button"
+            className={`hamburger${navOpen ? ' active' : ''}`}
+            aria-label="Toggle navigation"
+            onClick={() => setNavOpen((open) => !open)}
+          >
+            <span className="bar" />
+            <span className="bar" />
+            <span className="bar" />
+          </button>
         </div>
-        <nav className="main-nav d-flex">
+        <nav className={`main-nav d-flex${navOpen ? ' active' : ''}`}>
           <ul className="main-nav-list d-flex">
             {navItems.map((item) =>
               item.external ? (

@@ -1,33 +1,14 @@
 @import './legacy-base.css';
-@import './legacy-home.css';
+@import './legacy-layout.css';
+@import './legacy-home-global.css';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* App-level overrides for React port */
+/* Public site overrides */
 .link-button {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
   font: inherit;
-  color: inherit;
-  text-decoration: none;
-}
-
-.site-header .link-button,
-.main-nav-list .link-button {
-  text-transform: uppercase;
-  font-family: var(--font-headline);
-  font-size: 1.75rem;
-  color: var(--bg-black);
-}
-
-.footer-link {
-  color: var(--bg-white);
-  text-transform: uppercase;
-  font-family: var(--font-headline);
 }
 
 .contact-overlay {
@@ -72,24 +53,24 @@
   display: block;
   font-weight: 600;
   margin-bottom: 0.25rem;
+  font-family: var(--font-headline);
+  text-transform: uppercase;
 }
 
 .contact-modal input,
 .contact-modal textarea {
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 2px #000 solid;
+  border-radius: 0.5rem;
   padding: 0.5rem;
+  font-size: 1.25rem;
 }
 
 .contact-modal .error {
   color: #c20c21;
+  font-family: var(--font-headline);
 }
 
 .contact-modal .success {
   color: #166534;
-}
-
-.admin-shell {
-  font-family: Inter, system-ui, sans-serif;
 }
