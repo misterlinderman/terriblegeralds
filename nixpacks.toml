@@ -1,0 +1,11 @@
+# Railway/Nixpacks — API server only (monorepo)
+# Root package.json has no server deps; install must run in server/
+
+[phases.install]
+cmds = ["npm ci --prefix server"]
+
+[phases.build]
+cmds = ["npm run build --prefix server"]
+
+[start]
+cmd = "npm run start --prefix server"

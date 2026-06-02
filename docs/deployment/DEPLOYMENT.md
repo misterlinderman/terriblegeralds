@@ -20,8 +20,9 @@ Connection string → Railway env `MONGODB_URI`.
 ## 2. Railway (API)
 
 1. Create a new project from GitHub repo `misterlinderman/terriblegeralds`
-2. Set root directory to repository root (uses `railway.toml`)
-3. Environment variables:
+2. Keep root directory at repository root (uses `railway.toml` + `nixpacks.toml`)
+3. Build runs `npm ci --prefix server` then compiles TypeScript — do not point Railway at `client/`
+4. Environment variables:
 
 | Variable | Example |
 |----------|---------|
