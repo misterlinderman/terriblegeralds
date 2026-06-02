@@ -9,7 +9,7 @@ const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
  * Call this once in a high-level component to set up token handling
  */
 export function useApiAuth() {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, getIdTokenClaims } = useAuth0();
 
   useEffect(() => {
     const setupToken = async () => {
@@ -21,7 +21,8 @@ export function useApiAuth() {
             scope: 'openid profile email',
           },
           });
-          setAuthToken(token);
+          const claims = await getIdTokenClaims();
+          setAuthToken(token, claims?.__raw);
         } catch (error) {
           console.error('Error getting access token:', error);
           setAuthToken(null);
@@ -32,7 +33,7 @@ export function useApiAuth() {
     };
 
     setupToken();
-  }, [isAuthenticated, getAccessTokenSilently]);
+  }, [isAuthenticated, getAccessTokenSilently, getIdTokenClaims]);
 
   return api;
 }

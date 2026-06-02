@@ -38,6 +38,7 @@ app.use(
   cors({
     origin: allowedOrigins.length ? allowedOrigins : true,
     credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Auth0-Id-Token'],
   })
 );
 app.use(morgan('dev'));

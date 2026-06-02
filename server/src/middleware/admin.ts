@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { createError } from './errorHandler';
+import { createError, asyncHandler } from './errorHandler';
+import { verifyIdToken } from '../services/idToken';
 
 export const getAdminEmails = (): string[] =>
   (process.env.ADMIN_EMAILS || '')
@@ -24,18 +25,58 @@ export const getEmailFromAuth = (payload: Record<string, unknown> | undefined): 
   return undefined;
 };
 
-export const requireAdmin = (req: Request, _res: Response, next: NextFunction) => {
+export interface AdminAuthContext {
+  email?: string;
+  emailInAccessToken: boolean;
+  permissions: string[];
+  hasPermission: boolean;
+  isListedAdmin: boolean;
+  authorized: boolean;
+}
+
+/** Resolve admin email from the access token, falling back to a verified ID token header. */
+export const resolveAdminAuth = async (req: Request): Promise<AdminAuthContext> => {
   const payload = req.auth?.payload as Record<string, unknown> | undefined;
   const permissions = (payload?.permissions as string[] | undefined) || [];
-  const email = getEmailFromAuth(payload);
-  const adminEmails = getAdminEmails();
+  let email = getEmailFromAuth(payload);
+  const emailInAccessToken = Boolean(email);
 
+  if (!email) {
+    const idTokenHeader = req.headers['x-auth0-id-token'];
+    const idToken = Array.isArray(idTokenHeader) ? idTokenHeader[0] : idTokenHeader;
+
+    if (typeof idToken === 'string' && idToken && payload?.sub) {
+      try {
+        const idPayload = await verifyIdToken(idToken);
+        if (idPayload.sub === payload.sub) {
+          email = getEmailFromAuth(idPayload as Record<string, unknown>);
+        }
+      } catch {
+        // Ignore invalid ID tokens and continue without email.
+      }
+    }
+  }
+
+  const adminEmails = getAdminEmails();
   const hasPermission = permissions.includes('admin:content');
   const isListedAdmin = email ? adminEmails.includes(email) : false;
 
-  if (hasPermission || isListedAdmin) {
+  return {
+    email,
+    emailInAccessToken,
+    permissions,
+    hasPermission,
+    isListedAdmin,
+    authorized: hasPermission || isListedAdmin,
+  };
+};
+
+export const requireAdmin = asyncHandler(async (req: Request, _res: Response, next: NextFunction) => {
+  const auth = await resolveAdminAuth(req);
+
+  if (auth.authorized) {
     return next();
   }
 
   next(createError('Admin access required', 403));
-};
+});

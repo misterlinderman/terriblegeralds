@@ -32,6 +32,7 @@ Connection string → Railway env `MONGODB_URI`.
 | `MONGODB_URI` | Atlas connection string |
 | `AUTH0_DOMAIN` | `your-tenant.auth0.com` |
 | `AUTH0_AUDIENCE` | `https://terriblegeralds-production.up.railway.app/api` |
+| `AUTH0_CLIENT_ID` | Same SPA client ID as Vercel `VITE_AUTH0_CLIENT_ID` (used to verify ID tokens for admin email) |
 | `ADMIN_EMAILS` | `terriblegeralds@proton.me,your@email.com` |
 
 Every admin user’s email must appear in `ADMIN_EMAILS` (comma-separated), **or** the user must have the Auth0 API permission `admin:content`. After changing this variable, redeploy Railway and log out/in on the admin site.

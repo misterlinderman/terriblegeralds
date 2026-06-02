@@ -13,7 +13,7 @@ interface AdminMeResponse {
 }
 
 export function useAdminApiReady() {
-  const { isAuthenticated, getAccessTokenSilently, user } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently, getIdTokenClaims, user } = useAuth0();
   const [ready, setReady] = useState(false);
   const [error, setError] = useState('');
 
@@ -35,7 +35,8 @@ export function useAdminApiReady() {
         const token = await getAccessTokenSilently({
           authorizationParams: { audience, scope: 'openid profile email' },
         });
-        setAuthToken(token);
+        const claims = await getIdTokenClaims();
+        setAuthToken(token, claims?.__raw);
 
         const { data } = await api.get<AdminMeResponse>('/admin/me');
 
@@ -43,16 +44,14 @@ export function useAdminApiReady() {
 
         if (!data.authorized) {
           const signedInEmail = user?.email || data.email;
-          if (!data.emailInToken) {
+          if (!signedInEmail) {
             setError(
-              'Your API token does not include an email address. In Auth0, add a Post-Login Action to put email on the access token, or assign the admin:content permission to your user.'
+              'Could not determine your email for admin access. Log out and sign in again, or assign the admin:content permission in Auth0.'
             );
-          } else if (signedInEmail) {
+          } else {
             setError(
               `Admin access denied for ${signedInEmail}. Add this email to ADMIN_EMAILS in Railway (comma-separated), redeploy the API, then log out and back in.`
             );
-          } else {
-            setError('Admin access denied. Check ADMIN_EMAILS on Railway or Auth0 permissions.');
           }
           return;
         }
@@ -73,7 +72,7 @@ export function useAdminApiReady() {
     return () => {
       cancelled = true;
     };
-  }, [isAuthenticated, getAccessTokenSilently, user?.email, user?.sub]);
+  }, [isAuthenticated, getAccessTokenSilently, getIdTokenClaims, user?.email, user?.sub]);
 
   return { ready, error, email: user?.email };
 }
