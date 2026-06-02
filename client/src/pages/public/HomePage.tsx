@@ -8,11 +8,10 @@ import {
   formatEventDate,
   formatEventTime,
 } from '../../services/contentApi';
-import { useContactModal } from '../../context/ContactModalContext';
+import ContactLink from '../../components/public/ContactLink';
 import type { Event, Faq, MenuItem } from '../../types';
 
 export default function HomePage() {
-  const { openContact } = useContactModal();
   const [nextEvent, setNextEvent] = useState<Event | null>(null);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [faqs, setFaqs] = useState<Faq[]>([]);
@@ -88,9 +87,7 @@ export default function HomePage() {
               Book Gerald for all your upcoming private events!...{' '}
               <span>We&apos;ll like...sell you pizzas and stuff!</span>
             </h4>
-            <button type="button" className="btn btn-secondary" onClick={openContact}>
-              Book Us Now
-            </button>
+            <ContactLink className="btn btn-secondary">Book Us Now</ContactLink>
           </div>
         </div>
       </section>
@@ -148,7 +145,7 @@ export default function HomePage() {
       </section>
 
       <section id="about">
-        <div className="container about-gerald-wrap">
+        <div className="container about-gerald-wrap d-flex">
           <div className="about-content-column">
             <h3>About</h3>
             {content['about.paragraph1'] && <p>{content['about.paragraph1']}</p>}

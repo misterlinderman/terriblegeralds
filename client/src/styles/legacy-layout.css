@@ -71,7 +71,7 @@ header.site-header .main-nav-list {
 }
 
 header.site-header .main-nav-list a,
-header.site-header .main-nav-list button.link-button {
+header.site-header .main-nav-list .contact-trigger {
   text-decoration: none;
   font-weight: 400;
   font-size: 1.75rem;
@@ -79,14 +79,13 @@ header.site-header .main-nav-list button.link-button {
   color: var(--bg-white);
 }
 
-header.site-header .main-nav-list li:last-child .link-button {
-  color: var(--bg-black);
-}
-
-header.site-header .main-nav-list a:is(:hover, :focus),
-header.site-header .main-nav-list button.link-button:is(:hover, :focus) {
+header.site-header .main-nav-list a:is(:hover, :focus) {
   padding-bottom: 0.25rem;
   border-bottom: 5px rgb(194, 12, 33) solid;
+}
+
+header.site-header .main-nav-list .contact-trigger:is(:hover, :focus) {
+  border-bottom: none;
 }
 
 header.site-header .hamburger {
@@ -159,22 +158,22 @@ footer.site-footer .footer-nav-list {
 }
 
 footer.site-footer .footer-nav-list a,
-footer.site-footer .footer-nav-list button.footer-link {
+footer.site-footer .footer-nav-list .contact-trigger {
   text-decoration: none;
   color: var(--bg-white);
-  background: none;
-  border: none;
-  cursor: pointer;
   font: inherit;
   text-transform: uppercase;
   font-family: var(--font-headline);
   font-size: 1em;
 }
 
-footer.site-footer .footer-nav-list a:is(:hover, :focus),
-footer.site-footer .footer-nav-list button.footer-link:is(:hover, :focus) {
+footer.site-footer .footer-nav-list a:is(:hover, :focus) {
   padding-bottom: 0.25rem;
   border-bottom: 5px rgb(194, 12, 33) solid;
+}
+
+footer.site-footer .footer-nav-list .contact-trigger:is(:hover, :focus) {
+  border-bottom: none;
 }
 
 footer.site-footer .social-list {
@@ -207,9 +206,54 @@ footer.site-footer p a {
   }
 }
 
-.trailer .btn {
+.trailer .btn,
+.trailer .contact-trigger.btn {
   margin-inline: auto;
   display: block;
   max-width: 280px;
   text-align: center;
+}
+
+section#private-events {
+  background-color: transparent;
+}
+
+#full-screen-wrap {
+  pointer-events: none;
+}
+
+#full-screen-wrap dialog[open] {
+  pointer-events: auto;
+}
+
+#full-screen-wrap button.close-contact-form {
+  font-size: 2.5rem;
+  text-align: right;
+  background-color: transparent;
+  border: none;
+  font-weight: 900;
+  font-family: var(--font-headline);
+  cursor: pointer;
+  color: #f50924;
+}
+
+#full-screen-wrap button.close-contact-form:is(:hover, :focus) {
+  color: #000;
+  rotate: 5deg;
+}
+
+dialog {
+  border: none;
+  padding: 0;
+  max-width: min(700px, 96vw);
+  width: 100%;
+  background: #fff;
+}
+
+.items .success {
+  text-align: center;
+  font-size: 1.85rem;
+  font-weight: 600;
+  font-family: var(--font-headline);
+  color: #166534;
 }

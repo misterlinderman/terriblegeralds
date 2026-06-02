@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useContactModal } from '../../context/ContactModalContext';
+import ContactLink from './ContactLink';
 
 const navItems = [
   { to: '/', label: 'Home', end: true },
@@ -11,7 +11,6 @@ const navItems = [
 ];
 
 export default function SiteHeader() {
-  const { openContact } = useContactModal();
   const [navOpen, setNavOpen] = useState(false);
 
   return (
@@ -60,9 +59,7 @@ export default function SiteHeader() {
               )
             )}
             <li>
-              <button type="button" className="link-button" onClick={openContact}>
-                Contact
-              </button>
+              <ContactLink>Contact</ContactLink>
             </li>
           </ul>
         </nav>

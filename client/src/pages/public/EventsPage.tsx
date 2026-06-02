@@ -5,11 +5,10 @@ import {
   formatEventDate,
   formatEventTime,
 } from '../../services/contentApi';
-import { useContactModal } from '../../context/ContactModalContext';
+import ContactLink from '../../components/public/ContactLink';
 import type { Event } from '../../types';
 
 export default function EventsPage() {
-  const { openContact } = useContactModal();
   const [events, setEvents] = useState<Event[]>([]);
   const [intro, setIntro] = useState('Check back for tasty events in your area!');
 
@@ -72,9 +71,7 @@ export default function EventsPage() {
               Your Uncle Sal wants Gerald&apos;s for his PRIVATE EVENT and he&apos;s trying to pay
               for it!
             </h4>
-            <button type="button" className="contact-trigger btn btn-secondary" onClick={openContact}>
-              Book Us Now Before He Does!
-            </button>
+            <ContactLink className="btn btn-secondary">Book Us Now Before He Does!</ContactLink>
           </div>
         </aside>
       </div>

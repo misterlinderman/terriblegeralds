@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useContactModal } from '../../context/ContactModalContext';
+import ContactLink from './ContactLink';
 
 export default function SiteFooter() {
-  const { openContact } = useContactModal();
-
   return (
     <footer className="site-footer">
       <nav className="footer-nav d-flex">
@@ -26,9 +24,7 @@ export default function SiteFooter() {
             </a>
           </li>
           <li>
-            <button type="button" className="footer-link" onClick={openContact}>
-              Contact
-            </button>
+            <ContactLink>Contact</ContactLink>
           </li>
         </ul>
       </nav>
