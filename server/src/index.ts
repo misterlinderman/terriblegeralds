@@ -51,7 +51,7 @@ app.use('/api/menu', menuRoutes);
 app.use('/api/faqs', faqRoutes);
 app.use('/api/content', contentRoutes);
 app.use('/api/contact', contactRoutes);
-app.use('/api/admin/me', adminMeRoutes);
+app.use('/api/admin', adminMeRoutes);
 app.use('/api/admin/events', adminEventRoutes);
 app.use('/api/admin/menu', adminMenuRoutes);
 app.use('/api/admin/faqs', adminFaqRoutes);
