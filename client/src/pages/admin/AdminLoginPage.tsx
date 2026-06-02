@@ -31,6 +31,7 @@ export default function AdminLoginPage() {
               appState: { returnTo: '/admin' },
               authorizationParams: {
                 audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+                scope: 'openid profile email',
               },
             })
           }

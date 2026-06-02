@@ -16,6 +16,7 @@
     "lint": "cd client && npm run lint && cd ../server && npm run lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "seed": "npm run seed --prefix server",
+    "seed:events": "npm run seed:events --prefix server",
     "clean": "rm -rf client/dist server/dist client/node_modules server/node_modules node_modules"
   },
   "devDependencies": {

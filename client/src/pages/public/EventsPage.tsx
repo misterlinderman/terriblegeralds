@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import '../../styles/legacy-events.css';
 import {
   fetchEvents,
   fetchSiteContent,
   formatEventDate,
-  formatEventTime,
+  formatEventTimeRange,
 } from '../../services/contentApi';
 import ContactLink from '../../components/public/ContactLink';
 import type { Event } from '../../types';
@@ -38,9 +39,9 @@ export default function EventsPage() {
                 <p className="event-item-description">
                   {formatEventDate(event.startDate)}
                   <br />
-                  {formatEventTime(event.startDate)}
+                  {formatEventTimeRange(event.startDate, event.endDate)}
                   <br />
-                  {event.venue}
+                  {event.address || event.venue}
                   {event.description && (
                     <>
                       <br />
@@ -51,12 +52,7 @@ export default function EventsPage() {
                 <div className="event-item-buttons d-flex">
                   {event.mapUrl && (
                     <a href={event.mapUrl} className="btn btn-secondary" target="_blank" rel="noreferrer">
-                      Map
-                    </a>
-                  )}
-                  {event.ticketUrl && (
-                    <a href={event.ticketUrl} className="btn btn-primary" target="_blank" rel="noreferrer">
-                      Tickets
+                      Location Map
                     </a>
                   )}
                 </div>

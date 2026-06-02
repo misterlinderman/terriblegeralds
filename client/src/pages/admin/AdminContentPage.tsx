@@ -1,15 +1,23 @@
 import { FormEvent, useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { adminContent } from '../../services/adminApi';
+import { getAdminRequestError } from '../../hooks/useAdminApiReady';
 import type { SiteContentEntry } from '../../types';
 
 const emptyEntry = { key: '', section: '', label: '', value: '' };
 
 export default function AdminContentPage() {
+  const { user } = useAuth0();
   const [entries, setEntries] = useState<SiteContentEntry[]>([]);
   const [form, setForm] = useState(emptyEntry);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [error, setError] = useState('');
 
-  const load = () => adminContent.list().then(setEntries);
+  const load = () =>
+    adminContent
+      .list()
+      .then(setEntries)
+      .catch((err) => setError(getAdminRequestError(err, user?.email)));
 
   useEffect(() => {
     load();
@@ -33,6 +41,7 @@ export default function AdminContentPage() {
       <p className="mb-4 text-sm text-slate-600">
         Key/value entries power hero copy, meta descriptions, and contact form text.
       </p>
+      {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
 
       <form onSubmit={handleSubmit} className="mb-8 grid gap-3 rounded border p-4 md:grid-cols-2">
         <input

@@ -1,15 +1,23 @@
 import { FormEvent, useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { adminFaqs } from '../../services/adminApi';
+import { getAdminRequestError } from '../../hooks/useAdminApiReady';
 import type { Faq } from '../../types';
 
 const emptyFaq = { question: '', answer: '', sortOrder: 0, published: true };
 
 export default function AdminFaqsPage() {
+  const { user } = useAuth0();
   const [faqs, setFaqs] = useState<Faq[]>([]);
   const [form, setForm] = useState(emptyFaq);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [error, setError] = useState('');
 
-  const load = () => adminFaqs.list().then(setFaqs);
+  const load = () =>
+    adminFaqs
+      .list()
+      .then(setFaqs)
+      .catch((err) => setError(getAdminRequestError(err, user?.email)));
 
   useEffect(() => {
     load();
@@ -30,6 +38,7 @@ export default function AdminFaqsPage() {
   return (
     <div>
       <h2 className="mb-4 text-2xl font-semibold">FAQs</h2>
+      {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
       <form onSubmit={handleSubmit} className="mb-8 grid gap-3 rounded border p-4">
         <input
           className="rounded border px-3 py-2"

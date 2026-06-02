@@ -1,5 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 import { adminMenu } from '../../services/adminApi';
+import { getAdminRequestError } from '../../hooks/useAdminApiReady';
 import type { MenuItem } from '../../types';
 
 const emptyItem = {
@@ -12,11 +14,17 @@ const emptyItem = {
 };
 
 export default function AdminMenuPage() {
+  const { user } = useAuth0();
   const [items, setItems] = useState<MenuItem[]>([]);
   const [form, setForm] = useState(emptyItem);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [error, setError] = useState('');
 
-  const load = () => adminMenu.list().then((data) => setItems(data));
+  const load = () =>
+    adminMenu
+      .list()
+      .then(setItems)
+      .catch((err) => setError(getAdminRequestError(err, user?.email)));
 
   useEffect(() => {
     load();
@@ -37,6 +45,7 @@ export default function AdminMenuPage() {
   return (
     <div>
       <h2 className="mb-4 text-2xl font-semibold">Menu Items</h2>
+      {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
       <form onSubmit={handleSubmit} className="mb-8 grid gap-3 rounded border p-4 md:grid-cols-2">
         <input
           className="rounded border px-3 py-2"

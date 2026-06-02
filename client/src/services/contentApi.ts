@@ -49,3 +49,9 @@ export const formatEventTime = (isoDate: string): string =>
     minute: 'numeric',
     hour12: true,
   });
+
+export const formatEventTimeRange = (startDate: string, endDate?: string): string => {
+  const start = formatEventTime(startDate);
+  if (!endDate) return start;
+  return `${start} - ${formatEventTime(endDate)}`;
+};

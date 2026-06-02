@@ -11,6 +11,10 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Mobile hamburger navigation parity with Astro site
 - Email notifications for new contact inquiries
 
+### Added
+- `npm run seed:events` script to upsert sample events (Barry O's Tavern)
+- Improved admin events form with address, auto-slug, and map/event page URLs
+
 ---
 
 ## [0.1.0] - 2026-06-01

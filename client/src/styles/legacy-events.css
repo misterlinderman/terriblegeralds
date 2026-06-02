@@ -1,1 +1,129 @@
-.event-item{margin-bottom:2rem;align-items:center;border-bottom:5px rgb(194,12,33) solid}.event-item:last-child{border-bottom:none}.event-item-description{margin:0;padding-left:1.5rem;font-size:2.2rem;font-family:var(--font-pixel);line-height:1.2;letter-spacing:1px}.event-item-buttons{font-size:.8rem;gap:1.5rem}@media (max-width: 600px){.event-item-buttons{margin:.5rem 0;gap:0rem;flex-direction:column}.event-item-buttons .btn{margin-inline:initial;text-align:center}}
+.tasty-events {
+  font-size: 1.75rem;
+}
+
+.event-content {
+  padding-top: 50px;
+  gap: 2.5rem;
+}
+
+.event-content > div {
+  flex: 1;
+}
+
+.event-content .event-item h4 {
+  font-size: 2.25rem;
+  font-family: var(--font-headline);
+  text-transform: uppercase;
+}
+
+@media (max-width: 1000px) {
+  .event-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.event-content aside {
+  padding: 1rem 2rem 2rem;
+  border-left: 5px rgb(194, 12, 33) solid;
+}
+
+@media (max-width: 1000px) {
+  .event-content aside {
+    border-left: none;
+  }
+
+  .sidebar-wrapper {
+    margin-inline: auto;
+    display: grid;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.event-content aside .btn {
+  margin: 1rem 0;
+  padding: 1.25rem 2rem;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.guido-gerald {
+  animation: ride 1s ease-in-out infinite;
+}
+
+.sidebar-wrapper {
+  padding-top: 2rem;
+  position: sticky;
+  top: 0;
+  max-width: 350px;
+}
+
+.top-line {
+  margin-bottom: 1.7rem;
+  padding-block: 2rem 0;
+  border-top: 5px rgb(194, 12, 33) solid;
+  text-align: center;
+  text-transform: capitalize;
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.event-item {
+  margin-bottom: 2rem;
+  align-items: center;
+  border-bottom: 5px rgb(194, 12, 33) solid;
+}
+
+.event-item:last-child {
+  border-bottom: none;
+}
+
+.event-item-description {
+  margin: 0;
+  padding-left: 1.5rem;
+  font-size: 2.2rem;
+  font-family: var(--font-pixel);
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+.event-item-buttons {
+  font-size: 0.8rem;
+  gap: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .event-item-buttons {
+    margin: 0.5rem 0;
+    gap: 0;
+    flex-direction: column;
+  }
+
+  .event-item-buttons .btn {
+    margin-inline: initial;
+    text-align: center;
+  }
+}
+
+.event-info-column .event-item h4 {
+  margin: 0 0 1rem;
+  font-size: 2.25rem;
+  font-family: var(--font-headline);
+  text-transform: uppercase;
+}
+
+@keyframes ride {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(15px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

@@ -16,9 +16,10 @@ export function useApiAuth() {
       if (isAuthenticated) {
         try {
           const token = await getAccessTokenSilently({
-            authorizationParams: {
-              audience,
-            },
+          authorizationParams: {
+            audience,
+            scope: 'openid profile email',
+          },
           });
           setAuthToken(token);
         } catch (error) {

@@ -6,7 +6,7 @@ import {
   fetchNextEvent,
   fetchSiteContent,
   formatEventDate,
-  formatEventTime,
+  formatEventTimeRange,
 } from '../../services/contentApi';
 import ContactLink from '../../components/public/ContactLink';
 import type { Event, Faq, MenuItem } from '../../types';
@@ -42,13 +42,26 @@ export default function HomePage() {
               <h2>Next Event</h2>
               {nextEvent ? (
                 <div className="event-item">
+                  <h4>{nextEvent.title}</h4>
                   <p className="event-item-description">
                     {formatEventDate(nextEvent.startDate)}
                     <br />
-                    {formatEventTime(nextEvent.startDate)}
+                    {formatEventTimeRange(nextEvent.startDate, nextEvent.endDate)}
                     <br />
-                    {nextEvent.venue}
+                    {nextEvent.address || nextEvent.venue}
                   </p>
+                  <div className="event-item-buttons d-flex">
+                    {nextEvent.mapUrl && (
+                      <a
+                        href={nextEvent.mapUrl}
+                        className="btn btn-secondary"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Location Map
+                      </a>
+                    )}
+                  </div>
                 </div>
               ) : (
                 <p className="no-events-message">There are no scheduled events at this time!</p>

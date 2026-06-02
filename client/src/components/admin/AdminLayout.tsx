@@ -1,5 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import Loading from '../Loading';
+import { useAdminApiReady } from '../../hooks/useAdminApiReady';
 import '../../styles/admin.css';
 
 const adminLinks = [
@@ -13,6 +15,7 @@ const adminLinks = [
 
 export default function AdminLayout() {
   const { user, logout } = useAuth0();
+  const { ready, error, email } = useAdminApiReady();
 
   return (
     <div className="admin-shell min-h-screen bg-slate-100">
@@ -58,7 +61,23 @@ export default function AdminLayout() {
           </ul>
         </nav>
         <main className="rounded-lg bg-white p-6 shadow-sm">
-          <Outlet />
+          {error ? (
+            <div className="rounded border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+              <p className="font-medium">Cannot connect to the admin API</p>
+              <p className="mt-2">{error}</p>
+              {email && (
+                <p className="mt-2">
+                  Signed in as <strong>{email}</strong>. If you see a 403 error on admin pages,
+                  add this address to <code className="rounded bg-red-100 px-1">ADMIN_EMAILS</code>{' '}
+                  in Railway and redeploy.
+                </p>
+              )}
+            </div>
+          ) : ready ? (
+            <Outlet />
+          ) : (
+            <Loading />
+          )}
         </main>
       </div>
     </div>
