@@ -1,0 +1,35 @@
+---
+description: Terrible Gerald's Pizza MERN app conventions
+globs:
+  - "**/*"
+---
+
+# Terrible Gerald's — project rules
+
+## Stack
+- Client: Vite, React 18, TypeScript, Tailwind (admin only), Auth0
+- Server: Express, Mongoose, MongoDB Atlas
+- Legacy reference: `legacy/astro-dist/` (Astro v4 static export)
+
+## Layout
+- Public marketing UI → `client/src/pages/public/`, `client/src/components/public/`
+- Admin CMS → `client/src/pages/admin/`, `client/src/components/admin/`
+- API models → `server/src/models/`
+- Public API → `server/src/routes/`
+- Admin API → `server/src/routes/admin/` (always `checkJwt` + `requireAdmin`)
+
+## Content types
+Event, MenuItem, Faq, SiteContent, ContactSubmission — see `docs/architecture/ARCHITECTURE.md`
+
+## When editing public pages
+- Fetch dynamic data from API (`contentApi.ts`), not hard-coded copy
+- Reuse existing legacy CSS variables (`--tg-red`, `--font-headline`)
+- Images live in `client/public/images/`
+
+## When editing admin
+- Use Tailwind utility classes consistent with existing admin pages
+- Wire CRUD through `adminApi.ts`
+- Protect routes via `ProtectedRoute` in `App.tsx`
+
+## Env
+Never commit secrets. Templates: `.env.example`, `client/.env.example`, `server/.env.example`

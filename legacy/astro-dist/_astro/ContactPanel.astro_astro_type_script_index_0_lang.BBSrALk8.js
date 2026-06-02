@@ -1,0 +1,1 @@
+const c=document.querySelector("dialog"),t=document.querySelectorAll("a.contact-trigger"),e=document.querySelectorAll("button.close-contact-form");t.forEach(o=>{o.addEventListener("click",()=>{n()})});e.forEach(o=>{o.addEventListener("click",()=>{r()})});function n(){c.showModal()}function r(){c.close()}

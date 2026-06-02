@@ -1,0 +1,95 @@
+@import './legacy-base.css';
+@import './legacy-home.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App-level overrides for React port */
+.link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header .link-button,
+.main-nav-list .link-button {
+  text-transform: uppercase;
+  font-family: var(--font-headline);
+  font-size: 1.75rem;
+  color: var(--bg-black);
+}
+
+.footer-link {
+  color: var(--bg-white);
+  text-transform: uppercase;
+  font-family: var(--font-headline);
+}
+
+.contact-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.contact-modal {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+}
+
+.contact-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.contact-modal-header img {
+  max-width: 180px;
+}
+
+.contact-modal form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.contact-modal label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.contact-modal input,
+.contact-modal textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5rem;
+}
+
+.contact-modal .error {
+  color: #c20c21;
+}
+
+.contact-modal .success {
+  color: #166534;
+}
+
+.admin-shell {
+  font-family: Inter, system-ui, sans-serif;
+}

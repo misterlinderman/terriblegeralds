@@ -1,0 +1,65 @@
+# Terrible Gerald's Pizza — Cursor rules
+
+## Project
+
+MERN monorepo for Terrible Gerald's Pizza public website + admin CMS.
+Converted from Astro static export in `legacy/astro-dist/`.
+
+- **client/** — React 18 + Vite + Tailwind (public site + `/admin`)
+- **server/** — Express + TypeScript + Mongoose
+- **docs/** — architecture, deployment, migration
+
+Read `AGENTS.md` for quick orientation.
+
+## Commands
+
+Run from repository root:
+
+- `npm run dev` — client :5173 + API :3001
+- `npm run seed` — seed menu/FAQ/content
+- `npm run build` — production build
+- `npm run lint` — ESLint
+
+## Code conventions
+
+### TypeScript
+- Strict typing; shared types in `client/src/types/` and `server/src/types/`
+- Use `asyncHandler` for async Express routes
+- Use `createError(message, statusCode)` for operational errors
+
+### Server
+- Public routes: `server/src/routes/` — no auth
+- Admin routes: `server/src/routes/admin/` — `checkJwt` + `requireAdmin`
+- New resource pattern: Model → public routes (if needed) → admin routes → register in `server/src/index.ts`
+
+### Client
+- Public pages: `client/src/pages/public/`
+- Admin pages: `client/src/pages/admin/` — Tailwind styling
+- API calls: `client/src/services/contentApi.ts` (public), `adminApi.ts` (admin)
+- Brand site uses legacy CSS imports; do not mix Tailwind utility classes on public marketing sections unless intentional
+
+### Auth
+- Auth0 SPA on client; JWT on admin API requests via `useApiAuth` + axios interceptor
+- Admin access: `ADMIN_EMAILS` env or `admin:content` permission
+
+## Do not
+- Commit `.env` files or secrets
+- Serve `legacy/astro-dist/` in production (still references Storyblok/getform)
+- Remove `legacy/astro-dist/` without customer sign-off
+- Add dependencies without need
+
+## Adding a new admin-managed content type
+
+1. Create Mongoose model in `server/src/models/`
+2. Add public GET route if displayed on site
+3. Add admin CRUD under `server/src/routes/admin/`
+4. Add TypeScript types + `adminApi` helpers
+5. Add admin page + route in `App.tsx`
+6. Document in `docs/architecture/ARCHITECTURE.md`
+
+## Deployment targets
+
+- Client → Vercel (`client/` root, `VITE_*` env)
+- Server → Railway (`railway.toml`, `CLIENT_URL` for CORS)
+
+See `docs/deployment/DEPLOYMENT.md`.

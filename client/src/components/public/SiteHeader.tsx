@@ -1,0 +1,60 @@
+import { Link, NavLink } from 'react-router-dom';
+import { useContactModal } from '../../context/ContactModalContext';
+
+const navItems = [
+  { to: '/', label: 'Home', end: true },
+  { to: '/#menu', label: 'Menu', hash: true },
+  { to: '/events', label: 'Events' },
+  { to: '/#about', label: 'About', hash: true },
+  { href: 'https://terrible-geralds-pizza.printify.me/', label: 'Shop', external: true },
+];
+
+export default function SiteHeader() {
+  const { openContact } = useContactModal();
+
+  return (
+    <header className="site-header">
+      <div className="container d-flex">
+        <div className="d-flex main-logo-column">
+          <Link to="/">
+            <img
+              width={300}
+              height={136}
+              className="main-logo"
+              src="/images/tg-logo.webp"
+              alt="Terrible Gerald's Pizza"
+            />
+          </Link>
+        </div>
+        <nav className="main-nav d-flex">
+          <ul className="main-nav-list d-flex">
+            {navItems.map((item) =>
+              item.external ? (
+                <li key={item.label}>
+                  <a href={item.href} target="_blank" rel="noreferrer">
+                    {item.label}
+                  </a>
+                </li>
+              ) : item.hash ? (
+                <li key={item.label}>
+                  <a href={item.to}>{item.label}</a>
+                </li>
+              ) : (
+                <li key={item.label}>
+                  <NavLink to={item.to!} end={item.end}>
+                    {item.label}
+                  </NavLink>
+                </li>
+              )
+            )}
+            <li>
+              <button type="button" className="link-button" onClick={openContact}>
+                Contact
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+  );
+}
