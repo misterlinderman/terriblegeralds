@@ -26,7 +26,9 @@ export default function HomePage() {
         setFaqs(faqList);
         setContent(siteContent);
       })
-      .catch(() => undefined);
+      .catch((error) => {
+        console.error('Failed to load public content from API:', error);
+      });
   }, []);
 
   return (

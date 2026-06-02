@@ -24,9 +24,12 @@ import adminContactRoutes from './routes/admin/contact';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const normalizeOrigin = (url?: string): string | undefined =>
+  url?.trim().replace(/\/$/, '');
+
 const allowedOrigins: string[] =
   process.env.NODE_ENV === 'production'
-    ? [process.env.CLIENT_URL].filter((url): url is string => Boolean(url))
+    ? [normalizeOrigin(process.env.CLIENT_URL)].filter((url): url is string => Boolean(url))
     : ['http://localhost:5173', 'http://127.0.0.1:5173'];
 
 app.use(helmet());
@@ -60,9 +63,9 @@ const startServer = async () => {
   try {
     await connectDatabase();
 
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-      console.log(`📚 API available at http://localhost:${PORT}/api`);
+    app.listen(Number(PORT), '0.0.0.0', () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`📚 API available at http://0.0.0.0:${PORT}/api`);
       console.log(`🔒 Environment: ${process.env.NODE_ENV || 'development'}`);
     });
   } catch (error) {
