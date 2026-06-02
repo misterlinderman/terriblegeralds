@@ -20,9 +20,10 @@ Connection string → Railway env `MONGODB_URI`.
 ## 2. Railway (API)
 
 1. Create a new project from GitHub repo `misterlinderman/terriblegeralds`
-2. Keep root directory at repository root (uses `railway.toml` + `nixpacks.toml`)
-3. Build runs `npm ci --prefix server` then compiles TypeScript — do not point Railway at `client/`
-4. Environment variables:
+2. Keep root directory at repository root (uses `Dockerfile` + `railway.toml`)
+3. Railway builds the API via Docker — installs `server/` dependencies before `tsc`. Do not point Railway at `client/`
+4. If the Railway dashboard has a custom **Build Command** override (e.g. `npm run build:server`), **clear it** so `railway.toml` / `Dockerfile` are used
+5. Environment variables:
 
 | Variable | Example |
 |----------|---------|
