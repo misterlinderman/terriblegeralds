@@ -1,8 +1,8 @@
 /* Header & footer — ported from Astro inline component styles */
 
 header.site-header {
-  background-color: var(--tg-red);
-  color: var(--bg-white);
+  background-color: var(--bg-white);
+  color: var(--bg-black);
 }
 
 header.site-header .container {
@@ -70,13 +70,12 @@ header.site-header .main-nav-list {
   }
 }
 
-header.site-header .main-nav-list a,
-header.site-header .main-nav-list .contact-trigger {
+header.site-header .main-nav-list a {
   text-decoration: none;
   font-weight: 400;
   font-size: 1.75rem;
   font-family: var(--font-headline);
-  color: var(--bg-white);
+  color: var(--bg-black);
 }
 
 header.site-header .main-nav-list a:is(:hover, :focus) {
@@ -84,7 +83,18 @@ header.site-header .main-nav-list a:is(:hover, :focus) {
   border-bottom: 5px rgb(194, 12, 33) solid;
 }
 
-header.site-header .main-nav-list .contact-trigger:is(:hover, :focus) {
+header.site-header .main-nav-list .contact-trigger {
+  padding: 0.5rem 1rem;
+}
+
+header.site-header .main-nav-list .contact-trigger:is(:link, :visited) {
+  background-color: var(--tg-red);
+  color: var(--bg-black);
+}
+
+header.site-header .main-nav-list .contact-trigger:is(:hover, :focus, :active) {
+  background-color: var(--bg-white);
+  color: var(--tg-red);
   border-bottom: none;
 }
 
