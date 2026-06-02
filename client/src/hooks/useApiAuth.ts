@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import api, { setAuthToken } from '../services/api';
 
+const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
+
 /**
  * Hook to automatically add Auth0 token to API requests
  * Call this once in a high-level component to set up token handling
@@ -13,7 +15,11 @@ export function useApiAuth() {
     const setupToken = async () => {
       if (isAuthenticated) {
         try {
-          const token = await getAccessTokenSilently();
+          const token = await getAccessTokenSilently({
+            authorizationParams: {
+              audience,
+            },
+          });
           setAuthToken(token);
         } catch (error) {
           console.error('Error getting access token:', error);

@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 const domain = import.meta.env.VITE_AUTH0_DOMAIN;
 const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
-const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
 
 export default function Auth0ProviderWithNavigate({
   children,
@@ -22,7 +21,6 @@ export default function Auth0ProviderWithNavigate({
       clientId={clientId}
       authorizationParams={{
         redirect_uri: window.location.origin,
-        audience: audience,
       }}
       onRedirectCallback={onRedirectCallback}
     >

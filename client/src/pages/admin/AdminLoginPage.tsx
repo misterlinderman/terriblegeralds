@@ -29,6 +29,9 @@ export default function AdminLoginPage() {
           onClick={() =>
             loginWithRedirect({
               appState: { returnTo: '/admin' },
+              authorizationParams: {
+                audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+              },
             })
           }
           className="mt-6 w-full rounded bg-red-700 px-4 py-2.5 text-white"
