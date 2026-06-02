@@ -31,13 +31,13 @@ Connection string → Railway env `MONGODB_URI`.
 | `NODE_ENV` | `production` |
 | `MONGODB_URI` | Atlas connection string |
 | `AUTH0_DOMAIN` | `your-tenant.auth0.com` |
-| `AUTH0_AUDIENCE` | `https://api.terriblegeralds.com/api` |
+| `AUTH0_AUDIENCE` | `https://terriblegeralds-production.up.railway.app/api` |
 | `ADMIN_EMAILS` | `owner@example.com` |
 | `CLIENT_URL` | `https://terriblegeralds.vercel.app` |
 
-4. Deploy and note the public URL, e.g. `https://terriblegeralds-production.up.railway.app`
+6. Deploy and note the public URL, e.g. `https://terriblegeralds-production.up.railway.app`
 
-5. Run seed once (Railway shell or local with production URI):
+7. Run seed once (Railway shell or local with production URI):
 
 ```bash
 npm run seed
