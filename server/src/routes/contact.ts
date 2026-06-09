@@ -1,6 +1,7 @@
 import { Router, Response } from 'express';
 import { asyncHandler, createError } from '../middleware/errorHandler';
 import { ContactSubmission } from '../models';
+import { sendContactInquiryEmail } from '../services/contactEmail';
 
 const router = Router();
 
@@ -40,7 +41,7 @@ router.post(
       throw createError('eventDate must be a valid date', 400);
     }
 
-    const submission = await ContactSubmission.create({
+    const trimmed = {
       name: name.trim(),
       email: email.trim(),
       phone: phone.trim(),
@@ -49,7 +50,15 @@ router.post(
       guestCount: String(guestCount).trim(),
       referralSource: referralSource.trim(),
       message: message.trim(),
-    });
+    };
+
+    const submission = await ContactSubmission.create(trimmed);
+
+    try {
+      await sendContactInquiryEmail(trimmed);
+    } catch (err) {
+      console.error('Contact inquiry saved but email notification failed:', err);
+    }
 
     res.status(201).json({
       message: 'Thanks! We received your inquiry and will be in touch soon.',
