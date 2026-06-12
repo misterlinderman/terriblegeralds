@@ -244,7 +244,7 @@ export default function ContactModal() {
                         </span>
                       )}
                       <span className="contact-zip-hint">
-                        We travel up to 40 miles from Omaha (4924 Grant St).
+                        We travel up to 40 miles from Omaha (68104).
                       </span>
                     </div>
                     {(
