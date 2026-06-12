@@ -34,9 +34,12 @@ Connection string → Railway env `MONGODB_URI`.
 | `AUTH0_AUDIENCE` | `https://terriblegeralds-production.up.railway.app/api` |
 | `AUTH0_CLIENT_ID` | Same SPA client ID as Vercel `VITE_AUTH0_CLIENT_ID` (used to verify ID tokens for admin email) |
 | `ADMIN_EMAILS` | `terriblegeralds@proton.me,your@email.com` |
-
-Every admin user’s email must appear in `ADMIN_EMAILS` (comma-separated), **or** the user must have the Auth0 API permission `admin:content`. After changing this variable, redeploy Railway and log out/in on the admin site.
 | `CLIENT_URL` | `https://terriblegeralds.vercel.app` |
+| `RESEND_API_KEY` | Resend API key (optional — enables contact form email notifications) |
+| `CONTACT_NOTIFICATION_EMAIL` | Inbox for new inquiry alerts |
+| `EMAIL_FROM` | Sender address verified in Resend |
+
+Every admin user's email must appear in `ADMIN_EMAILS` (comma-separated), **or** the user must have the Auth0 API permission `admin:content`. After changing this variable, redeploy Railway and log out/in on the admin site.
 
 6. Deploy and note the public URL, e.g. `https://terriblegeralds-production.up.railway.app`
 
@@ -91,7 +94,8 @@ VITE_AUTH0_AUDIENCE=https://YOUR-RAILWAY-URL/api
 
 - [ ] `GET https://RAILWAY-URL/api/health` returns OK
 - [ ] Public site loads menu and FAQs (run seed if empty)
-- [ ] Contact form submits successfully
+- [ ] Contact form submits successfully (general and catering)
+- [ ] Contact email notifications arrive when `RESEND_API_KEY` is set
 - [ ] `/admin/login` → Auth0 → dashboard loads
 - [ ] Admin CRUD persists to MongoDB
 - [ ] CORS: no browser errors when client calls API

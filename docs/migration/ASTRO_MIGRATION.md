@@ -67,7 +67,9 @@ All Q&A blocks from `#home-faqs` section.
 |------------------|------------------|
 | `HomepageEvent` | `HomePage` fetches `/api/events/next` |
 | `EventsList` | `EventsPage` fetches `/api/events` |
-| `Form` (contact dialog) | `ContactModal` + `POST /api/contact` |
+| `Form` (contact dialog) | `ContactModal` + `POST /api/contact` + optional Resend email |
+
+Contact form supports **general** and **catering** inquiry types. Catering validates event zip against a 40-mile Omaha travel radius (`GET /api/contact/validate-zip`).
 
 ---
 
@@ -82,15 +84,14 @@ All Q&A blocks from `#home-faqs` section.
 ## Recommended follow-up phases
 
 ### Phase 2 — Parity polish
-- Restore hamburger mobile nav behavior
 - Re-add Google Analytics
-- Match footer social SVG icons from legacy HTML
-- Events page: import legacy `events.Dm7VIcRD.css`
+- Public per-event detail page (API route exists; no React page yet)
+- Visual polish vs legacy CSS (events page styles, footer icons)
 
 ### Phase 3 — CMS enhancements
 - Rich text editor for FAQ answers
 - Image upload (replace manual `/images/` path entry)
-- Email notification on new contact submission (SendGrid/Resend)
+- Expose `ticketUrl` in admin events UI
 
 ### Phase 4 — Optional Astro coexistence
 If the original Astro source becomes available again, it can replace `client/src/pages/public/` as a separate build — but single React SPA is simpler for Vercel deployment.

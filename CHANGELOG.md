@@ -8,12 +8,17 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Planned
 - Google Analytics re-integration
-- Mobile hamburger navigation parity with Astro site
-- Email notifications for new contact inquiries
+- Public per-event detail pages (API already supports `GET /api/events/:slug`)
+- Rich text editor and image upload in admin
+- Expose `ticketUrl` in admin events UI
 
 ### Added
 - `npm run seed:events` script to upsert sample events (Barry O's Tavern)
-- Improved admin events form with address, auto-slug, and map/event page URLs
+- Improved admin events form with address, auto-slug, and map URL
+- Dual inquiry types on contact form (general contact + private event/catering)
+- Catering zip validation (40-mile Omaha travel radius)
+- Optional email notifications for new inquiries via Resend (`RESEND_API_KEY`)
+- Mobile hamburger navigation on public site header
 
 ---
 

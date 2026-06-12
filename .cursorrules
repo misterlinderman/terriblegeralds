@@ -17,8 +17,11 @@ Run from repository root:
 
 - `npm run dev` — client :5173 + API :3001
 - `npm run seed` — seed menu/FAQ/content
+- `npm run seed:events` — upsert sample event
 - `npm run build` — production build
 - `npm run lint` — ESLint
+
+Feature inventory: `docs/FEATURES.md`
 
 ## Code conventions
 
@@ -55,7 +58,7 @@ Run from repository root:
 3. Add admin CRUD under `server/src/routes/admin/`
 4. Add TypeScript types + `adminApi` helpers
 5. Add admin page + route in `App.tsx`
-6. Document in `docs/architecture/ARCHITECTURE.md`
+6. Document in `docs/architecture/ARCHITECTURE.md` and `docs/FEATURES.md`
 
 ## Deployment targets
 

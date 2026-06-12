@@ -82,7 +82,23 @@ Optional: add Auth0 permission `admin:content` to users via an Auth0 Action or R
 
 ---
 
-## 5. Seed legacy content
+## 5. Contact form email (optional)
+
+New inquiries are always saved to MongoDB. To also send email notifications via [Resend](https://resend.com), add to `server/.env`:
+
+```
+RESEND_API_KEY=re_xxxxxxxx
+CONTACT_NOTIFICATION_EMAIL=terriblegeralds@gmail.com
+EMAIL_FROM=Terrible Gerald's Pizza <inquiries@terriblegeralds.com>
+```
+
+Without `RESEND_API_KEY`, submissions still work — email is skipped with a server log warning.
+
+Catering zip validation uses Omaha (68104) as origin with a 40-mile radius by default. Override with `CATERING_ORIGIN_LAT`, `CATERING_ORIGIN_LNG`, and `CATERING_MAX_DISTANCE_MILES` if needed.
+
+---
+
+## 6. Seed legacy content
 
 Loads menu items, FAQs, and site copy extracted from the Astro build:
 
@@ -90,11 +106,14 @@ Loads menu items, FAQs, and site copy extracted from the Astro build:
 npm run seed
 ```
 
-Events are **not** overwritten — add them via `/admin/events` after first login.
+Events are **not** included in the main seed. After first admin login, either:
+
+- Add events at `/admin/events`, or
+- Run `npm run seed:events` for a sample Barry O's Tavern event
 
 ---
 
-## 6. Run locally
+## 7. Run locally
 
 ```bash
 npm run dev
@@ -108,7 +127,7 @@ npm run dev
 
 ---
 
-## 7. Production deployment
+## 8. Production deployment
 
 See [docs/deployment/DEPLOYMENT.md](./docs/deployment/DEPLOYMENT.md) for Vercel (client) and Railway (server) steps.
 

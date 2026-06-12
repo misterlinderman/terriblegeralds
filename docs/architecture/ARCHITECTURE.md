@@ -44,12 +44,43 @@ flowchart TB
 ### Public content (no auth)
 
 ```
-Browser → GET /api/events
-Browser → GET /api/menu
-Browser → GET /api/faqs
-Browser → GET /api/content
-Browser → POST /api/contact
+Browser → GET /api/events          (upcoming published events)
+Browser → GET /api/events/next     (homepage hero event)
+Browser → GET /api/events/:slug    (single event by slug)
+Browser → GET /api/menu            (active menu items)
+Browser → GET /api/faqs            (published FAQs)
+Browser → GET /api/content         (site copy key/value map)
+Browser → GET /api/contact/validate-zip?zip=  (catering travel radius)
+Browser → POST /api/contact        (general or catering inquiry)
 ```
+
+### Contact inquiry flow
+
+```mermaid
+sequenceDiagram
+  participant User
+  participant SPA as React SPA
+  participant API as Express API
+  participant DB as MongoDB
+  participant Resend as Resend (optional)
+
+  User->>SPA: Open contact modal
+  SPA->>API: GET /api/content (license notice, booking blurb)
+  opt Catering inquiry
+    User->>SPA: Enter event zip
+    SPA->>API: GET /api/contact/validate-zip
+    API-->>SPA: valid / invalid + distance
+  end
+  User->>SPA: Submit form
+  SPA->>API: POST /api/contact
+  API->>DB: Save ContactSubmission
+  opt RESEND_API_KEY set
+    API->>Resend: Send notification email
+  end
+  API-->>SPA: 201 success
+```
+
+Catering submissions require a US zip within the configured travel radius (default: 40 miles from Omaha). General inquiries skip zip validation.
 
 ### Admin content (Auth0 JWT)
 
@@ -72,7 +103,7 @@ Admin access is granted when either:
 | `MenuItem` | Pizza menu cards | Yes (active) | Yes |
 | `Faq` | Homepage FAQs | Yes (published) | Yes |
 | `SiteContent` | Key/value copy blocks | Yes | Yes |
-| `ContactSubmission` | Booking inquiries | No | Yes |
+| `ContactSubmission` | Booking inquiries (general + catering) | No | Yes (read, status, delete) |
 | `User` | Auth0 profile sync | — | Optional |
 
 ## Development topology
@@ -114,7 +145,7 @@ Reference build: `legacy/astro-dist/`
 | Concern | Where |
 |---------|--------|
 | Client env | `client/.env` — `VITE_*` |
-| Server env | `server/.env` — `MONGODB_URI`, Auth0, `ADMIN_EMAILS`, `CLIENT_URL` |
+| Server env | `server/.env` — `MONGODB_URI`, Auth0, `ADMIN_EMAILS`, `CLIENT_URL`, Resend (`RESEND_API_KEY`, `CONTACT_NOTIFICATION_EMAIL`, `EMAIL_FROM`), catering radius |
 | Production CORS | `CLIENT_URL` on Railway must match Vercel domain |
 
-See also: `.cursorrules`, `docs/deployment/DEPLOYMENT.md`, `docs/migration/ASTRO_MIGRATION.md`.
+See also: `.cursorrules`, [FEATURES.md](../FEATURES.md), `docs/deployment/DEPLOYMENT.md`, `docs/migration/ASTRO_MIGRATION.md`.

@@ -23,8 +23,11 @@ Fast orientation for AI-assisted development in this repository.
 | `npm run install:all` | Install all dependencies |
 | `npm run dev` | API (:3001) + Vite (:5173) |
 | `npm run seed` | Seed menu/FAQ/content from legacy copy |
-| `npm run build` | Production builds |
+| `npm run seed:events` | Upsert sample event (Barry O's Tavern) |
+| `npm run build` | Production builds (client + server) |
 | `npm run lint` | ESLint client + server |
+
+Full feature inventory: [docs/FEATURES.md](./docs/FEATURES.md)
 
 ## Where to look
 
@@ -40,11 +43,19 @@ Fast orientation for AI-assisted development in this repository.
 
 ## Content model
 
-- **Event** — scheduled pop-ups (replaced Storyblok)
-- **MenuItem** — pizzas on homepage
+- **Event** — scheduled pop-ups (replaced Storyblok); venue, address, map URL
+- **MenuItem** — pizzas on homepage (image paths under `client/public/images/`)
 - **Faq** — homepage FAQ section
-- **SiteContent** — key/value strings (hero, about, contact copy)
-- **ContactSubmission** — private event form (replaced getform.io)
+- **SiteContent** — key/value strings (hero, about, events intro, contact copy)
+- **ContactSubmission** — general + catering inquiries (replaced getform.io); optional Resend email
+
+## Public vs admin
+
+| Public routes | Admin routes |
+|---------------|--------------|
+| `/`, `/events`, `/comeback-city-pizza` | `/admin`, `/admin/events`, `/admin/menu`, `/admin/faqs`, `/admin/content`, `/admin/inquiries` |
+| Contact modal (general + catering) | Auth0 login at `/admin/login` |
+| Legacy CSS brand styling | Tailwind admin UI |
 
 ## Conventions
 
