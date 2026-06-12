@@ -24,7 +24,7 @@ export default function SiteFooter() {
             </a>
           </li>
           <li>
-            <ContactLink>Contact</ContactLink>
+            <ContactLink inquiryType="general">Contact</ContactLink>
           </li>
         </ul>
       </nav>

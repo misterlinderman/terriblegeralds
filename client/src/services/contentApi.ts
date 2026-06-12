@@ -4,6 +4,7 @@ import type {
   Event,
   Faq,
   MenuItem,
+  ZipValidationResult,
 } from '../types';
 
 export const fetchNextEvent = async (): Promise<Event | null> => {
@@ -33,6 +34,13 @@ export const fetchSiteContent = async (): Promise<Record<string, string>> => {
 
 export const submitContactForm = async (payload: ContactFormData): Promise<void> => {
   await api.post('/contact', payload);
+};
+
+export const validateEventZip = async (zip: string): Promise<ZipValidationResult> => {
+  const { data } = await api.get<ZipValidationResult>('/contact/validate-zip', {
+    params: { zip },
+  });
+  return data;
 };
 
 export const formatEventDate = (isoDate: string): string =>

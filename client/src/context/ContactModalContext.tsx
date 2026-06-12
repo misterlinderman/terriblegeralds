@@ -1,8 +1,10 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
+import type { ContactInquiryType } from '../types';
 
 interface ContactModalContextValue {
   isOpen: boolean;
-  openContact: () => void;
+  inquiryType: ContactInquiryType;
+  openContact: (type?: ContactInquiryType) => void;
   closeContact: () => void;
 }
 
@@ -10,14 +12,19 @@ const ContactModalContext = createContext<ContactModalContextValue | undefined>(
 
 export function ContactModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [inquiryType, setInquiryType] = useState<ContactInquiryType>('catering');
 
   const value = useMemo(
     () => ({
       isOpen,
-      openContact: () => setIsOpen(true),
+      inquiryType,
+      openContact: (type: ContactInquiryType = 'catering') => {
+        setInquiryType(type);
+        setIsOpen(true);
+      },
       closeContact: () => setIsOpen(false),
     }),
-    [isOpen]
+    [isOpen, inquiryType]
   );
 
   return (

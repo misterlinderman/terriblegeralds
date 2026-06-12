@@ -5,7 +5,11 @@ const cards = [
   { to: '/admin/menu', title: 'Menu', blurb: 'Manage pizza names, descriptions, and images.' },
   { to: '/admin/faqs', title: 'FAQs', blurb: 'Edit homepage frequently asked questions.' },
   { to: '/admin/content', title: 'Site Content', blurb: 'Update hero copy, about text, and notices.' },
-  { to: '/admin/inquiries', title: 'Inquiries', blurb: 'Review private event contact form submissions.' },
+  {
+    to: '/admin/inquiries',
+    title: 'Inquiries',
+    blurb: 'Review general contact and private event form submissions.',
+  },
 ];
 
 export default function AdminDashboard() {

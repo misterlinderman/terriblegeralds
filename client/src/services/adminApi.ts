@@ -1,5 +1,6 @@
 import api from './api';
 import type {
+  ContactInquiryType,
   ContactSubmission,
   ContactStatus,
   Event,
@@ -7,6 +8,11 @@ import type {
   MenuItem,
   SiteContentEntry,
 } from '../types';
+
+export interface AdminContactListFilters {
+  status?: ContactStatus;
+  inquiryType?: ContactInquiryType;
+}
 
 export const adminEvents = {
   list: async (): Promise<Event[]> => {
@@ -81,9 +87,13 @@ export const adminContent = {
 };
 
 export const adminContact = {
-  list: async (status?: ContactStatus): Promise<ContactSubmission[]> => {
+  list: async (filters?: AdminContactListFilters): Promise<ContactSubmission[]> => {
+    const params: AdminContactListFilters = {};
+    if (filters?.status) params.status = filters.status;
+    if (filters?.inquiryType) params.inquiryType = filters.inquiryType;
+
     const { data } = await api.get<{ submissions: ContactSubmission[] }>('/admin/contact', {
-      params: status ? { status } : undefined,
+      params: Object.keys(params).length > 0 ? params : undefined,
     });
     return data.submissions;
   },

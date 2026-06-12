@@ -11,11 +11,18 @@ router.use(checkJwt, requireAdmin);
 router.get(
   '/',
   asyncHandler(async (req: AuthRequest, res: Response) => {
-    const { status } = req.query;
-    const query: Record<string, string> = {};
+    const { status, inquiryType } = req.query;
+    const query: Record<string, unknown> = {};
 
     if (status && typeof status === 'string') {
       query.status = status;
+    }
+
+    if (inquiryType === 'general') {
+      query.inquiryType = 'general';
+    } else if (inquiryType === 'catering') {
+      // Include legacy submissions created before inquiryType existed.
+      query.inquiryType = { $ne: 'general' };
     }
 
     const submissions = await ContactSubmission.find(query)

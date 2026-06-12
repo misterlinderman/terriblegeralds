@@ -1,11 +1,15 @@
+import type { ContactInquiryType } from '../models/ContactSubmission';
+
 export interface ContactInquiryDetails {
+  inquiryType: ContactInquiryType;
   name: string;
   email: string;
   phone: string;
-  eventDate: Date;
-  location: string;
-  guestCount: string;
-  referralSource: string;
+  eventDate?: Date;
+  location?: string;
+  eventZip?: string;
+  guestCount?: string;
+  referralSource?: string;
   message: string;
 }
 
@@ -23,26 +27,37 @@ function formatEventDate(date: Date): string {
 }
 
 function buildEmailBody(details: ContactInquiryDetails): { subject: string; text: string } {
-  const eventDate = formatEventDate(details.eventDate);
+  const isCatering = details.inquiryType === 'catering';
+  const intro = isCatering
+    ? "New private event inquiry from the Terrible Gerald's website:"
+    : "New general contact inquiry from the Terrible Gerald's website:";
 
-  const text = [
-    'New private event inquiry from the Terrible Gerald\'s website:',
+  const lines = [
+    intro,
     '',
+    `Type: ${isCatering ? 'Private event / catering' : 'General contact'}`,
     `Name: ${details.name}`,
     `Email: ${details.email}`,
     `Phone: ${details.phone}`,
-    `Event date: ${eventDate}`,
-    `Location: ${details.location}`,
-    `Guest count: ${details.guestCount}`,
-    `How they heard about us: ${details.referralSource}`,
-    '',
-    'Message:',
-    details.message,
-  ].join('\n');
+  ];
+
+  if (isCatering && details.eventDate) {
+    lines.push(`Event date: ${formatEventDate(details.eventDate)}`);
+    lines.push(`Location: ${details.location || '—'}`);
+    lines.push(`Event zip code: ${details.eventZip || '—'}`);
+    lines.push(`Guest count: ${details.guestCount || '—'}`);
+    lines.push(`How they heard about us: ${details.referralSource || '—'}`);
+  }
+
+  lines.push('', 'Message:', details.message);
+
+  const subject = isCatering
+    ? `[Private Event / Catering] Inquiry from ${details.name}`
+    : `[General Contact] Message from ${details.name}`;
 
   return {
-    subject: `New event inquiry from ${details.name}`,
-    text,
+    subject,
+    text: lines.join('\n'),
   };
 }
 
