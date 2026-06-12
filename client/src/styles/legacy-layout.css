@@ -171,19 +171,19 @@ footer.site-footer .footer-nav-list a,
 footer.site-footer .footer-nav-list .contact-trigger {
   text-decoration: none;
   color: var(--bg-white);
+  background-color: transparent;
   font: inherit;
   text-transform: uppercase;
   font-family: var(--font-headline);
   font-size: 1em;
 }
 
-footer.site-footer .footer-nav-list a:is(:hover, :focus) {
+footer.site-footer .footer-nav-list a:is(:hover, :focus),
+footer.site-footer .footer-nav-list .contact-trigger:is(:hover, :focus, :active) {
   padding-bottom: 0.25rem;
   border-bottom: 5px rgb(194, 12, 33) solid;
-}
-
-footer.site-footer .footer-nav-list .contact-trigger:is(:hover, :focus) {
-  border-bottom: none;
+  background-color: transparent;
+  color: var(--bg-white);
 }
 
 footer.site-footer .social-list {
