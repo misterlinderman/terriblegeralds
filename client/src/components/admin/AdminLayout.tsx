@@ -8,6 +8,7 @@ const adminLinks = [
   { to: '/admin', label: 'Dashboard', end: true },
   { to: '/admin/events', label: 'Events' },
   { to: '/admin/menu', label: 'Menu' },
+  { to: '/admin/catering-tiers', label: 'Catering Tiers' },
   { to: '/admin/faqs', label: 'FAQs' },
   { to: '/admin/content', label: 'Site Content' },
   { to: '/admin/inquiries', label: 'Inquiries' },

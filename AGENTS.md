@@ -53,7 +53,7 @@ Full feature inventory: [docs/FEATURES.md](./docs/FEATURES.md)
 
 | Public routes | Admin routes |
 |---------------|--------------|
-| `/`, `/events`, `/comeback-city-pizza` | `/admin`, `/admin/events`, `/admin/menu`, `/admin/faqs`, `/admin/content`, `/admin/inquiries` |
+| `/`, `/menu`, `/about`, `/catering`, `/events` | `/admin`, `/admin/events`, `/admin/menu`, `/admin/catering-tiers`, `/admin/faqs`, `/admin/content`, `/admin/inquiries` |
 | Contact modal (general + catering) | Auth0 login at `/admin/login` |
 | Legacy CSS brand styling | Tailwind admin UI |
 

@@ -1,11 +1,14 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
+export type EventCategory = 'brewery' | 'park' | 'venue' | 'event';
+
 export interface IEvent extends Document {
   title: string;
   slug: string;
   description: string;
   venue: string;
   address?: string;
+  category: EventCategory;
   startDate: Date;
   endDate?: Date;
   mapUrl?: string;
@@ -24,6 +27,11 @@ const eventSchema = new Schema<IEvent>(
     description: { type: String, default: '', trim: true },
     venue: { type: String, required: true, trim: true },
     address: { type: String, trim: true },
+    category: {
+      type: String,
+      enum: ['brewery', 'park', 'venue', 'event'],
+      default: 'brewery',
+    },
     startDate: { type: Date, required: true },
     endDate: { type: Date },
     mapUrl: { type: String, trim: true },

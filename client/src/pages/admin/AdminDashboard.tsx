@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 const cards = [
   { to: '/admin/events', title: 'Events', blurb: 'Schedule pop-ups, venues, and ticket links.' },
   { to: '/admin/menu', title: 'Menu', blurb: 'Manage pizza names, descriptions, and images.' },
+  {
+    to: '/admin/catering-tiers',
+    title: 'Catering Tiers',
+    blurb: 'Edit catering package names, prices, and includes.',
+  },
   { to: '/admin/faqs', title: 'FAQs', blurb: 'Edit homepage frequently asked questions.' },
   { to: '/admin/content', title: 'Site Content', blurb: 'Update hero copy, about text, and notices.' },
   {

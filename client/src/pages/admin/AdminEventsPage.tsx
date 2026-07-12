@@ -2,13 +2,14 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { adminEvents } from '../../services/adminApi';
 import { getAdminRequestError } from '../../hooks/useAdminApiReady';
-import type { Event } from '../../types';
+import type { Event, EventCategory } from '../../types';
 
-const slugify = (value: string): string =>
-  value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '');
+const EVENT_CATEGORIES: { value: EventCategory; label: string }[] = [
+  { value: 'brewery', label: 'Brewery' },
+  { value: 'park', label: 'Park' },
+  { value: 'venue', label: 'Venue' },
+  { value: 'event', label: 'Event' },
+];
 
 const emptyEvent = {
   title: '',
@@ -16,6 +17,7 @@ const emptyEvent = {
   description: '',
   venue: '',
   address: '',
+  category: 'brewery' as EventCategory,
   startDate: '',
   endDate: '',
   mapUrl: '',
@@ -23,6 +25,12 @@ const emptyEvent = {
   published: true,
   sortOrder: 0,
 };
+
+const slugify = (value: string): string =>
+  value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
 
 export default function AdminEventsPage() {
   const { user } = useAuth0();
@@ -82,6 +90,7 @@ export default function AdminEventsPage() {
       description: item.description,
       venue: item.venue,
       address: item.address || '',
+      category: item.category || 'brewery',
       startDate: item.startDate.slice(0, 16),
       endDate: item.endDate ? item.endDate.slice(0, 16) : '',
       mapUrl: item.mapUrl || '',
@@ -146,6 +155,22 @@ export default function AdminEventsPage() {
             value={form.address}
             onChange={(e) => setForm({ ...form, address: e.target.value })}
           />
+        </label>
+        <label className="grid gap-1 text-sm">
+          <span className="font-medium">Category</span>
+          <select
+            className="rounded border px-3 py-2"
+            value={form.category}
+            onChange={(e) =>
+              setForm({ ...form, category: e.target.value as EventCategory })
+            }
+          >
+            {EVENT_CATEGORIES.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </label>
         <label className="grid gap-1 text-sm md:col-span-2">
           <span className="font-medium">Description (optional)</span>

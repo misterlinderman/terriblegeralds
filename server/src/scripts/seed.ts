@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { connectDatabase } from '../config/database';
-import { Event, MenuItem, Faq, SiteContent } from '../models';
+import { Event, MenuItem, CateringTier, Faq, SiteContent } from '../models';
 
 dotenv.config();
 
@@ -82,6 +82,42 @@ const faqs = [
   },
 ];
 
+const cateringTiers = [
+  {
+    name: 'The Backyard',
+    price: 'From $650',
+    includes: [
+      'Up to 30 guests',
+      '2 pizza varieties',
+      '1.5 hr wood-fired service',
+      'Trailer + 1 crew',
+    ],
+    sortOrder: 1,
+  },
+  {
+    name: 'The Full Send',
+    price: 'From $1,400',
+    includes: [
+      'Up to 80 guests',
+      '4 pizza varieties + salad',
+      '3 hr wood-fired service',
+      'Trailer + 2 crew',
+    ],
+    sortOrder: 2,
+  },
+  {
+    name: 'The Whole Terrible Thing',
+    price: "Let's talk",
+    includes: [
+      '80+ guests',
+      'Custom menu & specials',
+      'Extended / multi-day service',
+      'Full truck + crew',
+    ],
+    sortOrder: 3,
+  },
+];
+
 const siteContent = [
   {
     key: 'meta.description',
@@ -148,16 +184,20 @@ async function seed() {
 
   await Promise.all([
     MenuItem.deleteMany({}),
+    CateringTier.deleteMany({}),
     Faq.deleteMany({}),
     SiteContent.deleteMany({}),
   ]);
 
   await MenuItem.insertMany(menuItems);
+  await CateringTier.insertMany(cateringTiers);
   await Faq.insertMany(faqs);
   await SiteContent.insertMany(siteContent);
 
   const eventCount = await Event.countDocuments();
-  console.log(`✅ Seeded ${menuItems.length} menu items, ${faqs.length} FAQs, ${siteContent.length} content entries`);
+  console.log(
+    `✅ Seeded ${menuItems.length} menu items, ${cateringTiers.length} catering tiers, ${faqs.length} FAQs, ${siteContent.length} content entries`
+  );
   console.log(`ℹ️  Events unchanged (${eventCount} existing). Add events via admin or API.`);
 
   process.exit(0);

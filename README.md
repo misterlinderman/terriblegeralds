@@ -68,8 +68,10 @@ npm run build       # production build (client + server)
 | Route | Purpose |
 |-------|---------|
 | `/` | Homepage — next event, menu, FAQs, about (API-driven) |
-| `/events` | Upcoming pop-up schedule |
-| `/comeback-city-pizza` | Comeback City Pizza coming-soon landing |
+| `/menu` | Full menu |
+| `/about` | About page |
+| `/catering` | Catering packages + quote form |
+| `/events` | Upcoming pop-up schedule with category filters |
 
 Global **contact modal** supports general inquiries and private-event/catering requests. Catering submissions validate event zip codes against a 40-mile Omaha travel radius.
 
@@ -77,8 +79,9 @@ Global **contact modal** supports general inquiries and private-event/catering r
 
 Auth0-protected dashboards for:
 
-- **Events** — pop-up schedule with venue, address, map link (replaces Storyblok)
+- **Events** — pop-up schedule with venue, address, category, map link (replaces Storyblok)
 - **Menu** — pizza names, descriptions, image paths
+- **Catering tiers** — package names, prices, includes
 - **FAQs** — homepage Q&A blocks
 - **Site content** — hero tagline, about copy, events intro, contact form text
 - **Inquiries** — contact inbox with type/status filters (replaces getform.io)

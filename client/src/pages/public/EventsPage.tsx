@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import NewsletterForm from '../../components/marketing/NewsletterForm';
 import PlaceholderBox from '../../components/marketing/PlaceholderBox';
@@ -8,10 +8,26 @@ import {
   fetchEvents,
   formatEventTimeRange,
 } from '../../services/contentApi';
-import type { Event } from '../../types';
+import type { Event, EventCategory } from '../../types';
+
+const FILTER_CATEGORIES: { key: 'all' | EventCategory; label: string }[] = [
+  { key: 'all', label: 'All Stops' },
+  { key: 'brewery', label: 'Breweries' },
+  { key: 'park', label: 'Parks' },
+  { key: 'venue', label: 'Venues' },
+  { key: 'event', label: 'Events' },
+];
+
+const CATEGORY_LABELS: Record<EventCategory, string> = {
+  brewery: 'Brewery',
+  park: 'Park',
+  venue: 'Venue',
+  event: 'Event',
+};
 
 export default function EventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
+  const [filter, setFilter] = useState<'all' | EventCategory>('all');
 
   useEffect(() => {
     fetchEvents()
@@ -25,6 +41,11 @@ export default function EventsPage() {
   }, []);
 
   const now = new Date();
+
+  const filteredEvents = useMemo(() => {
+    if (filter === 'all') return events;
+    return events.filter((event) => event.category === filter);
+  }, [events, filter]);
 
   return (
     <div className="brand-site">
@@ -42,17 +63,30 @@ export default function EventsPage() {
       <section className="pg">
         <div className="wrap">
           <SectionHeader kicker="filter by where you like to eat" title="Upcoming Stops" />
+          <div className="filter-row">
+            {FILTER_CATEGORIES.map((category) => (
+              <button
+                key={category.key}
+                type="button"
+                className={`filter-btn${filter === category.key ? ' active' : ''}`}
+                onClick={() => setFilter(category.key)}
+              >
+                {category.label}
+              </button>
+            ))}
+          </div>
           <div className="sched-card2">
-            {events.length === 0 ? (
+            {filteredEvents.length === 0 ? (
               <div className="empty-note">
-                No stops right now — check back, or follow @terriblegeralds.
+                No stops in this category right now — check back, or follow @terriblegeralds.
               </div>
             ) : (
-              events.map((event) => {
+              filteredEvents.map((event) => {
                 const row = eventToScheduleRow(event);
                 const start = new Date(event.startDate);
                 const end = event.endDate ? new Date(event.endDate) : start;
                 const isNow = now >= start && now <= end;
+                const category = event.category || 'brewery';
 
                 return (
                   <div key={event._id} className={`sched-row2${isNow ? ' now' : ''}`}>
@@ -69,6 +103,7 @@ export default function EventsPage() {
                         </small>
                       )}
                     </div>
+                    <div className="cat">{CATEGORY_LABELS[category]}</div>
                     <div className="time">
                       {formatEventTimeRange(event.startDate, event.endDate).toUpperCase()}
                     </div>
@@ -100,40 +135,12 @@ export default function EventsPage() {
         </div>
       </section>
 
-      <section className="pg" style={{ background: 'var(--ink)', color: 'var(--cream)' }}>
-        <div
-          className="wrap"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 40,
-            alignItems: 'center',
-          }}
-        >
+      <section className="pg pg-ink-grid">
+        <div className="wrap pg-ink-grid-inner">
           <div>
-            <span
-              style={{
-                fontFamily: 'var(--font-accent)',
-                fontStyle: 'italic',
-                color: 'var(--gold)',
-                fontSize: '.95rem',
-                display: 'block',
-                marginBottom: 4,
-              }}
-            >
-              never guess again
-            </span>
-            <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                textTransform: 'uppercase',
-                fontSize: 'clamp(1.8rem,3.6vw,2.6rem)',
-                margin: '0 0 14px',
-              }}
-            >
-              Get the Schedule Emailed
-            </h2>
-            <p style={{ maxWidth: '38ch', opacity: 0.9, marginBottom: 20 }}>
+            <span className="pg-ink-kicker">never guess again</span>
+            <h2 className="pg-ink-title">Get the Schedule Emailed</h2>
+            <p className="pg-ink-copy">
               One email a week. Where we&apos;re parked, when, and what&apos;s new on the menu.
               No spam, just pizza logistics.
             </p>

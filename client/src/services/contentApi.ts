@@ -241,39 +241,10 @@ export const fetchAboutCrew = async (): Promise<AboutCrewMember[]> => [
   { name: "Whoever's Driving", role: 'Logistics, Mostly' },
 ];
 
-// TODO Phase 4: back with CateringTier API
-export const fetchCateringTiers = async (): Promise<CateringTier[]> => [
-  {
-    name: 'The Backyard',
-    price: 'From $650',
-    items: [
-      'Up to 30 guests',
-      '2 pizza varieties',
-      '1.5 hr wood-fired service',
-      'Trailer + 1 crew',
-    ],
-  },
-  {
-    name: 'The Full Send',
-    price: 'From $1,400',
-    items: [
-      'Up to 80 guests',
-      '4 pizza varieties + salad',
-      '3 hr wood-fired service',
-      'Trailer + 2 crew',
-    ],
-  },
-  {
-    name: 'The Whole Terrible Thing',
-    price: "Let's talk",
-    items: [
-      '80+ guests',
-      'Custom menu & specials',
-      'Extended / multi-day service',
-      'Full truck + crew',
-    ],
-  },
-];
+export const fetchCateringTiers = async (): Promise<CateringTier[]> => {
+  const { data } = await api.get<{ tiers: CateringTier[] }>('/catering-tiers');
+  return data.tiers;
+};
 
 export const fetchCateringSteps = async (): Promise<CateringStep[]> => [
   { number: '01', title: 'You Reach Out', description: 'Tell us the date, headcount, and vibe.' },

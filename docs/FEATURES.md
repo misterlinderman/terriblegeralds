@@ -15,7 +15,7 @@ This document describes what the current build provides: the production build pi
 | `npm run build:client` | Typecheck + Vite bundle only |
 | `npm run build:server` | `npm ci` in server + `tsc` |
 | `npm run start` | Run compiled server (`server/dist/index.js`) |
-| `npm run seed` | Seed menu, FAQs, and site copy from legacy Astro HTML |
+| `npm run seed` | Seed menu, catering tiers, FAQs, and site copy |
 | `npm run seed:events` | Upsert sample event (Barry O's Tavern) — does not wipe other data |
 | `npm run lint` | ESLint on client and server |
 
@@ -36,15 +36,17 @@ This document describes what the current build provides: the production build pi
 
 ## Public site
 
-Single React SPA with legacy brand CSS. Tailwind is **not** used on public marketing pages.
+Single React SPA with the Season 3 · Vol. 6 brand design system (`brand.css` + tokens). Tailwind is **not** used on public marketing pages.
 
 ### Routes
 
 | Path | Page | Data source |
 |------|------|-------------|
 | `/` | Homepage | API — next event, menu, FAQs, site copy |
-| `/events` | Upcoming events | API — published future events + intro copy |
-| `/comeback-city-pizza` | Comeback City Pizza landing | Static (coming soon + social links) |
+| `/menu` | Full menu | API — menu items + static starters/sides/drinks |
+| `/about` | About | Static copy (API-backed chapters/crew planned) |
+| `/catering` | Catering | API — catering tiers + static steps |
+| `/events` | Upcoming events | API — published future events |
 
 ### Homepage sections
 
@@ -57,6 +59,7 @@ Single React SPA with legacy brand CSS. Tailwind is **not** used on public marke
 ### Events page
 
 - Lists all published events with `startDate >= now`, sorted by date
+- Filter pills by category (brewery, park, venue, event)
 - Optional per-event description and Google Maps link
 - Sidebar with private-event CTA and contact trigger
 - Intro paragraph from `events.intro` site content key
@@ -92,6 +95,7 @@ Modal form with two inquiry types:
 | GET | `/api/events/next` | Single next upcoming event (homepage hero) |
 | GET | `/api/events/:slug` | Single event by slug |
 | GET | `/api/menu` | Active menu items |
+| GET | `/api/catering-tiers` | Active catering tiers |
 | GET | `/api/faqs` | Published FAQs |
 | GET | `/api/content` | All site content as key/value map |
 | GET | `/api/contact/validate-zip?zip=` | Catering zip validation |
@@ -101,7 +105,6 @@ Modal form with two inquiry types:
 
 - Printify merchandise shop
 - Facebook, TikTok, Instagram
-- Comeback City Pizza social links on `/comeback-city-pizza`
 
 ### Not yet restored from legacy
 
@@ -130,6 +133,7 @@ Auth0-protected dashboard at `/admin/*`. Uses Tailwind styling separate from the
 | `/admin` | Dashboard — links to all content areas |
 | `/admin/events` | Event CRUD |
 | `/admin/menu` | Menu item CRUD |
+| `/admin/catering-tiers` | Catering tier CRUD |
 | `/admin/faqs` | FAQ CRUD |
 | `/admin/content` | Site content key/value CRUD |
 | `/admin/inquiries` | Contact submission inbox |
@@ -139,6 +143,7 @@ Auth0-protected dashboard at `/admin/*`. Uses Tailwind styling separate from the
 Create, edit, delete pop-up events:
 
 - Title, auto-generated slug (editable), venue, address, description
+- Category (brewery / park / venue / event) for schedule filters
 - Start/end datetime
 - Map URL (shown on public site as “Location Map”)
 - Published / featured flags, sort order
@@ -148,6 +153,11 @@ Create, edit, delete pop-up events:
 
 - Name, slug, description, image path (e.g. `/images/pizzas/pepperoni.webp`), sort order, active flag
 - Images remain static files under `client/public/images/` — no upload UI yet
+
+### Catering tiers admin
+
+- Name, price, includes (line items), optional blurb, sort order, active flag
+- Powers the public `/catering` packages section
 
 ### FAQs admin
 
@@ -185,6 +195,8 @@ All require `Authorization: Bearer {access_token}` and admin authorization.
 | PUT/DELETE | `/api/admin/events/:id` | Update / delete event |
 | GET/POST | `/api/admin/menu` | List / create menu items |
 | PUT/DELETE | `/api/admin/menu/:id` | Update / delete menu item |
+| GET/POST | `/api/admin/catering-tiers` | List / create catering tiers |
+| PUT/DELETE | `/api/admin/catering-tiers/:id` | Update / delete catering tier |
 | GET/POST | `/api/admin/faqs` | List / create FAQs |
 | PUT/DELETE | `/api/admin/faqs/:id` | Update / delete FAQ |
 | GET/POST | `/api/admin/content` | List / create site content |

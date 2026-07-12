@@ -3,6 +3,7 @@ import type {
   ContactInquiryType,
   ContactSubmission,
   ContactStatus,
+  CateringTier,
   Event,
   Faq,
   MenuItem,
@@ -47,6 +48,24 @@ export const adminMenu = {
   },
   remove: async (id: string): Promise<void> => {
     await api.delete(`/admin/menu/${id}`);
+  },
+};
+
+export const adminCateringTiers = {
+  list: async (): Promise<CateringTier[]> => {
+    const { data } = await api.get<{ tiers: CateringTier[] }>('/admin/catering-tiers');
+    return data.tiers;
+  },
+  create: async (payload: Partial<CateringTier>): Promise<CateringTier> => {
+    const { data } = await api.post<CateringTier>('/admin/catering-tiers', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<CateringTier>): Promise<CateringTier> => {
+    const { data } = await api.put<CateringTier>(`/admin/catering-tiers/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/catering-tiers/${id}`);
   },
 };
 

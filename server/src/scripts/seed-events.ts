@@ -11,6 +11,7 @@ const events = [
     description: '',
     venue: "Barry O's Tavern",
     address: '420 S 16th St, Omaha, NE 68102',
+    category: 'venue' as const,
     startDate: new Date('2026-06-14T18:00:00-05:00'),
     endDate: new Date('2026-06-14T23:00:00-05:00'),
     mapUrl: 'https://maps.google.com/?q=420+S+16th+St,+Omaha,+NE+68102',

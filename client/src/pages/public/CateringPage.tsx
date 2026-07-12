@@ -136,12 +136,13 @@ export default function CateringPage() {
         <div className="wrap">
           <SectionHeader kicker="pick a size, we'll do the rest" title="Packages" />
           <div className="tier-grid">
-            {tiers.map((tier, i) => (
-              <div className="tier" key={i}>
+            {tiers.map((tier) => (
+              <div className="tier" key={tier._id}>
                 <h3>{tier.name}</h3>
                 <div className="price">{tier.price}</div>
+                {tier.blurb && <p className="tier-blurb">{tier.blurb}</p>}
                 <ul>
-                  {tier.items.map((item, j) => (
+                  {tier.includes.map((item, j) => (
                     <li key={j}>{item}</li>
                   ))}
                 </ul>

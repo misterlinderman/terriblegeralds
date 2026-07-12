@@ -1,3 +1,5 @@
+export type EventCategory = 'brewery' | 'park' | 'venue' | 'event';
+
 export interface Event {
   _id: string;
   title: string;
@@ -5,6 +7,7 @@ export interface Event {
   description: string;
   venue: string;
   address?: string;
+  category: EventCategory;
   startDate: string;
   endDate?: string;
   mapUrl?: string;
@@ -132,9 +135,13 @@ export interface MenuListItem {
 }
 
 export interface CateringTier {
+  _id: string;
   name: string;
   price: string;
-  items: string[];
+  includes: string[];
+  blurb?: string;
+  sortOrder: number;
+  active: boolean;
 }
 
 export interface CateringStep {
