@@ -5,6 +5,9 @@ import AdminLayout from './components/admin/AdminLayout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Loading from './components/Loading';
 import HomePage from './pages/public/HomePage';
+import MenuPage from './pages/public/MenuPage';
+import AboutPage from './pages/public/AboutPage';
+import CateringPage from './pages/public/CateringPage';
 import EventsPage from './pages/public/EventsPage';
 import ComebackCityPage from './pages/public/ComebackCityPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -28,6 +31,9 @@ function App() {
     <Routes>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
+        <Route path="/menu" element={<MenuPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/catering" element={<CateringPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/comeback-city-pizza" element={<ComebackCityPage />} />
       </Route>

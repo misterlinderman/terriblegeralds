@@ -77,3 +77,68 @@ export interface ZipValidationResult {
   distanceMiles?: number;
   message?: string;
 }
+
+export interface ReviewQuote {
+  tone: 'cream' | 'ink' | 'red' | 'teal';
+  quote: string;
+  source: string;
+}
+
+export interface PressFeature {
+  by: string;
+  what: string;
+  cta: string;
+  thumbLabel: string;
+}
+
+export interface TikTokFeature {
+  handle: string;
+  views: string;
+}
+
+export interface VenueCategory {
+  title: string;
+  description: string;
+  icon: 'brewery' | 'building' | 'park' | 'event';
+}
+
+export interface AboutStop {
+  year: string;
+  title: string;
+  description: string;
+}
+
+export interface AboutChapter {
+  year: string;
+  title: string;
+  description: string;
+}
+
+export interface AboutValue {
+  title: string;
+  description: string;
+}
+
+export interface AboutCrewMember {
+  name: string;
+  role: string;
+}
+
+export interface MenuListItem {
+  name: string;
+  description: string;
+  price?: string;
+  tag?: string;
+}
+
+export interface CateringTier {
+  name: string;
+  price: string;
+  items: string[];
+}
+
+export interface CateringStep {
+  number: string;
+  title: string;
+  description: string;
+}

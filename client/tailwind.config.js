@@ -7,6 +7,16 @@ export default {
   theme: {
     extend: {
       colors: {
+        bone: 'var(--bone)',
+        'bone-2': 'var(--bone-2)',
+        cream: 'var(--cream)',
+        ink: 'var(--ink)',
+        'ink-soft': 'var(--ink-soft)',
+        red: 'var(--red)',
+        'red-deep': 'var(--red-deep)',
+        gold: 'var(--gold)',
+        'gold-deep': 'var(--gold-deep)',
+        teal: 'var(--teal)',
         primary: {
           50: '#eff6ff',
           100: '#dbeafe',
@@ -21,6 +31,11 @@ export default {
         },
       },
       fontFamily: {
+        display: ['var(--font-display)'],
+        editorial: ['var(--font-serif)'],
+        accent: ['var(--font-accent)'],
+        body: ['var(--font-body)'],
+        mono: ['var(--font-mono)'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
     },

@@ -1,0 +1,38 @@
+/* Terrible Gerald's — Color tokens
+   Source: uploads/terrible-geralds-design-system-260710-1.html
+   Palette rule: bone paper dominant, ink for structure/type, ONE loud red
+   accent (keep under ~15% of any screen). Gold for highlights/stamps.
+   Teal is a rare tertiary (mascot nod). */
+:root{
+  /* base values */
+  --bone:#F1E6D2;
+  --bone-2:#E8D8BC;
+  --cream:#FBF5E8;
+  --ink:#17120D;
+  --ink-soft:#2C241B;
+  --red:#C8341B;
+  --red-deep:#971F0F;
+  --gold:#E8A11E;
+  --gold-deep:#C9851A;
+  --teal:#2E7C78;
+  --paper-line:rgba(23,18,13,.14);
+
+  /* semantic aliases */
+  --surface-page:var(--bone);
+  --surface-panel:var(--bone-2);
+  --surface-card:var(--cream);
+  --surface-inverse:var(--ink);
+  --text-primary:var(--ink);
+  --text-secondary:var(--ink-soft);
+  --text-on-inverse:var(--cream);
+  --text-on-inverse-muted:#e9dcc4;
+  --border-default:var(--ink);
+  --border-accent:var(--red);
+  --accent-primary:var(--red);
+  --accent-primary-shadow:var(--red-deep);
+  --accent-secondary:var(--gold);
+  --accent-secondary-shadow:var(--gold-deep);
+  --accent-tertiary:var(--teal);
+  --link-color:var(--red);
+  --link-color-hover:var(--red-deep);
+}
