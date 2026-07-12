@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Schedule — Terrible Gerald's Pizza</title>
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/colors.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/typography.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/motion.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/styles.css">
+<link rel="stylesheet" href="shared/site.css">
+<script src="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/_ds_bundle.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+.filter-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.filter-btn{
+  font-family:var(--font-display);text-transform:uppercase;letter-spacing:.03em;font-size:.82rem;
+  padding:9px 18px;border:2px solid var(--ink);background:var(--cream);color:var(--ink);border-radius:20px;cursor:pointer;transition:.15s;
+}
+.filter-btn.active{background:var(--ink);color:var(--cream)}
+.sched-card2{background:var(--cream);border:2.5px solid var(--ink);border-radius:8px;box-shadow:var(--shadow-soft);overflow:hidden;max-width:900px}
+.sched-row2{display:grid;grid-template-columns:64px 1fr auto auto;gap:14px;align-items:center;padding:16px 20px;border-bottom:1px solid var(--paper-line)}
+.sched-row2:last-child{border-bottom:none}
+.sched-row2.now{background:rgba(232,161,30,.22)}
+.sched-row2 .day{font-family:var(--font-display);font-size:1.15rem;color:var(--red)}
+.sched-row2 .day small{display:block;font-family:var(--font-body);font-weight:700;font-size:.7rem;color:var(--ink-soft)}
+.sched-row2 .venue{font-weight:700}
+.sched-row2 .venue small{display:block;font-weight:500;font-size:.78rem;color:var(--ink-soft)}
+.sched-row2 .time{font-family:var(--font-display);font-size:.82rem;background:var(--ink);color:var(--cream);padding:4px 9px;border-radius:3px;white-space:nowrap}
+.sched-row2.now .time{background:var(--red)}
+.sched-row2 .cat{font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);white-space:nowrap}
+.empty-note{padding:40px 20px;text-align:center;color:var(--ink-soft);font-family:var(--font-accent);font-style:italic}
+.map-note{margin-top:20px;font-size:.85rem;color:var(--ink-soft);max-width:900px}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="shared/site-chrome.jsx"></script>
+<script type="text/babel">
+const { SectionHeader, Button, PlaceholderBox, NewsletterForm } = window.TerribleGeraldSDesignSystem_d3d4e8;
+
+const STOPS = [
+  { day: 'FRI', date: '5/30', venue: 'Site-1 Brewing', address: '2566 Farnam St, Omaha', time: '5–9PM', cat: 'brewery', now: true },
+  { day: 'SAT', date: '5/31', venue: 'Nebraska Brewing Co.', address: 'La Vista, NE', time: '12–8PM', cat: 'brewery' },
+  { day: 'SUN', date: '6/1', venue: 'The Upstream Brewing', address: 'Old Market, Omaha', time: '1–6PM', cat: 'brewery' },
+  { day: 'WED', date: '6/4', venue: 'Beercade', address: 'Aksarben, Omaha', time: '5–9PM', cat: 'venue' },
+  { day: 'FRI', date: '6/6', venue: 'Infusion Brewing', address: 'Benson, Omaha', time: '5–9PM', cat: 'brewery' },
+  { day: 'SAT', date: '6/7', venue: "Turner Park Farmers Market", address: 'Midtown Crossing', time: '9AM–1PM', cat: 'park' },
+  { day: 'SUN', date: '6/8', venue: 'Stinson Park', address: 'Aksarben Village', time: '11AM–3PM', cat: 'park' },
+  { day: 'WED', date: '6/11', venue: 'Boiler Room Block Party', address: 'Old Market, Omaha', time: '5–10PM', cat: 'event' },
+  { day: 'FRI', date: '6/13', venue: 'Scriptown Brewing', address: 'North Downtown', time: '5–9PM', cat: 'brewery' },
+  { day: 'SAT', date: '6/14', venue: 'Private Wedding', address: 'Booked — not open to the public', time: 'All Day', cat: 'event' },
+];
+
+const CATS = [
+  { key: 'all', label: 'All Stops' },
+  { key: 'brewery', label: 'Breweries' },
+  { key: 'park', label: 'Parks' },
+  { key: 'venue', label: 'Venues' },
+  { key: 'event', label: 'Events' },
+];
+
+function App() {
+  const [filter, setFilter] = React.useState('all');
+  const rows = filter === 'all' ? STOPS : STOPS.filter(s => s.cat === filter);
+
+  return (
+    <div>
+      <window.SiteHeader active="schedule.html" nextBarProps={{}} />
+      <div className="pg-hero">
+        <div className="wrap">
+          <span className="kicker">where's the truck?</span>
+          <h1>Full Schedule</h1>
+          <p>Two weeks out, subject to weather, whims, and how Gerald's feeling. The real-time truth always lives on Instagram.</p>
+        </div>
+      </div>
+
+      <section className="pg">
+        <div className="wrap">
+          <SectionHeader kicker="filter by where you like to eat" title="Upcoming Stops" />
+          <div className="filter-row">
+            {CATS.map(c => (
+              <button key={c.key} className={"filter-btn" + (filter === c.key ? ' active' : '')} onClick={() => setFilter(c.key)}>{c.label}</button>
+            ))}
+          </div>
+          <div className="sched-card2">
+            {rows.length === 0 && <div className="empty-note">No stops in this category right now — check back, or follow @terriblegeralds.</div>}
+            {rows.map((r, i) => (
+              <div key={i} className={"sched-row2" + (r.now ? ' now' : '')}>
+                <div className="day">{r.day}<small>{r.date}</small></div>
+                <div className="venue">{r.venue}<small>{r.address}</small></div>
+                <div className="cat">{CATS.find(c => c.key === r.cat)?.label.replace(/s$/, '')}</div>
+                <div className="time">{r.time}</div>
+              </div>
+            ))}
+          </div>
+          <p className="map-note">Addresses go live on Google Maps the morning of each stop. Private bookings show up here so you know where we've disappeared to — head to <a href="catering.html">Catering</a> if you want us at your thing too.</p>
+        </div>
+      </section>
+
+      <section className="pg bg-ink" style={{ background: 'var(--ink)', color: 'var(--cream)' }}>
+        <div className="wrap" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, alignItems: 'center' }}>
+          <div>
+            <span style={{ fontFamily: 'var(--font-accent)', fontStyle: 'italic', color: 'var(--gold)', fontSize: '.95rem', display: 'block', marginBottom: 4 }}>never guess again</span>
+            <h2 style={{ fontFamily: 'var(--font-display)', textTransform: 'uppercase', fontSize: 'clamp(1.8rem,3.6vw,2.6rem)', margin: '0 0 14px' }}>Get the Schedule Emailed</h2>
+            <p style={{ maxWidth: '38ch', opacity: .9, marginBottom: 20 }}>One email a week. Where we're parked, when, and what's new on the menu. No spam, just pizza logistics.</p>
+            <NewsletterForm buttonLabel="Notify Me" onSubmit={() => alert("You're on the list. We'll be in touch — terribly.")} />
+          </div>
+          <PlaceholderBox dark label="MAP — service area&#10;Omaha metro + surrounding breweries" />
+        </div>
+      </section>
+
+      <window.SiteFooter />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

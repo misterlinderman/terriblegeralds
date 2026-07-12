@@ -68,3 +68,15 @@ Full feature inventory: [docs/FEATURES.md](./docs/FEATURES.md)
 ## Env
 
 Copy `.env.example`, `client/.env.example`, `server/.env.example`. Requires MongoDB Atlas + Auth0 before admin flows work.
+
+## 2.0 redesign (in progress)
+
+Front-end refresh (Season 3 · Vol. 6 design system). **Production `main` stays on the current site until launch.**
+
+| Doc | Purpose |
+|-----|---------|
+| [docs/terriblegeralds-2_0/WORKFLOW.md](./docs/terriblegeralds-2_0/WORKFLOW.md) | Branch strategy (`v2/integration`, phase branches) |
+| [docs/terriblegeralds-2_0/DECISIONS.md](./docs/terriblegeralds-2_0/DECISIONS.md) | Open stakeholder decisions (Contact UX, Wall section) |
+| [docs/terriblegeralds-2_0/design_handoff_terrible_geralds_redesign/BUILD_PLAN.md](./docs/terriblegeralds-2_0/design_handoff_terrible_geralds_redesign/BUILD_PLAN.md) | Six phases with paste-ready Cursor prompts |
+
+Work on branch `v2/integration` (or phase branches off it). Attach handoff `design_reference/` files per phase.

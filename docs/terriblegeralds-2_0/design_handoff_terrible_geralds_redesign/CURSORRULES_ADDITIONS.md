@@ -1,46 +1,17 @@
-# Terrible Gerald's Pizza — Cursor rules
+# `.cursorrules` additions
 
-## Project
+The repo already has a `.cursorrules` (MERN conventions, admin-resource recipe, deploy
+targets). **Do not replace it** — append the section below, and apply the two edits to
+existing lines noted at the bottom. This keeps Cursor/Claude grounded in the new design
+system for every prompt in `BUILD_PLAN.md`.
 
-MERN monorepo for Terrible Gerald's Pizza public website + admin CMS.
-Converted from Astro static export in `legacy/astro-dist/`.
+**Status:** Applied to root `.cursorrules` at v2 integration setup.
 
-- **client/** — React 18 + Vite + Tailwind (public site + `/admin`)
-- **server/** — Express + TypeScript + Mongoose
-- **docs/** — architecture, deployment, migration
+---
 
-Read `AGENTS.md` for quick orientation.
+## Append this section (e.g. after "### Client")
 
-## Commands
-
-Run from repository root:
-
-- `npm run dev` — client :5173 + API :3001
-- `npm run seed` — seed menu/FAQ/content
-- `npm run seed:events` — upsert sample event
-- `npm run build` — production build
-- `npm run lint` — ESLint
-
-Feature inventory: `docs/FEATURES.md`
-
-## Code conventions
-
-### TypeScript
-- Strict typing; shared types in `client/src/types/` and `server/src/types/`
-- Use `asyncHandler` for async Express routes
-- Use `createError(message, statusCode)` for operational errors
-
-### Server
-- Public routes: `server/src/routes/` — no auth
-- Admin routes: `server/src/routes/admin/` — `checkJwt` + `requireAdmin`
-- New resource pattern: Model → public routes (if needed) → admin routes → register in `server/src/index.ts`
-
-### Client
-- Public pages: `client/src/pages/public/`
-- Admin pages: `client/src/pages/admin/` — Tailwind styling
-- API calls: `client/src/services/contentApi.ts` (public), `adminApi.ts` (admin)
-- Brand site uses the token-based `client/src/styles/tokens/*` + `brand.css` system (see "Brand design system" below), not `legacy-*.css` (being retired in Phase 5 of the redesign) and not ad-hoc Tailwind utility classes.
-
+```md
 ### Brand design system (Season 3 · Vol. 6 — public site only)
 
 The public marketing site (`client/src/pages/public/`, `client/src/components/marketing/`,
@@ -81,32 +52,26 @@ binding visual spec — do not invent colors, fonts, spacing, or shadow styles o
   `docs/terriblegeralds-2_0/design_handoff_terrible_geralds_redesign/` (README,
   ARCHITECTURE, CONTEXT, BUILD_PLAN) — read before implementing any public-site screen;
   branch workflow at `docs/terriblegeralds-2_0/WORKFLOW.md`.
+```
 
-### Auth
-- Auth0 SPA on client; JWT on admin API requests via `useApiAuth` + axios interceptor
-- Admin access: `ADMIN_EMAILS` env or `admin:content` permission
+## Edits to existing lines
 
-## Do not
-- Commit `.env` files or secrets
-- Serve `legacy/astro-dist/` in production (still references Storyblok/getform)
-- Remove `legacy/astro-dist/` without customer sign-off
-- Add dependencies without need
-- Add a new saturated brand color, font family, or soft/blurred shadow to the public site without updating `styles/tokens/*.css` first (single source of truth)
-- Replace a `PlaceholderBox` with stock/generated imagery
-- Merge v2 redesign work to `main` until Phase 5 sign-off (use `v2/integration`; see `docs/terriblegeralds-2_0/WORKFLOW.md`)
+1. Under **"### Client"**, the line:
+   > Brand site uses legacy CSS imports; do not mix Tailwind utility classes on public
+   > marketing sections unless intentional
 
-## Adding a new admin-managed content type
+   → replace with:
+   > Brand site uses the token-based `client/src/styles/tokens/*` + `brand.css` system
+   > (see "Brand design system" below), not `legacy-*.css` (being retired in Phase 5 of
+   > the redesign) and not ad-hoc Tailwind utility classes.
 
-1. Create Mongoose model in `server/src/models/`
-2. Add public GET route if displayed on site
-3. Add admin CRUD under `server/src/routes/admin/`
-4. Add TypeScript types + `adminApi` helpers
-5. Add admin page + route in `App.tsx`
-6. Document in `docs/architecture/ARCHITECTURE.md` and `docs/FEATURES.md`
+2. Under **"## Do not"**, add:
+   > - Add a new saturated brand color, font family, or soft/blurred shadow to the public
+   >   site without updating `styles/tokens/*.css` first (single source of truth)
+   > - Replace a `PlaceholderBox` with stock/generated imagery
 
-## Deployment targets
+## v2 branch context
 
-- Client → Vercel (`client/` root, `VITE_*` env)
-- Server → Railway (`railway.toml`, `CLIENT_URL` for CORS)
-
-See `docs/deployment/DEPLOYMENT.md`.
+When working on the redesign, branch from `v2/integration` per
+`docs/terriblegeralds-2_0/WORKFLOW.md`. Do not merge v2 work to `main` until Phase 5
+sign-off.

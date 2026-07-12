@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catering — Terrible Gerald's Pizza</title>
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/colors.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/typography.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/motion.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/styles.css">
+<link rel="stylesheet" href="shared/site.css">
+<script src="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/_ds_bundle.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.tier{background:var(--cream);border:2px solid var(--ink);border-radius:8px;padding:26px;box-shadow:var(--card-shadow);transition:.2s}
+.tier:hover{transform:translateY(-4px);box-shadow:var(--card-shadow-hover)}
+.tier h3{font-family:var(--font-display);font-size:1.5rem;text-transform:uppercase;margin:0 0 6px}
+.tier .price{font-family:var(--font-display);color:var(--red);font-size:1.2rem;margin-bottom:12px}
+.tier ul{list-style:none;margin:0;padding:0}
+.tier li{padding:6px 0;font-size:.9rem;border-bottom:1px dashed var(--paper-line)}
+.tier li:last-child{border-bottom:none}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:10px}
+.step{text-align:center}
+.step .num{font-family:var(--font-display);font-size:2.4rem;color:var(--gold-deep);line-height:1}
+.step .t{font-weight:800;text-transform:uppercase;font-size:.85rem;letter-spacing:.03em;margin-top:6px}
+.step .d{font-size:.82rem;color:var(--ink-soft);margin-top:4px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+@media(max-width:1000px){.tier-grid,.steps{grid-template-columns:1fr}.split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="shared/site-chrome.jsx"></script>
+<script type="text/babel">
+const { SectionHeader, Button, PlaceholderBox } = window.TerribleGeraldSDesignSystem_d3d4e8;
+
+const TIERS = [
+  { name: 'The Backyard', price: 'From $650', items: ['Up to 30 guests', '2 pizza varieties', '1.5 hr wood-fired service', 'Trailer + 1 crew'] },
+  { name: 'The Full Send', price: 'From $1,400', items: ['Up to 80 guests', '4 pizza varieties + salad', '3 hr wood-fired service', 'Trailer + 2 crew'] },
+  { name: 'The Whole Terrible Thing', price: "Let's talk", items: ['80+ guests', 'Custom menu & specials', 'Extended / multi-day service', 'Full truck + crew'] },
+];
+
+const STEPS = [
+  { n: '01', t: 'You Reach Out', d: 'Tell us the date, headcount, and vibe.' },
+  { n: '02', t: 'We Build a Quote', d: 'Menu, tier, and pricing back in 1–2 days.' },
+  { n: '03', t: 'You Lock the Date', d: 'Deposit holds your spot on the calendar.' },
+  { n: '04', t: 'We Show Up & Fire It Up', d: 'Fresh, blistered pies, made on-site.' },
+];
+
+const initialForm = { name: '', email: '', phone: '', date: '', type: 'Wedding', guests: '', city: '', message: '' };
+
+function CateringForm() {
+  const [form, setForm] = React.useState(initialForm);
+  const [errors, setErrors] = React.useState({});
+  const [submitted, setSubmitted] = React.useState(false);
+
+  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+
+  function validate() {
+    const errs = {};
+    if (!form.name.trim()) errs.name = 'We need a name to put on the quote.';
+    if (!form.email.trim()) errs.email = 'How else would we send you terrible news (a quote)?';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "That doesn't look like a real email.";
+    if (!form.date) errs.date = 'Pick a date, even a rough one.';
+    if (!form.guests || Number(form.guests) < 1) errs.guests = 'How many mouths are we feeding?';
+    return errs;
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const errs = validate();
+    setErrors(errs);
+    if (Object.keys(errs).length === 0) setSubmitted(true);
+  }
+
+  if (submitted) {
+    return (
+      <div className="confirm-panel">
+        <h3>Quote Requested ✓</h3>
+        <p>Thanks, {form.name.split(' ')[0] || 'friend'}. We'll email {form.email} within 1–2 business days with pricing for {form.date || 'your date'}. In the meantime, go stare at <a href="menu.html">the menu</a> and start narrowing down pizzas.</p>
+        <div style={{ marginTop: 18 }}>
+          <Button variant="ink" onClick={() => { setForm(initialForm); setSubmitted(false); }}>Submit Another Request</Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <form className="gform" onSubmit={handleSubmit} noValidate>
+      <div className="row">
+        <div className={"field" + (errors.name ? ' invalid' : '')}>
+          <label htmlFor="c-name">Name *</label>
+          <input id="c-name" value={form.name} onChange={set('name')} />
+          <div className="err">{errors.name}</div>
+        </div>
+        <div className={"field" + (errors.email ? ' invalid' : '')}>
+          <label htmlFor="c-email">Email *</label>
+          <input id="c-email" type="email" value={form.email} onChange={set('email')} />
+          <div className="err">{errors.email}</div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="field">
+          <label htmlFor="c-phone">Phone</label>
+          <input id="c-phone" type="tel" value={form.phone} onChange={set('phone')} />
+        </div>
+        <div className={"field" + (errors.date ? ' invalid' : '')}>
+          <label htmlFor="c-date">Event Date *</label>
+          <input id="c-date" type="date" value={form.date} onChange={set('date')} />
+          <div className="err">{errors.date}</div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="field">
+          <label htmlFor="c-type">Event Type</label>
+          <select id="c-type" value={form.type} onChange={set('type')}>
+            {['Wedding', 'Corporate', 'Festival / Market', 'Private Party', 'Other'].map(o => <option key={o}>{o}</option>)}
+          </select>
+        </div>
+        <div className={"field" + (errors.guests ? ' invalid' : '')}>
+          <label htmlFor="c-guests">Guest Count *</label>
+          <input id="c-guests" type="number" min="1" value={form.guests} onChange={set('guests')} />
+          <div className="err">{errors.guests}</div>
+        </div>
+      </div>
+      <div className="field">
+        <label htmlFor="c-city">City / Venue</label>
+        <input id="c-city" value={form.city} onChange={set('city')} placeholder="Omaha, NE — or the venue name" />
+      </div>
+      <div className="field">
+        <label htmlFor="c-msg">Tell us how weird you want it</label>
+        <textarea id="c-msg" value={form.message} onChange={set('message')} placeholder="Dietary needs, timeline, whether Gerald needs to make an appearance..." />
+      </div>
+      <Button variant="red" style={{ width: '100%', justifyContent: 'center' }}>Request a Quote →</Button>
+    </form>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <window.SiteHeader active="catering.html" showNextBar={false} />
+      <div className="pg-hero">
+        <div className="wrap">
+          <span className="kicker">we bring the terrible</span>
+          <h1>Catering &amp; Events</h1>
+          <p>We roll the wood-fired trailer to your thing and feed your people fresh, blistered pies on-site. Weddings, offices, festivals, backyard chaos — we've seen it all and made pizza through most of it.</p>
+        </div>
+      </div>
+
+      <section className="pg">
+        <div className="wrap">
+          <SectionHeader kicker="pick a size, we'll do the rest" title="Packages" />
+          <div className="tier-grid">
+            {TIERS.map((t, i) => (
+              <div className="tier" key={i}>
+                <h3>{t.name}</h3>
+                <div className="price">{t.price}</div>
+                <ul>{t.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="pg bg-cream" style={{ background: 'var(--cream)' }}>
+        <div className="wrap">
+          <SectionHeader kicker="how it works" title="From Ask to Ovens On" />
+          <div className="steps">
+            {STEPS.map((s, i) => (
+              <div className="step" key={i}>
+                <div className="num">{s.n}</div>
+                <div className="t">{s.t}</div>
+                <div className="d">{s.d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="pg">
+        <div className="wrap split">
+          <div>
+            <SectionHeader kicker="tell us the date, the headcount, and the chaos level" title="Get a Quote" />
+            <CateringForm />
+          </div>
+          <div style={{ display: 'grid', gap: 14 }}>
+            <PlaceholderBox label="SETUP PHOTO — trailer at a wedding" aspect="4/3" />
+            <PlaceholderBox label="plated pies, event service" aspect="4/3" />
+          </div>
+        </div>
+      </section>
+
+      <window.SiteFooter />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

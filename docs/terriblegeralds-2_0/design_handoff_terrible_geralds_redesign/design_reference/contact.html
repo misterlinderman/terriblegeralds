@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Terrible Gerald's Pizza</title>
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/colors.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/typography.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/motion.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/styles.css">
+<link rel="stylesheet" href="shared/site.css">
+<script src="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/_ds_bundle.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+.split{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:start}
+.info-block{display:flex;flex-direction:column;gap:22px}
+.info-item{display:flex;gap:14px;align-items:flex-start}
+.info-item .ic{width:22px;height:22px;flex:none;color:var(--red);margin-top:3px}
+.info-item .t{font-weight:800;text-transform:uppercase;font-size:.82rem;letter-spacing:.03em}
+.info-item .d{font-size:.92rem;color:var(--ink-soft);margin-top:2px}
+.faq{border-bottom:1px dashed var(--paper-line);padding:16px 0}
+.faq:last-child{border-bottom:none}
+.faq summary{cursor:pointer;font-weight:800;font-size:1rem;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--font-display);font-size:1.3rem;color:var(--red)}
+.faq[open] summary::after{content:"–"}
+.faq p{margin:10px 0 0;color:var(--ink-soft);font-size:.92rem}
+@media(max-width:1000px){.split{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="shared/site-chrome.jsx"></script>
+<script type="text/babel">
+const { SectionHeader, Button } = window.TerribleGeraldSDesignSystem_d3d4e8;
+
+const initialForm = { name: '', email: '', topic: 'General Question', message: '' };
+
+function ContactForm() {
+  const [form, setForm] = React.useState(initialForm);
+  const [errors, setErrors] = React.useState({});
+  const [submitted, setSubmitted] = React.useState(false);
+  const set = (k) => (e) => setForm(f => ({ ...f, [k]: e.target.value }));
+
+  function validate() {
+    const errs = {};
+    if (!form.name.trim()) errs.name = 'A name would help.';
+    if (!form.email.trim()) errs.email = "We can't reply into the void.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) errs.email = "That email looks off.";
+    if (!form.message.trim() || form.message.trim().length < 8) errs.message = 'Give us a little more to go on.';
+    return errs;
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const errs = validate();
+    setErrors(errs);
+    if (Object.keys(errs).length === 0) setSubmitted(true);
+  }
+
+  if (submitted) {
+    return (
+      <div className="confirm-panel">
+        <h3>Message Sent ✓</h3>
+        <p>Thanks, {form.name.split(' ')[0] || 'friend'}. We read every message — replies usually take 1–2 days, sometimes longer if we're mid-service and covered in flour.</p>
+        <div style={{ marginTop: 18 }}>
+          <Button variant="ink" onClick={() => { setForm(initialForm); setSubmitted(false); }}>Send Another</Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <form className="gform" onSubmit={handleSubmit} noValidate>
+      <div className="row">
+        <div className={"field" + (errors.name ? ' invalid' : '')}>
+          <label htmlFor="k-name">Name *</label>
+          <input id="k-name" value={form.name} onChange={set('name')} />
+          <div className="err">{errors.name}</div>
+        </div>
+        <div className={"field" + (errors.email ? ' invalid' : '')}>
+          <label htmlFor="k-email">Email *</label>
+          <input id="k-email" type="email" value={form.email} onChange={set('email')} />
+          <div className="err">{errors.email}</div>
+        </div>
+      </div>
+      <div className="field">
+        <label htmlFor="k-topic">Topic</label>
+        <select id="k-topic" value={form.topic} onChange={set('topic')}>
+          {['General Question', 'Press / Media', 'Merch', 'Feedback (Nice)', 'Feedback (Terrible)', 'Something Else'].map(o => <option key={o}>{o}</option>)}
+        </select>
+      </div>
+      <div className={"field" + (errors.message ? ' invalid' : '')}>
+        <label htmlFor="k-msg">Message *</label>
+        <textarea id="k-msg" value={form.message} onChange={set('message')} placeholder="What's on your mind?" />
+        <div className="err">{errors.message}</div>
+      </div>
+      <Button variant="red" style={{ width: '100%', justifyContent: 'center' }}>Send Message →</Button>
+    </form>
+  );
+}
+
+const FAQS = [
+  { q: 'Do you take reservations?', a: "We're a food truck — it's first-come, first-fired. Big group? Message us and we'll give you a heads up on slow nights." },
+  { q: 'Can I book you without going through the full catering form?', a: 'You can, but the catering form gets you an actual quote faster. This inbox is more for questions than bookings.' },
+  { q: 'Do you have a storefront?', a: "Not yet. We're trailer-only (soon truck-only) — check the Schedule page for where we'll be." },
+  { q: "Is Gerald a real person?", a: 'Gerald is the mascot. Whether he\u2019s "real" is above our pay grade.' },
+];
+
+function App() {
+  return (
+    <div>
+      <window.SiteHeader active="contact.html" showNextBar={false} />
+      <div className="pg-hero">
+        <div className="wrap">
+          <span className="kicker">say something (nice or terrible)</span>
+          <h1>Get in Touch</h1>
+          <p>Questions, press, merch requests, or general nonsense — this is the inbox for all of it. For catering quotes, use the <a href="catering.html" style={{ color: 'var(--gold)' }}>Catering page</a> instead.</p>
+        </div>
+      </div>
+
+      <section className="pg">
+        <div className="wrap split">
+          <div>
+            <SectionHeader kicker="we read everything" title="Send a Message" />
+            <ContactForm />
+          </div>
+          <div className="info-block">
+            <SectionHeader kicker="the basics" title="Find Us" />
+            <div className="info-item">
+              <svg className="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0119 9.5C19 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
+              <div><div className="t">Home Base</div><div className="d">Omaha, NE — no storefront, trailer only</div></div>
+            </div>
+            <div className="info-item">
+              <svg className="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg>
+              <div><div className="t">Email</div><div className="d">hello@terriblegeralds.com</div></div>
+            </div>
+            <div className="info-item">
+              <svg className="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012 4.2 2 2 0 014 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.7a2 2 0 01-.4 2.1L8 9.9a16 16 0 006 6l1.4-1.2a2 2 0 012.1-.4c.9.3 1.8.5 2.7.6a2 2 0 011.8 2z" /></svg>
+              <div><div className="t">Instagram</div><div className="d">@terriblegeralds — fastest way to reach us</div></div>
+            </div>
+            <div style={{ marginTop: 8 }}>
+              <SectionHeader title="FAQ" style={{ marginBottom: 12 }} />
+              {FAQS.map((f, i) => (
+                <details className="faq" key={i}>
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <window.SiteFooter />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Story of Gerald — Terrible Gerald's Pizza</title>
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/colors.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/typography.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/motion.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/styles.css">
+<link rel="stylesheet" href="shared/site.css">
+<script src="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/_ds_bundle.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<style>
+.saga{max-width:760px}
+.saga .chapter{display:grid;grid-template-columns:120px 1fr;gap:24px;padding:26px 0;border-bottom:1px dashed var(--paper-line)}
+.saga .chapter:last-child{border-bottom:none}
+.saga .yr{font-family:var(--font-display);color:var(--red);font-size:1.6rem;line-height:1}
+.saga h3{font-family:var(--font-display);text-transform:uppercase;margin:0 0 8px;font-size:1.3rem}
+.saga p{margin:0;color:var(--ink-soft)}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.value{background:var(--cream);border:2px solid var(--ink);border-radius:8px;padding:24px;box-shadow:var(--card-shadow)}
+.value h3{font-family:var(--font-display);text-transform:uppercase;font-size:1.2rem;margin:0 0 8px}
+.value p{margin:0;font-size:.9rem;color:var(--ink-soft)}
+.crew-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.crew{text-align:center}
+.crew .nm{font-family:var(--font-display);font-size:1.1rem;margin-top:12px}
+.crew .role{font-size:.78rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em}
+@media(max-width:1000px){.values,.crew-grid{grid-template-columns:repeat(2,1fr)}.saga .chapter{grid-template-columns:80px 1fr}}
+@media(max-width:640px){.values,.crew-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="shared/site-chrome.jsx"></script>
+<script type="text/babel">
+const { SectionHeader, Button, PlaceholderBox, QuoteCard } = window.TerribleGeraldSDesignSystem_d3d4e8;
+
+const CHAPTERS = [
+  { yr: '2018', t: 'Bad Ideas', d: "It starts with a secondhand pizza oven, a half-finished trailer, and a group chat titled 'do NOT tell our spouses.' Nobody involved had run a restaurant. That felt like an advantage at the time." },
+  { yr: '2019', t: 'First Truck', d: 'Wheels acquired — barely. The first service was a Tuesday, in a gravel lot, for eleven people, three of whom were related to us. We sold out of dough by 6:40.' },
+  { yr: '2020', t: 'Gerald Is Born', d: "The mascot shows up as a joke on a sandwich board and refuses to leave. Nobody remembers whose idea he was. Everybody agrees he's the reason people started following us on purpose." },
+  { yr: '2021', t: "Gettin' Weird", d: "Pizza names start getting worse on purpose, pies start getting better on accident. We figure out that 'unorthodox' just means we do what tastes good and apologize for the branding later." },
+  { yr: '2022', t: 'Breweries Notice', d: 'Someone at a brewery lets us park for a Friday. We never really leave. Turns out beer and wood-fired pizza want to be at the same party.' },
+  { yr: '2023', t: 'The First Wedding', d: "We cater our first wedding by accident (a regular's cousin got engaged at one of our stops). It goes well enough that we accidentally start a whole side of the business." },
+  { yr: '2024', t: 'Somebody Filmed Us', d: "A TikTok of dough getting launched across the trailer gets 500K views overnight. We still don't fully understand why. We are not mad about it." },
+  { yr: 'NOW', t: 'Terrible Legend', d: "Season 3 · Vol. 6. Same terrible names, same wood fire, slightly nicer truck. We still don't know what we're doing, but the pizza's really good, so it's fine." },
+];
+
+const VALUES = [
+  { t: 'Unorthodox, On Purpose', d: 'Neapolitan technique, none of the rules. If it tastes right, it goes on the pizza — even if a purist would faint.' },
+  { t: 'Self-Roasting Only', d: "The 'terrible' is aimed at us, never at you. We'll make fun of our own name all day. We won't make fun of your order." },
+  { t: 'Show Up, Fire It Up', d: "No reheating, no shortcuts. Every pie is built and fired where you're standing, whether that's a brewery lot or your backyard." },
+];
+
+const CREW = [
+  { nm: 'Gerald', role: 'Mascot, Vibes Officer' },
+  { nm: '"Hoppen"', role: 'Dough & Fire' },
+  { nm: 'The Regular', role: 'Front of Truck' },
+  { nm: 'Whoever\u2019s Driving', role: 'Logistics, Mostly' },
+];
+
+function App() {
+  return (
+    <div>
+      <window.SiteHeader active="about.html" showNextBar={false} />
+      <div className="pg-hero">
+        <div className="wrap">
+          <span className="kicker">how we got terrible</span>
+          <h1>The Story of Gerald</h1>
+          <p>A secondhand oven, a group chat, and a mascot nobody planned for. Here's the whole saga, chapter by chapter.</p>
+        </div>
+      </div>
+
+      <section className="pg">
+        <div className="wrap">
+          <SectionHeader kicker="est. 2018 · omaha, ne" title="The Saga" />
+          <div className="saga">
+            {CHAPTERS.map((c, i) => (
+              <div className="chapter" key={i}>
+                <div className="yr">{c.yr}</div>
+                <div>
+                  <h3>{c.t}</h3>
+                  <p>{c.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="pg bg-cream" style={{ background: 'var(--cream)' }}>
+        <div className="wrap">
+          <SectionHeader kicker="the rules we actually follow" title="What We Believe" />
+          <div className="values">
+            {VALUES.map((v, i) => (
+              <div className="value" key={i}><h3>{v.t}</h3><p>{v.d}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="pg">
+        <div className="wrap">
+          <SectionHeader kicker="the people (and one mascot) behind it" title="Meet the Crew" />
+          <div className="crew-grid">
+            {CREW.map((c, i) => (
+              <div className="crew" key={i}>
+                <PlaceholderBox label="crew photo" aspect="1" style={{ borderRadius: 8 }} />
+                <div className="nm">{c.nm}</div>
+                <div className="role">{c.role}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="pg bg-ink" style={{ background: 'var(--ink)', color: 'var(--cream)' }}>
+        <div className="wrap" style={{ textAlign: 'center' }}>
+          <QuoteCard tone="ink" quote={'"Terrible name. Incredible pizza."'} source="everybody, eventually" style={{ maxWidth: 480, margin: '0 auto', textAlign: 'left', border: '2px solid var(--gold)' }} />
+          <div style={{ marginTop: 30, display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Button variant="gold" href="schedule.html">Find Us This Week →</Button>
+            <Button variant="ghostInverse" href="catering.html">Book Catering</Button>
+          </div>
+        </div>
+      </section>
+
+      <window.SiteFooter />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

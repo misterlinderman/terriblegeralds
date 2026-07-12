@@ -1,0 +1,39 @@
+/* Terrible Gerald's — Typography tokens
+   DISPLAY = Tomarik Display (Adobe Fonts / Inhouse Type).
+   EDITORIAL + ACCENT = New Spirit (Adobe Fonts / Newlyn) — one family, two
+     jobs (pull-quotes/taglines in italic; kickers/stamps/badges in caps).
+   Both now load live from the brand's Adobe Fonts (Typekit) kit below, which
+   exposes the "tomarik-display" and "new-spirit" families. DM Serif Display /
+   Fraunces remain in the font-stack as fallbacks only (used if the kit is
+   ever unreachable).
+   BODY = Hanken Grotesk (Google Fonts — available, used as-is).
+   MONO = Space Mono (Google Fonts — available, used as-is). */
+@import url("https://use.typekit.net/ryy1hmv.css");
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap");
+
+:root{
+  /* base font families */
+  --font-display:"tomarik-display","DM Serif Display",Georgia,serif; /* hand-drawn display — Adobe substitute pending */
+  --font-serif:"new-spirit","Fraunces",Georgia,serif;                /* editorial role — Adobe substitute pending */
+  --font-accent:"new-spirit","Fraunces",Georgia,serif;               /* accent role (kickers/stamps/badges) */
+  --font-body:"Hanken Grotesk",system-ui,sans-serif;
+  --font-mono:"Space Mono",monospace;
+  --display-tracking:-.03em;
+
+  /* semantic aliases */
+  --text-display:var(--font-display);
+  --text-editorial:var(--font-serif);
+  --text-accent:var(--font-accent);
+  --text-body:var(--font-body);
+  --text-code:var(--font-mono);
+
+  /* type scale */
+  --text-h1:clamp(3rem,7.4vw,6.4rem);
+  --text-h2:clamp(2rem,4.4vw,3.3rem);
+  --text-h3:1.7rem;
+  --text-h4:1.2rem;
+  --text-body-size:1rem;
+  --text-kicker:.95rem;
+  --line-height-display:.98;
+  --line-height-body:1.55;
+}

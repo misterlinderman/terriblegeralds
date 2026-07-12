@@ -1,0 +1,64 @@
+/* Shared page-shell styles for the Terrible Gerald's 2.0 multi-page build. */
+*{box-sizing:border-box}
+body{margin:0;background:var(--bone);color:var(--ink);font-family:var(--font-body);overflow-x:hidden}
+body::before{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+a{color:var(--link-color)}
+a:hover{color:var(--link-color-hover)}
+
+/* NavBar link row — DS bundle sets display:open?'flex':undefined inline with no CSS
+   fallback, so desktop collapses to block with no gap. Force flex on desktop and
+   restore the mobile collapsed/burger menu behavior. */
+.gerald-nav-links{gap:20px}
+@media(min-width:641px){
+  .gerald-nav-links{display:flex!important}
+  .gerald-burger{display:none!important}
+}
+@media(max-width:640px){
+  .gerald-nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bone);flex-direction:column;align-items:flex-start;padding:18px 24px;border-bottom:2px solid var(--ink);gap:14px;z-index:600}
+  .gerald-burger{display:flex!important}
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+section.pg{padding:74px 0;position:relative}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* page-header banner used on interior pages */
+.pg-hero{background:var(--ink);color:var(--cream);padding:64px 0 54px;position:relative;overflow:hidden}
+.pg-hero .wrap{position:relative;z-index:2}
+.pg-hero .kicker{font-family:var(--font-accent);font-style:italic;color:var(--gold);font-size:1rem;display:block;margin-bottom:10px}
+.pg-hero h1{font-family:var(--font-display);font-weight:400;text-transform:uppercase;line-height:.98;letter-spacing:var(--display-tracking);font-size:clamp(2.4rem,5.6vw,4.6rem);margin:0}
+.pg-hero p{font-family:var(--font-serif);font-style:italic;font-size:1.1rem;max-width:52ch;margin:18px 0 0;color:#ecdfc7}
+
+/* generic form styling shared by catering + contact */
+.gform{background:var(--cream);border:2.5px solid var(--ink);border-radius:8px;box-shadow:var(--shadow-soft);padding:34px;max-width:720px}
+.gform .row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.gform label{display:block;font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
+.gform input,.gform select,.gform textarea{
+  width:100%;padding:12px 14px;border:2px solid var(--ink);border-radius:4px;font-family:var(--font-body);font-size:1rem;background:var(--cream);color:var(--ink);
+}
+.gform input:focus,.gform select:focus,.gform textarea:focus{outline:2px solid var(--red);outline-offset:1px}
+.gform textarea{resize:vertical;min-height:110px}
+.gform .field{margin-bottom:16px}
+.gform .err{color:var(--red-deep);font-size:.78rem;font-weight:700;margin-top:5px;display:none}
+.gform .field.invalid input,.gform .field.invalid select,.gform .field.invalid textarea{border-color:var(--red-deep)}
+.gform .field.invalid .err{display:block}
+.confirm-panel{background:var(--gold);border:2.5px solid var(--ink);border-radius:8px;box-shadow:var(--shadow-soft);padding:40px;max-width:720px;text-align:center}
+.confirm-panel h3{font-family:var(--font-display);font-size:2rem;margin:0 0 10px;text-transform:uppercase}
+
+@media(max-width:1000px){
+  .gerald-hero-inner,.gerald-sched-grid,.gerald-reviews,.gerald-cater,.gerald-news{grid-template-columns:1fr!important}
+  .gerald-pizza-grid,.gerald-feat-grid,.gerald-ven-grid{grid-template-columns:repeat(2,1fr)!important}
+  .gerald-tok-grid{grid-template-columns:repeat(3,1fr)!important}
+  .gerald-wall{grid-template-columns:repeat(5,1fr)!important}
+  .gerald-timeline{grid-template-columns:repeat(2,1fr)!important}
+  .gerald-hero-gerald{display:none!important}
+  .gerald-foot-grid{grid-template-columns:1fr!important}
+  .gform .row{grid-template-columns:1fr!important}
+}
+@media(max-width:640px){
+  .gerald-pizza-grid,.gerald-tok-grid,.gerald-wall{grid-template-columns:repeat(2,1fr)!important}
+  .gerald-quotes{grid-template-columns:1fr!important}
+}

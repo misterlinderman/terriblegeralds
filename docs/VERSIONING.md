@@ -6,6 +6,8 @@ This project follows [Semantic Versioning 2.0.0](https://semver.org/).
 
 **0.1.0** — Initial MERN scaffold with admin CRUD and public React pages migrated from Astro static export.
 
+**Planned:** **0.2.0** — Front-end redesign (Season 3 · Vol. 6); merges from `v2/integration` after Phase 5 sign-off. See [terriblegeralds-2_0/WORKFLOW.md](./terriblegeralds-2_0/WORKFLOW.md).
+
 ## Version locations
 
 | File | Field |

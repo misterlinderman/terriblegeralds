@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terrible Gerald's Pizza — Omaha, NE</title>
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/colors.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/typography.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/tokens/motion.css">
+<link rel="stylesheet" href="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/styles.css">
+<link rel="stylesheet" href="shared/site.css">
+<script src="_ds/terrible-gerald-s-design-system-d3d4e850-0bd9-407b-98a4-82938c1b34c6/_ds_bundle.js"></script>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="shared/site-chrome.jsx"></script>
+<script type="text/babel" src="sections/Hero.jsx"></script>
+<script type="text/babel" src="sections/ScheduleSection.jsx"></script>
+<script type="text/babel" src="sections/PizzaSection.jsx"></script>
+<script type="text/babel" src="sections/ReviewsSection.jsx"></script>
+<script type="text/babel" src="sections/CateringSection.jsx"></script>
+<script type="text/babel" src="sections/TestimonialsSection.jsx"></script>
+<script type="text/babel" src="sections/AboutSection.jsx"></script>
+<script type="text/babel" src="sections/VenuesSection.jsx"></script>
+<script type="text/babel" src="sections/WallSection.jsx"></script>
+<script type="text/babel" src="sections/NewsletterSection.jsx"></script>
+
+<script type="text/babel">
+const { TornDivider } = window.TerribleGeraldSDesignSystem_d3d4e8;
+
+function App() {
+  React.useEffect(() => {
+    const io = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div>
+      <window.SiteHeader active="" nextBarProps={{}} />
+      <div id="top"><window.Hero /></div>
+      <div className="reveal"><window.ScheduleSection /></div>
+      <TornDivider color="var(--cream)" />
+      <div className="reveal"><window.PizzaSection /></div>
+      <window.ReviewsSection />
+      <div className="reveal"><window.CateringSection /></div>
+      <TornDivider color="var(--ink)" />
+      <window.TestimonialsSection />
+      <div className="reveal"><window.AboutSection /></div>
+      <div className="reveal"><window.VenuesSection /></div>
+      <TornDivider color="var(--ink)" />
+      <window.WallSection />
+      <div className="reveal"><window.NewsletterSection /></div>
+      <window.SiteFooter />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

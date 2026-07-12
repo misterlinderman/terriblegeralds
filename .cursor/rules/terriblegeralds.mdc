@@ -12,7 +12,7 @@ globs:
 - Legacy reference: `legacy/astro-dist/` (Astro v4 static export)
 
 ## Layout
-- Public marketing UI → `client/src/pages/public/`, `client/src/components/public/`
+- Public marketing UI → `client/src/pages/public/`, `client/src/components/public/`, `client/src/components/marketing/` (v2)
 - Admin CMS → `client/src/pages/admin/`, `client/src/components/admin/`
 - API models → `server/src/models/`
 - Public API → `server/src/routes/`
@@ -21,10 +21,16 @@ globs:
 ## Content types
 Event, MenuItem, Faq, SiteContent, ContactSubmission — see `docs/architecture/ARCHITECTURE.md`
 
+## 2.0 redesign
+- Docs: `docs/terriblegeralds-2_0/` (WORKFLOW, DECISIONS, BUILD_PLAN)
+- Integration branch: `v2/integration` — do not merge to `main` until Phase 5 sign-off
+- Design handoff: `docs/terriblegeralds-2_0/design_handoff_terrible_geralds_redesign/`
+
 ## When editing public pages
 - Fetch dynamic data from API (`contentApi.ts`), not hard-coded copy
-- Reuse existing legacy CSS variables (`--tg-red`, `--font-headline`)
-- Images live in `client/public/images/`
+- v2: use design tokens (`client/src/styles/tokens/*`) and marketing components — see `.cursorrules` "Brand design system"
+- v1 (main): legacy CSS variables (`--tg-red`, `--font-headline`) until Phase 5 cleanup
+- Images live in `client/public/images/`; v2 icons in `client/public/icons/`
 
 ## When editing admin
 - Use Tailwind utility classes consistent with existing admin pages
