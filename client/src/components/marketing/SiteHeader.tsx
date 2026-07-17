@@ -48,7 +48,12 @@ export default function SiteHeader({
           ]}
         />
       )}
-      <NavBar logoSrc="/icons/logo-mark.svg" links={SITE_LINKS} socials={SITE_SOCIALS} />
+      <NavBar
+        logoSrc="/images/tg-logo.webp"
+        logoVariant="wordmark"
+        links={SITE_LINKS}
+        socials={SITE_SOCIALS}
+      />
       {active && (
         <style>{`
           .gerald-nav-links a[href="${active}"] { color: var(--red) !important; }
