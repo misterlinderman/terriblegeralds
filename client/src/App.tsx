@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import PublicLayout from './components/public/PublicLayout';
@@ -19,6 +20,10 @@ import AdminInquiriesPage from './pages/admin/AdminInquiriesPage';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import { useApiAuth } from './hooks/useApiAuth';
 
+const Phase0VerifyPage = import.meta.env.DEV
+  ? lazy(() => import('./pages/dev/Phase0VerifyPage'))
+  : null;
+
 function App() {
   const { isLoading } = useAuth0();
   useApiAuth();
@@ -35,6 +40,16 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/catering" element={<CateringPage />} />
         <Route path="/events" element={<EventsPage />} />
+        {Phase0VerifyPage ? (
+          <Route
+            path="/dev/phase-0"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Phase0VerifyPage />
+              </Suspense>
+            }
+          />
+        ) : null}
       </Route>
 
       <Route path="/admin/login" element={<AdminLoginPage />} />
