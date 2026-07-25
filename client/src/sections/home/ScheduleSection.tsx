@@ -67,7 +67,14 @@ export default function ScheduleSection() {
                 gap: 10,
               }}
             >
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem' }}>
+              <div
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.3rem',
+                  letterSpacing: 'var(--display-tracking)',
+                  textTransform: 'uppercase',
+                }}
+              >
                 @terriblegeralds
                 <small
                   style={{

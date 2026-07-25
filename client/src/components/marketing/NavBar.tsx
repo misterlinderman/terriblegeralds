@@ -30,20 +30,22 @@ function NavAnchor({
   href,
   children,
   style,
+  onNavigate,
 }: {
   href: string;
   children: ReactNode;
   style: CSSProperties;
+  onNavigate?: () => void;
 }) {
   if (isInternalHref(href)) {
     return (
-      <Link to={href} style={style}>
+      <Link to={href} style={style} onClick={onNavigate}>
         {children}
       </Link>
     );
   }
   return (
-    <a href={href} style={style}>
+    <a href={href} style={style} onClick={onNavigate}>
       {children}
     </a>
   );
@@ -145,6 +147,7 @@ export default function NavBar({
         </NavAnchor>
 
         <nav
+          id="gerald-mobile-nav"
           style={{
             display: open ? 'flex' : undefined,
             alignItems: 'center',
@@ -160,12 +163,20 @@ export default function NavBar({
                 type="button"
                 className="nav-contact-btn"
                 style={linkStyle}
-                onClick={() => openContact('general')}
+                onClick={() => {
+                  setOpen(false);
+                  openContact('general');
+                }}
               >
                 {l.label}
               </button>
             ) : l.href ? (
-              <NavAnchor key={l.href} href={l.href} style={linkStyle}>
+              <NavAnchor
+                key={l.href}
+                href={l.href}
+                style={linkStyle}
+                onNavigate={() => setOpen(false)}
+              >
                 {l.label}
               </NavAnchor>
             ) : null
@@ -213,6 +224,8 @@ export default function NavBar({
           <button
             type="button"
             aria-label="Menu"
+            aria-expanded={open}
+            aria-controls="gerald-mobile-nav"
             onClick={() => setOpen((o) => !o)}
             style={{
               display: 'none',

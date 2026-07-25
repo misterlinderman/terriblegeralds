@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import TornDivider from '../../components/marketing/TornDivider';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 import AboutSection from '../../sections/home/AboutSection';
@@ -13,13 +12,7 @@ import VenuesSection from '../../sections/home/VenuesSection';
 import WallSection from '../../sections/home/WallSection';
 
 export default function HomePage() {
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    setReady(true);
-  }, []);
-
-  useScrollReveal([ready]);
+  useScrollReveal();
 
   return (
     <div className="brand-site">
