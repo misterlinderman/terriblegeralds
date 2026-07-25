@@ -34,16 +34,7 @@ export default function NewsletterSection() {
             📬 do it
           </Stamp>
           <div>
-            <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                textTransform: 'uppercase',
-                fontSize: 'clamp(1.8rem,3.8vw,2.8rem)',
-                margin: 0,
-              }}
-            >
-              Get the Chaos Delivered
-            </h2>
+            <h2 className="gerald-display-h2-sm">Get the Chaos Delivered</h2>
             <p style={{ marginTop: 10, maxWidth: '36ch', opacity: 0.92 }}>
               Join the mailing list for stops, specials, and general nonsense. We promise to
               be terrible about it.

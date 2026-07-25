@@ -38,6 +38,7 @@ export default function FeatureCard({
         style={{
           fontFamily: 'var(--font-display)',
           fontSize: '1.05rem',
+          letterSpacing: 'var(--display-tracking)',
           lineHeight: 1,
         }}
       >

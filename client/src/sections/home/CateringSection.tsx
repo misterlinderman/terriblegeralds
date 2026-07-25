@@ -51,16 +51,7 @@ export default function CateringSection() {
           >
             we bring the terrible
           </span>
-          <h2
-            style={{
-              fontFamily: 'var(--font-display)',
-              textTransform: 'uppercase',
-              fontSize: 'clamp(2rem,4vw,3rem)',
-              margin: 0,
-            }}
-          >
-            Catering & Events
-          </h2>
+          <h2 className="gerald-display-h2">Catering & Events</h2>
           <p style={{ marginTop: 12, maxWidth: '42ch' }}>
             We roll the wood-fired trailer (and soon, the truck) to your thing and feed your
             people fresh, blistered pies on-site. Tell us the date, the headcount, and how

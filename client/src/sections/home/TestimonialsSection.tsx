@@ -36,16 +36,7 @@ export default function TestimonialsSection() {
           >
             people keep talking about us
           </span>
-          <h2
-            style={{
-              fontFamily: 'var(--font-display)',
-              textTransform: 'uppercase',
-              fontSize: 'clamp(2rem,4.4vw,3.3rem)',
-              margin: 0,
-            }}
-          >
-            Testimonials of Terrible
-          </h2>
+          <h2 className="gerald-display-h2">Testimonials of Terrible</h2>
         </div>
         <div
           style={{

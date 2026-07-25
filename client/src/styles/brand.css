@@ -144,6 +144,26 @@ section.pg {
   color: #ecdfc7;
 }
 
+.gerald-display-h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: var(--line-height-display);
+  letter-spacing: var(--display-tracking);
+  font-size: var(--text-h2);
+  margin: 0;
+}
+
+.gerald-display-h2-sm {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: var(--line-height-display);
+  letter-spacing: var(--display-tracking);
+  font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+  margin: 0;
+}
+
 .gform {
   background: var(--cream);
   border: 2.5px solid var(--ink);
@@ -546,6 +566,8 @@ section.pg {
 .pg-ink-title {
   font-family: var(--font-display);
   text-transform: uppercase;
+  line-height: var(--line-height-display);
+  letter-spacing: var(--display-tracking);
   font-size: clamp(1.8rem, 3.6vw, 2.6rem);
   margin: 0 0 14px;
 }
