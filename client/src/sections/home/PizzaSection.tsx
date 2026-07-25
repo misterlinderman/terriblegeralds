@@ -51,6 +51,8 @@ export default function PizzaSection() {
             color: 'var(--red)',
             fontFamily: 'var(--font-display)',
             textAlign: 'center',
+            letterSpacing: 'var(--display-tracking)',
+            textTransform: 'uppercase',
             borderRadius: 8,
             minHeight: 70,
             textDecoration: 'none',
