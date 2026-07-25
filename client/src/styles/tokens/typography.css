@@ -18,7 +18,8 @@
   --font-accent:"new-spirit","Fraunces",Georgia,serif;               /* accent role (kickers/stamps/badges) */
   --font-body:"Hanken Grotesk",system-ui,sans-serif;
   --font-mono:"Space Mono",monospace;
-  --display-tracking:-.03em;
+  --display-tracking:-.1em;
+  --button-tracking:-.07em;
 
   /* semantic aliases */
   --text-display:var(--font-display);

@@ -105,7 +105,7 @@ export default function Hero() {
               style={{
                 fontFamily: 'var(--font-display)',
                 textTransform: 'uppercase',
-                letterSpacing: '.04em',
+                letterSpacing: 'var(--button-tracking)',
                 fontSize: '1rem',
                 padding: '15px 26px',
                 borderRadius: 3,
@@ -124,7 +124,7 @@ export default function Hero() {
               style={{
                 fontFamily: 'var(--font-display)',
                 textTransform: 'uppercase',
-                letterSpacing: '.04em',
+                letterSpacing: 'var(--button-tracking)',
                 fontSize: '1rem',
                 padding: '15px 26px',
                 borderRadius: 3,

@@ -40,16 +40,7 @@ export default function WallSection() {
             >
               the people demanded it
             </span>
-            <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                textTransform: 'uppercase',
-                fontSize: 'clamp(2rem,4.4vw,3.3rem)',
-                margin: 0,
-              }}
-            >
-              The Wall of Gerald
-            </h2>
+            <h2 className="gerald-display-h2">The Wall of Gerald</h2>
           </div>
         </div>
         <div

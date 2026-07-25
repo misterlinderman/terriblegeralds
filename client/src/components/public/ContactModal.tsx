@@ -168,6 +168,7 @@ export default function ContactModal() {
               fontFamily: 'var(--font-display)',
               textTransform: 'uppercase',
               fontSize: '1.6rem',
+              letterSpacing: 'var(--display-tracking)',
               margin: 0,
             }}
           >
@@ -226,7 +227,7 @@ export default function ContactModal() {
                     style={{
                       fontFamily: 'var(--font-display)',
                       textTransform: 'uppercase',
-                      letterSpacing: '.03em',
+                      letterSpacing: 'var(--button-tracking)',
                       fontSize: '.78rem',
                       padding: '8px 14px',
                       borderRadius: 20,

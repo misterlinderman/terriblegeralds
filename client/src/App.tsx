@@ -24,6 +24,10 @@ const Phase0VerifyPage = import.meta.env.DEV
   ? lazy(() => import('./pages/dev/Phase0VerifyPage'))
   : null;
 
+const Phase1DsDemoPage = import.meta.env.DEV
+  ? lazy(() => import('./pages/dev/Phase1DsDemoPage'))
+  : null;
+
 function App() {
   const { isLoading } = useAuth0();
   useApiAuth();
@@ -34,6 +38,17 @@ function App() {
 
   return (
     <Routes>
+      {Phase1DsDemoPage ? (
+        <Route
+          path="/dev/phase-1"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Phase1DsDemoPage />
+            </Suspense>
+          }
+        />
+      ) : null}
+
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/menu" element={<MenuPage />} />

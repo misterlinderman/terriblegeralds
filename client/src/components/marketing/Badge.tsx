@@ -26,7 +26,8 @@ export default function Badge({
       style={{
         fontFamily: 'var(--font-accent)',
         fontStyle: 'italic',
-        fontSize: '.8rem',
+        fontSize: '1rem',
+        fontWeight: 600,
         padding: '4px 13px',
         borderRadius: 'var(--radius-pill)',
         display: 'inline-block',

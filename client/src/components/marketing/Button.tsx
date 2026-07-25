@@ -64,7 +64,7 @@ export default function Button({
   const base: CSSProperties = {
     fontFamily: 'var(--font-display)',
     textTransform: 'uppercase',
-    letterSpacing: '.04em',
+    letterSpacing: 'var(--button-tracking)',
     fontSize: size === 'sm' ? '.82rem' : '1rem',
     padding: size === 'sm' ? '9px 16px' : '15px 26px',
     border: 'none',

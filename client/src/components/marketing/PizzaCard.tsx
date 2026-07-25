@@ -46,7 +46,7 @@ export default function PizzaCard({
             background: 'var(--red)',
             color: 'var(--cream)',
             fontFamily: 'var(--font-display)',
-            letterSpacing: '.03em',
+            letterSpacing: 'var(--display-tracking)',
             display: 'inline-block',
             padding: '5px 11px',
             margin: '-30px 0 10px',
