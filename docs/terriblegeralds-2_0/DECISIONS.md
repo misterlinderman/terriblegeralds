@@ -6,7 +6,7 @@ Stakeholder decisions required before certain phases. Update this file when reso
 
 ## D1 — Contact UX: modal vs. dedicated page
 
-**Status:** ⏳ Pending  
+**Status:** ✅ Resolved (default applied)  
 **Blocks:** Phase 3 (Contact implementation)  
 **Raised in:** [CONTEXT.md](./design_handoff_terrible_geralds_redesign/CONTEXT.md)
 
@@ -18,8 +18,8 @@ Stakeholder decisions required before certain phases. Update this file when reso
 
 **Default if no response before Phase 3:** Option A (restyle modal, no new route).
 
-**Decision:** _TBD_  
-**Decided by / date:** _TBD_
+**Decision:** Option A — global contact modal restyled with DS `.gform` / `.confirm-panel`; no `/contact` route.  
+**Decided by / date:** BUILD_PLAN default · 2026-07-25
 
 ---
 
