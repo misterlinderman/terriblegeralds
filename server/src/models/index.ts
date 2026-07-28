@@ -4,6 +4,8 @@ export { MenuItem } from './MenuItem';
 export { CateringTier } from './CateringTier';
 export { Venue, VENUE_CATEGORY_ICONS } from './Venue';
 export type { VenueCategoryIcon } from './Venue';
+export { PressFeature } from './PressFeature';
+export { TikTokFeature } from './TikTokFeature';
 export { Faq } from './Faq';
 export { SiteContent } from './SiteContent';
 export { ContactSubmission } from './ContactSubmission';

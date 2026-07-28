@@ -7,7 +7,9 @@ import type {
   Event,
   Faq,
   MenuItem,
+  PressFeature,
   SiteContentEntry,
+  TikTokFeature,
   Venue,
 } from '../types';
 
@@ -85,6 +87,42 @@ export const adminVenues = {
   },
   remove: async (id: string): Promise<void> => {
     await api.delete(`/admin/venues/${id}`);
+  },
+};
+
+export const adminPressFeatures = {
+  list: async (): Promise<PressFeature[]> => {
+    const { data } = await api.get<{ features: PressFeature[] }>('/admin/press-features');
+    return data.features;
+  },
+  create: async (payload: Partial<PressFeature>): Promise<PressFeature> => {
+    const { data } = await api.post<PressFeature>('/admin/press-features', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<PressFeature>): Promise<PressFeature> => {
+    const { data } = await api.put<PressFeature>(`/admin/press-features/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/press-features/${id}`);
+  },
+};
+
+export const adminTikTokFeatures = {
+  list: async (): Promise<TikTokFeature[]> => {
+    const { data } = await api.get<{ features: TikTokFeature[] }>('/admin/tiktok-features');
+    return data.features;
+  },
+  create: async (payload: Partial<TikTokFeature>): Promise<TikTokFeature> => {
+    const { data } = await api.post<TikTokFeature>('/admin/tiktok-features', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<TikTokFeature>): Promise<TikTokFeature> => {
+    const { data } = await api.put<TikTokFeature>(`/admin/tiktok-features/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/tiktok-features/${id}`);
   },
 };
 

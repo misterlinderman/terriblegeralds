@@ -10,6 +10,7 @@ const adminLinks = [
   { to: '/admin/menu', label: 'Menu' },
   { to: '/admin/catering-tiers', label: 'Catering Tiers' },
   { to: '/admin/venues', label: 'Venues' },
+  { to: '/admin/press-features', label: 'Press & TikTok' },
   { to: '/admin/faqs', label: 'FAQs' },
   { to: '/admin/content', label: 'Site Content' },
   { to: '/admin/inquiries', label: 'Inquiries' },

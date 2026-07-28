@@ -49,8 +49,12 @@ export function useAdminApiReady() {
               'Could not determine your email for admin access. Log out and sign in again, or assign the admin:content permission in Auth0.'
             );
           } else {
+            const envHint =
+              import.meta.env.DEV
+                ? 'ADMIN_EMAILS in server/.env (then restart npm run dev)'
+                : 'ADMIN_EMAILS in Railway (comma-separated), redeploy the API';
             setError(
-              `Admin access denied for ${signedInEmail}. Add this email to ADMIN_EMAILS in Railway (comma-separated), redeploy the API, then log out and back in.`
+              `Admin access denied for ${signedInEmail}. Add this email to ${envHint}, then log out and back in.`
             );
           }
           return;
@@ -84,9 +88,12 @@ export function getAdminRequestError(error: unknown, email?: string): string {
     ?.message;
 
   if (status === 403) {
+    const envHint = import.meta.env.DEV
+      ? 'ADMIN_EMAILS in server/.env and restart the dev server'
+      : 'ADMIN_EMAILS in Railway, then redeploy the API';
     return email
-      ? `Admin access denied for ${email}. Add this email to ADMIN_EMAILS in Railway, then redeploy the API.`
-      : 'Admin access denied. Add your email to ADMIN_EMAILS in Railway, then redeploy the API.';
+      ? `Admin access denied for ${email}. Add this email to ${envHint}.`
+      : `Admin access denied. Add your email to ${envHint}.`;
   }
 
   if (status === 401) {
