@@ -16,6 +16,8 @@ import AdminMenuPage from './pages/admin/AdminMenuPage';
 import AdminCateringTiersPage from './pages/admin/AdminCateringTiersPage';
 import AdminVenuesPage from './pages/admin/AdminVenuesPage';
 import AdminPressFeaturesPage from './pages/admin/AdminPressFeaturesPage';
+import AdminAboutChaptersPage from './pages/admin/AdminAboutChaptersPage';
+import AdminWallItemsPage from './pages/admin/AdminWallItemsPage';
 import AdminFaqsPage from './pages/admin/AdminFaqsPage';
 import AdminContentPage from './pages/admin/AdminContentPage';
 import AdminInquiriesPage from './pages/admin/AdminInquiriesPage';
@@ -85,6 +87,8 @@ function App() {
         <Route path="catering-tiers" element={<AdminCateringTiersPage />} />
         <Route path="venues" element={<AdminVenuesPage />} />
         <Route path="press-features" element={<AdminPressFeaturesPage />} />
+        <Route path="about-chapters" element={<AdminAboutChaptersPage />} />
+        <Route path="wall-items" element={<AdminWallItemsPage />} />
         <Route path="faqs" element={<AdminFaqsPage />} />
         <Route path="content" element={<AdminContentPage />} />
         <Route path="inquiries" element={<AdminInquiriesPage />} />

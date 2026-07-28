@@ -17,6 +17,7 @@ import type {
   TikTokFeature,
   Venue,
   VenueCategory,
+  WallItem,
   ZipValidationResult,
 } from '../types';
 
@@ -143,71 +144,22 @@ export const fetchVenueCategories = async (): Promise<VenueCategory[]> => {
   }));
 };
 
-// TODO Phase 4: back with WallItem API
-export const fetchWallMoods = async (): Promise<string[]> => [
-  '😐', '😑', '🍕', '😋', '😵', '★', '😬', '🤨', '😎', '😶', '🍕', '😴', '😏', '😮', '★', '😐',
-];
+export const fetchWallItems = async (): Promise<WallItem[]> => {
+  const { data } = await api.get<{ items: WallItem[] }>('/wall-items');
+  return data.items;
+};
 
-// TODO Phase 4: back with AboutChapter API
-export const fetchAboutStops = async (): Promise<AboutStop[]> => [
-  { year: '2018', title: 'Bad Ideas', description: 'It begins, regrettably.' },
-  { year: '2019', title: 'First Truck', description: 'Wheels acquired.' },
-  { year: '2020', title: 'Gerald Is Born', description: 'A face for the chaos.' },
-  { year: '2021', title: "Gettin' Weird", description: 'Names get worse. Pies get better.' },
-  { year: 'NOW', title: 'Terrible Legend', description: 'Season 3 · Vol. 6.' },
-];
+export const fetchAboutStops = async (): Promise<AboutStop[]> => {
+  const { data } = await api.get<{ chapters: AboutChapter[] }>('/about-chapters', {
+    params: { home: true },
+  });
+  return data.chapters.map(({ year, title, description }) => ({ year, title, description }));
+};
 
-// TODO Phase 4: back with AboutChapter API
-export const fetchAboutChapters = async (): Promise<AboutChapter[]> => [
-  {
-    year: '2018',
-    title: 'Bad Ideas',
-    description:
-      "It starts with a secondhand pizza oven, a half-finished trailer, and a group chat titled 'do NOT tell our spouses.' Nobody involved had run a restaurant. That felt like an advantage at the time.",
-  },
-  {
-    year: '2019',
-    title: 'First Truck',
-    description:
-      'Wheels acquired — barely. The first service was a Tuesday, in a gravel lot, for eleven people, three of whom were related to us. We sold out of dough by 6:40.',
-  },
-  {
-    year: '2020',
-    title: 'Gerald Is Born',
-    description:
-      "The mascot shows up as a joke on a sandwich board and refuses to leave. Nobody remembers whose idea he was. Everybody agrees he's the reason people started following us on purpose.",
-  },
-  {
-    year: '2021',
-    title: "Gettin' Weird",
-    description:
-      "Pizza names start getting worse on purpose, pies start getting better on accident. We figure out that 'unorthodox' just means we do what tastes good and apologize for the branding later.",
-  },
-  {
-    year: '2022',
-    title: 'Breweries Notice',
-    description:
-      'Someone at a brewery lets us park for a Friday. We never really leave. Turns out beer and wood-fired pizza want to be at the same party.',
-  },
-  {
-    year: '2023',
-    title: 'The First Wedding',
-    description:
-      "We cater our first wedding by accident (a regular's cousin got engaged at one of our stops). It goes well enough that we accidentally start a whole side of the business.",
-  },
-  {
-    year: '2024',
-    title: 'Somebody Filmed Us',
-    description:
-      "A TikTok of dough getting launched across the trailer gets 500K views overnight. We still don't fully understand why. We are not mad about it.",
-  },
-  {
-    year: 'NOW',
-    title: 'Terrible Legend',
-    description:
-      "Season 3 · Vol. 6. Same terrible names, same wood fire, slightly nicer truck. We still don't know what we're doing, but the pizza's really good, so it's fine.",
-  },
-];
+export const fetchAboutChapters = async (): Promise<AboutChapter[]> => {
+  const { data } = await api.get<{ chapters: AboutChapter[] }>('/about-chapters');
+  return data.chapters;
+};
 
 // TODO Phase 4: back with AboutChapter API
 export const fetchAboutValues = async (): Promise<AboutValue[]> => [

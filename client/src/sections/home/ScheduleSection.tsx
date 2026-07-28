@@ -86,7 +86,7 @@ export default function ScheduleSection() {
                     textTransform: 'none',
                   }}
                 >
-                  the schedule lives on Instagram — pulled in live
+                  follow for day-of updates
                 </small>
               </div>
               <Stamp>follow</Stamp>
@@ -97,7 +97,8 @@ export default function ScheduleSection() {
               ))}
             </div>
             <p style={{ fontSize: '.82rem', color: 'var(--ink-soft)', margin: 0 }}>
-              Auto-syncs your latest Instagram posts so the weekly drop updates itself.
+              The schedule card is the official list. Instagram is where we post when the truck
+              actually shows up.
             </p>
           </div>
         </div>

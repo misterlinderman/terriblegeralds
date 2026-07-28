@@ -18,6 +18,16 @@ const cards = [
     title: 'Press & TikTok',
     blurb: 'Edit home page press cards and TikTok feature tiles.',
   },
+  {
+    to: '/admin/about-chapters',
+    title: 'About Chapters',
+    blurb: 'Edit brand-history timeline on About and home teaser.',
+  },
+  {
+    to: '/admin/wall-items',
+    title: 'Wall Items',
+    blurb: 'Edit The Wall of Gerald grid on the home page.',
+  },
   { to: '/admin/faqs', title: 'FAQs', blurb: 'Edit homepage frequently asked questions.' },
   { to: '/admin/content', title: 'Site Content', blurb: 'Update hero copy, about text, and notices.' },
   {
