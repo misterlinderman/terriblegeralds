@@ -6,7 +6,7 @@ const DEFAULT_ORIGIN = {
   longitude: -96.0458,
 };
 
-const DEFAULT_MAX_DISTANCE_MILES = 40;
+const DEFAULT_MAX_DISTANCE_MILES = 25;
 
 const EARTH_RADIUS_MILES = 3958.8;
 
