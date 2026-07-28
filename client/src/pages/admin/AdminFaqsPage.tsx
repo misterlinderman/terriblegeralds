@@ -1,7 +1,8 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { adminFaqs } from '../../services/adminApi';
 import { getAdminRequestError } from '../../hooks/useAdminApiReady';
+import { useAdminLoad } from '../../hooks/useAdminLoad';
 import type { Faq } from '../../types';
 
 const emptyFaq = { question: '', answer: '', sortOrder: 0, published: true };
@@ -19,9 +20,7 @@ export default function AdminFaqsPage() {
       .then(setFaqs)
       .catch((err) => setError(getAdminRequestError(err, user?.email)));
 
-  useEffect(() => {
-    load();
-  }, []);
+  useAdminLoad(load);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();

@@ -1,7 +1,8 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { adminAboutChapters } from '../../services/adminApi';
 import { getAdminRequestError } from '../../hooks/useAdminApiReady';
+import { useAdminLoad } from '../../hooks/useAdminLoad';
 import type { AboutChapter } from '../../types';
 
 const emptyChapter = {
@@ -26,9 +27,7 @@ export default function AdminAboutChaptersPage() {
       .then(setChapters)
       .catch((err) => setError(getAdminRequestError(err, user?.email)));
 
-  useEffect(() => {
-    load();
-  }, []);
+  useAdminLoad(load);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();

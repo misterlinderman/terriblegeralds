@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { ContactModalProvider } from '../../context/ContactModalContext';
+import { ContactModalProvider } from '../../context/ContactModalProvider';
 import MarketingSiteFooter from '../marketing/SiteFooter';
 import MarketingSiteHeader from '../marketing/SiteHeader';
 import ContactModal from './ContactModal';

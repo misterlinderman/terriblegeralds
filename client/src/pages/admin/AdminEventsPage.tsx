@@ -1,7 +1,8 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { adminEvents } from '../../services/adminApi';
 import { getAdminRequestError } from '../../hooks/useAdminApiReady';
+import { useAdminLoad } from '../../hooks/useAdminLoad';
 import type { Event, EventCategory } from '../../types';
 
 const EVENT_CATEGORIES: { value: EventCategory; label: string }[] = [
@@ -46,9 +47,7 @@ export default function AdminEventsPage() {
       .then(setEvents)
       .catch((err) => setError(getAdminRequestError(err, user?.email)));
 
-  useEffect(() => {
-    load();
-  }, []);
+  useAdminLoad(load);
 
   const resetForm = () => {
     setForm(emptyEvent);

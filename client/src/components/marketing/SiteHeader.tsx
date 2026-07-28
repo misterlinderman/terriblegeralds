@@ -61,7 +61,11 @@ export default function SiteHeader({
           }
         `}</style>
       )}
-      {showNextBar && appearanceInfo && <NextAppearanceBar info={appearanceInfo} />}
+      {showNextBar && (
+        <NextAppearanceBar
+          info={appearanceInfo ?? 'No upcoming stops posted yet — see /events'}
+        />
+      )}
     </>
   );
 }

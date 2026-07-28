@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import Button from '../marketing/Button';
-import { useContactModal } from '../../context/ContactModalContext';
+import { useContactModal } from '../../hooks/useContactModal';
 import { fetchSiteContent, submitContactForm, validateEventZip } from '../../services/contentApi';
 import type { ContactFormData, ContactInquiryType } from '../../types';
 
@@ -277,10 +277,11 @@ export default function ContactModal() {
 
         {submitted ? (
           <div className="confirm-panel">
-            <h3>Message Sent ✓</h3>
+            <h3>{isCatering ? 'Quote Requested ✓' : 'Message Sent ✓'}</h3>
             <p>
-              Thanks. We read every message — replies usually take 1–2 days, sometimes longer if
-              we&apos;re mid-service and covered in flour.
+              {isCatering
+                ? "Thanks. We'll get back to you in 1–2 days with a quote — longer if we're mid-service and covered in flour."
+                : "Thanks. We read every message — replies usually take 1–2 days, sometimes longer if we're mid-service and covered in flour."}
             </p>
             <div style={{ marginTop: 18 }}>
               <Button
