@@ -88,15 +88,23 @@ export interface ReviewQuote {
 }
 
 export interface PressFeature {
-  by: string;
-  what: string;
-  cta: string;
+  _id: string;
+  outlet: string;
+  blurb: string;
+  ctaLabel: string;
   thumbLabel: string;
+  linkUrl?: string;
+  sortOrder: number;
+  active: boolean;
 }
 
 export interface TikTokFeature {
+  _id: string;
   handle: string;
   views: string;
+  linkUrl?: string;
+  sortOrder: number;
+  active: boolean;
 }
 
 export type VenueCategoryIcon = 'brewery' | 'building' | 'park' | 'event';

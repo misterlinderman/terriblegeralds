@@ -6,6 +6,7 @@ interface FeatureCardProps {
   by?: string;
   what?: string;
   cta?: string;
+  linkUrl?: string;
   style?: CSSProperties;
 }
 
@@ -14,9 +15,10 @@ export default function FeatureCard({
   by = 'Hoppen Interview',
   what = 'Sit-down with the homies',
   cta = '▶ Listen Now',
+  linkUrl,
   style,
 }: FeatureCardProps) {
-  return (
+  const card = (
     <div
       style={{
         background: 'var(--cream)',
@@ -66,4 +68,14 @@ export default function FeatureCard({
       </span>
     </div>
   );
+
+  if (linkUrl) {
+    return (
+      <a href={linkUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+        {card}
+      </a>
+    );
+  }
+
+  return card;
 }

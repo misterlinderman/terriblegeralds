@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { connectDatabase } from '../config/database';
-import { Event, MenuItem, CateringTier, Venue, Faq, SiteContent } from '../models';
+import { Event, MenuItem, CateringTier, Venue, PressFeature, TikTokFeature, Faq, SiteContent } from '../models';
 
 dotenv.config();
 
@@ -145,6 +145,46 @@ const venues = [
   },
 ];
 
+const pressFeatures = [
+  {
+    outlet: 'Hoppen Interview',
+    blurb: 'Sit-down with the homies',
+    ctaLabel: '▶ Listen Now',
+    thumbLabel: '🎙 photo',
+    sortOrder: 1,
+  },
+  {
+    outlet: 'Meat Locker Pod',
+    blurb: 'Podcast appearance',
+    ctaLabel: '▶ Listen Now',
+    thumbLabel: '🎙 podcast',
+    sortOrder: 2,
+  },
+  {
+    outlet: 'KELOLAND',
+    blurb: 'TV feature',
+    ctaLabel: '▶ Watch',
+    thumbLabel: '📺 clip',
+    sortOrder: 3,
+  },
+  {
+    outlet: 'Omaha World-Herald',
+    blurb: '"Food truck serving up unique pies in Omaha"',
+    ctaLabel: '▶ Read',
+    thumbLabel: '📰 clipping',
+    sortOrder: 4,
+  },
+];
+
+const tikTokFeatures = [
+  { handle: '@emiliestrumlcin', views: '116K', sortOrder: 1 },
+  { handle: '@hr.doods', views: '67K', sortOrder: 2 },
+  { handle: '@piecewayforfood', views: '82K', sortOrder: 3 },
+  { handle: '@hangryhoppers', views: '71K', sortOrder: 4 },
+  { handle: '@tiktoktodelats', views: '91K', sortOrder: 5 },
+  { handle: '@cheeseloveshim', views: '560K', sortOrder: 6 },
+];
+
 const siteContent = [
   {
     key: 'meta.description',
@@ -213,6 +253,8 @@ async function seed() {
     MenuItem.deleteMany({}),
     CateringTier.deleteMany({}),
     Venue.deleteMany({}),
+    PressFeature.deleteMany({}),
+    TikTokFeature.deleteMany({}),
     Faq.deleteMany({}),
     SiteContent.deleteMany({}),
   ]);
@@ -220,12 +262,14 @@ async function seed() {
   await MenuItem.insertMany(menuItems);
   await CateringTier.insertMany(cateringTiers);
   await Venue.insertMany(venues);
+  await PressFeature.insertMany(pressFeatures);
+  await TikTokFeature.insertMany(tikTokFeatures);
   await Faq.insertMany(faqs);
   await SiteContent.insertMany(siteContent);
 
   const eventCount = await Event.countDocuments();
   console.log(
-    `✅ Seeded ${menuItems.length} menu items, ${cateringTiers.length} catering tiers, ${venues.length} venues, ${faqs.length} FAQs, ${siteContent.length} content entries`
+    `✅ Seeded ${menuItems.length} menu items, ${cateringTiers.length} catering tiers, ${venues.length} venues, ${pressFeatures.length} press features, ${tikTokFeatures.length} TikTok features, ${faqs.length} FAQs, ${siteContent.length} content entries`
   );
   console.log(`ℹ️  Events unchanged (${eventCount} existing). Add events via admin or API.`);
 

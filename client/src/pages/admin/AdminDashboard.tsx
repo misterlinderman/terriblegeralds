@@ -13,6 +13,11 @@ const cards = [
     title: 'Venues',
     blurb: 'Edit home page venue category cards and icons.',
   },
+  {
+    to: '/admin/press-features',
+    title: 'Press & TikTok',
+    blurb: 'Edit home page press cards and TikTok feature tiles.',
+  },
   { to: '/admin/faqs', title: 'FAQs', blurb: 'Edit homepage frequently asked questions.' },
   { to: '/admin/content', title: 'Site Content', blurb: 'Update hero copy, about text, and notices.' },
   {

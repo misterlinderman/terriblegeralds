@@ -118,28 +118,15 @@ export const fetchReviews = async (): Promise<ReviewQuote[]> => [
   { tone: 'teal', quote: '"Thanks. You\'re terrible."', source: 'Gerald, probably' },
 ];
 
-// TODO Phase 4: back with PressFeature API
-export const fetchPressFeatures = async (): Promise<PressFeature[]> => [
-  { by: 'Hoppen Interview', what: 'Sit-down with the homies', cta: '▶ Listen Now', thumbLabel: '🎙 photo' },
-  { by: 'Meat Locker Pod', what: 'Podcast appearance', cta: '▶ Listen Now', thumbLabel: '🎙 podcast' },
-  { by: 'KELOLAND', what: 'TV feature', cta: '▶ Watch', thumbLabel: '📺 clip' },
-  {
-    by: 'Omaha World-Herald',
-    what: '"Food truck serving up unique pies in Omaha"',
-    cta: '▶ Read',
-    thumbLabel: '📰 clipping',
-  },
-];
+export const fetchPressFeatures = async (): Promise<PressFeature[]> => {
+  const { data } = await api.get<{ features: PressFeature[] }>('/press-features');
+  return data.features;
+};
 
-// TODO Phase 4: back with PressFeature API (TikTok embeds)
-export const fetchTikTokFeatures = async (): Promise<TikTokFeature[]> => [
-  { handle: '@emiliestrumlcin', views: '116K' },
-  { handle: '@hr.doods', views: '67K' },
-  { handle: '@piecewayforfood', views: '82K' },
-  { handle: '@hangryhoppers', views: '71K' },
-  { handle: '@tiktoktodelats', views: '91K' },
-  { handle: '@cheeseloveshim', views: '560K' },
-];
+export const fetchTikTokFeatures = async (): Promise<TikTokFeature[]> => {
+  const { data } = await api.get<{ features: TikTokFeature[] }>('/tiktok-features');
+  return data.features;
+};
 
 export const fetchVenues = async (): Promise<Venue[]> => {
   const { data } = await api.get<{ venues: Venue[] }>('/venues');

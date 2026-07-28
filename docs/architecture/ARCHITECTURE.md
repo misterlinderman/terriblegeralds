@@ -103,6 +103,8 @@ Admin access is granted when either:
 | `MenuItem` | Pizza menu cards | Yes (active) | Yes |
 | `CateringTier` | Catering packages | Yes (active) | Yes |
 | `Venue` | Home "Favorite Places" categories | Yes (active) | Yes |
+| `PressFeature` | Home press/interview cards | Yes (active) | Yes |
+| `TikTokFeature` | Home TikTok feature tiles | Yes (active) | Yes |
 | `Faq` | Homepage FAQs | Yes (published) | Yes |
 | `SiteContent` | Key/value copy blocks | Yes | Yes |
 | `ContactSubmission` | Booking inquiries (general + catering) | No | Yes (read, status, delete) |
