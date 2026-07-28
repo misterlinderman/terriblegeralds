@@ -132,9 +132,13 @@ export interface AboutStop {
 }
 
 export interface AboutChapter {
+  _id: string;
   year: string;
   title: string;
   description: string;
+  showOnHome: boolean;
+  sortOrder: number;
+  active: boolean;
 }
 
 export interface AboutValue {
@@ -145,6 +149,15 @@ export interface AboutValue {
 export interface AboutCrewMember {
   name: string;
   role: string;
+}
+
+export interface WallItem {
+  _id: string;
+  caption: string;
+  imageUrl?: string;
+  linkUrl?: string;
+  sortOrder: number;
+  active: boolean;
 }
 
 export interface MenuListItem {

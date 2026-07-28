@@ -99,6 +99,8 @@ Modal form with two inquiry types:
 | GET | `/api/venues` | Active home page venue categories |
 | GET | `/api/press-features` | Active home page press cards |
 | GET | `/api/tiktok-features` | Active home page TikTok feature tiles |
+| GET | `/api/about-chapters` | Active about page chapters (`?home=true` for home timeline) |
+| GET | `/api/wall-items` | Active home page Wall of Gerald tiles |
 | GET | `/api/faqs` | Published FAQs |
 | GET | `/api/content` | All site content as key/value map |
 | GET | `/api/contact/validate-zip?zip=` | Catering zip validation |
@@ -139,6 +141,8 @@ Auth0-protected dashboard at `/admin/*`. Uses Tailwind styling separate from the
 | `/admin/catering-tiers` | Catering tier CRUD |
 | `/admin/venues` | Home venue category CRUD |
 | `/admin/press-features` | Home press + TikTok feature CRUD |
+| `/admin/about-chapters` | About page saga chapters CRUD |
+| `/admin/wall-items` | Home Wall of Gerald grid CRUD |
 | `/admin/faqs` | FAQ CRUD |
 | `/admin/content` | Site content key/value CRUD |
 | `/admin/inquiries` | Contact submission inbox |
@@ -169,6 +173,18 @@ Create, edit, delete pop-up events:
 - **Press features:** outlet, blurb, CTA label, thumb label (placeholder text), optional link URL, sort order, active flag
 - **TikTok features:** handle, view count label, optional link URL, sort order, active flag
 - Powers the home page "Testimonials of Terrible" section
+
+### About chapters admin
+
+- Year, title, description, sort order, active flag
+- **Show on home** — includes chapter in the condensed home page timeline teaser
+- Powers `/about` saga section and home `AboutSection`
+
+### Wall items admin
+
+- Caption (emoji or short label), optional image URL (static path under `client/public/`), optional link URL, sort order, active flag
+- Empty image URL renders a placeholder tile with the caption
+- Powers home page "The Wall of Gerald" section
 
 ### FAQs admin
 
@@ -214,6 +230,10 @@ All require `Authorization: Bearer {access_token}` and admin authorization.
 | PUT/DELETE | `/api/admin/press-features/:id` | Update / delete press feature |
 | GET/POST | `/api/admin/tiktok-features` | List / create TikTok features |
 | PUT/DELETE | `/api/admin/tiktok-features/:id` | Update / delete TikTok feature |
+| GET/POST | `/api/admin/about-chapters` | List / create about chapters |
+| PUT/DELETE | `/api/admin/about-chapters/:id` | Update / delete about chapter |
+| GET/POST | `/api/admin/wall-items` | List / create wall items |
+| PUT/DELETE | `/api/admin/wall-items/:id` | Update / delete wall item |
 | GET/POST | `/api/admin/faqs` | List / create FAQs |
 | PUT/DELETE | `/api/admin/faqs/:id` | Update / delete FAQ |
 | GET/POST | `/api/admin/content` | List / create site content |
@@ -234,6 +254,8 @@ All require `Authorization: Bearer {access_token}` and admin authorization.
 | `Venue` | Active categories only | Full CRUD | Home "Favorite Places" |
 | `PressFeature` | Active items only | Full CRUD | Home press cards |
 | `TikTokFeature` | Active items only | Full CRUD | Home TikTok tiles |
+| `AboutChapter` | Active items only | Full CRUD | About saga + home timeline |
+| `WallItem` | Active items only | Full CRUD | Home Wall of Gerald grid |
 | `Faq` | Published | Full CRUD | |
 | `SiteContent` | All keys | Full CRUD | Key/value copy blocks |
 | `ContactSubmission` | No | Read, status, delete | General + catering types |

@@ -53,8 +53,8 @@ export default function AboutSection() {
           }}
           className="gerald-timeline"
         >
-          {stops.map((s, i) => (
-            <div key={i} style={{ textAlign: 'center' }}>
+          {stops.map((s) => (
+            <div key={`${s.year}-${s.title}`} style={{ textAlign: 'center' }}>
               <PlaceholderBox
                 label={s.year === 'NOW' ? 'now' : 'art'}
                 style={{

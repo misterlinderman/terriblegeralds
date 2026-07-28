@@ -40,7 +40,7 @@ Stakeholder decisions required before certain phases. Update this file when reso
 **Decision:** Option A — admin-curated `WallItem` CRUD (image/caption/link, ordered grid); no live Instagram/TikTok integration.  
 **Decided by / date:** Stakeholder · 2026-07-28
 
-**Follow-ups for Phase 4/5:** Rewrite Schedule section copy that implies live Instagram sync (`ScheduleSection.tsx`); Wall stays `PlaceholderBox` until real assets are uploaded via admin.
+**Follow-ups for Phase 4/5:** ~~Rewrite Schedule section copy that implies live Instagram sync (`ScheduleSection.tsx`)~~ Done in Phase 4 WallItem PR. Wall stays `PlaceholderBox` until real assets are uploaded via admin.
 
 ---
 

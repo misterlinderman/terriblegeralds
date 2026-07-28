@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import { connectDatabase } from '../config/database';
-import { Event, MenuItem, CateringTier, Venue, PressFeature, TikTokFeature, Faq, SiteContent } from '../models';
+import { Event, MenuItem, CateringTier, Venue, PressFeature, TikTokFeature, AboutChapter, WallItem, Faq, SiteContent } from '../models';
 
 dotenv.config();
 
@@ -185,6 +185,92 @@ const tikTokFeatures = [
   { handle: '@cheeseloveshim', views: '560K', sortOrder: 6 },
 ];
 
+const aboutChapters = [
+  {
+    year: '2018',
+    title: 'Bad Ideas',
+    description:
+      "It starts with a secondhand pizza oven, a half-finished trailer, and a group chat titled 'do NOT tell our spouses.' Nobody involved had run a restaurant. That felt like an advantage at the time.",
+    showOnHome: true,
+    sortOrder: 1,
+  },
+  {
+    year: '2019',
+    title: 'First Truck',
+    description:
+      'Wheels acquired — barely. The first service was a Tuesday, in a gravel lot, for eleven people, three of whom were related to us. We sold out of dough by 6:40.',
+    showOnHome: true,
+    sortOrder: 2,
+  },
+  {
+    year: '2020',
+    title: 'Gerald Is Born',
+    description:
+      "The mascot shows up as a joke on a sandwich board and refuses to leave. Nobody remembers whose idea he was. Everybody agrees he's the reason people started following us on purpose.",
+    showOnHome: true,
+    sortOrder: 3,
+  },
+  {
+    year: '2021',
+    title: "Gettin' Weird",
+    description:
+      "Pizza names start getting worse on purpose, pies start getting better on accident. We figure out that 'unorthodox' just means we do what tastes good and apologize for the branding later.",
+    showOnHome: true,
+    sortOrder: 4,
+  },
+  {
+    year: '2022',
+    title: 'Breweries Notice',
+    description:
+      'Someone at a brewery lets us park for a Friday. We never really leave. Turns out beer and wood-fired pizza want to be at the same party.',
+    showOnHome: false,
+    sortOrder: 5,
+  },
+  {
+    year: '2023',
+    title: 'The First Wedding',
+    description:
+      "We cater our first wedding by accident (a regular's cousin got engaged at one of our stops). It goes well enough that we accidentally start a whole side of the business.",
+    showOnHome: false,
+    sortOrder: 6,
+  },
+  {
+    year: '2024',
+    title: 'Somebody Filmed Us',
+    description:
+      "A TikTok of dough getting launched across the trailer gets 500K views overnight. We still don't fully understand why. We are not mad about it.",
+    showOnHome: false,
+    sortOrder: 7,
+  },
+  {
+    year: 'NOW',
+    title: 'Terrible Legend',
+    description:
+      "Season 3 · Vol. 6. Same terrible names, same wood fire, slightly nicer truck. We still don't know what we're doing, but the pizza's really good, so it's fine.",
+    showOnHome: true,
+    sortOrder: 8,
+  },
+];
+
+const wallItems = [
+  { caption: '😐', sortOrder: 1 },
+  { caption: '😑', sortOrder: 2 },
+  { caption: '🍕', sortOrder: 3 },
+  { caption: '😋', sortOrder: 4 },
+  { caption: '😵', sortOrder: 5 },
+  { caption: '★', sortOrder: 6 },
+  { caption: '😬', sortOrder: 7 },
+  { caption: '🤨', sortOrder: 8 },
+  { caption: '😎', sortOrder: 9 },
+  { caption: '😶', sortOrder: 10 },
+  { caption: '🍕', sortOrder: 11 },
+  { caption: '😴', sortOrder: 12 },
+  { caption: '😏', sortOrder: 13 },
+  { caption: '😮', sortOrder: 14 },
+  { caption: '★', sortOrder: 15 },
+  { caption: '😐', sortOrder: 16 },
+];
+
 const siteContent = [
   {
     key: 'meta.description',
@@ -255,6 +341,8 @@ async function seed() {
     Venue.deleteMany({}),
     PressFeature.deleteMany({}),
     TikTokFeature.deleteMany({}),
+    AboutChapter.deleteMany({}),
+    WallItem.deleteMany({}),
     Faq.deleteMany({}),
     SiteContent.deleteMany({}),
   ]);
@@ -264,12 +352,14 @@ async function seed() {
   await Venue.insertMany(venues);
   await PressFeature.insertMany(pressFeatures);
   await TikTokFeature.insertMany(tikTokFeatures);
+  await AboutChapter.insertMany(aboutChapters);
+  await WallItem.insertMany(wallItems);
   await Faq.insertMany(faqs);
   await SiteContent.insertMany(siteContent);
 
   const eventCount = await Event.countDocuments();
   console.log(
-    `✅ Seeded ${menuItems.length} menu items, ${cateringTiers.length} catering tiers, ${venues.length} venues, ${pressFeatures.length} press features, ${tikTokFeatures.length} TikTok features, ${faqs.length} FAQs, ${siteContent.length} content entries`
+    `✅ Seeded ${menuItems.length} menu items, ${cateringTiers.length} catering tiers, ${venues.length} venues, ${pressFeatures.length} press features, ${tikTokFeatures.length} TikTok features, ${aboutChapters.length} about chapters, ${wallItems.length} wall items, ${faqs.length} FAQs, ${siteContent.length} content entries`
   );
   console.log(`ℹ️  Events unchanged (${eventCount} existing). Add events via admin or API.`);
 

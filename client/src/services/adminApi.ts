@@ -1,5 +1,6 @@
 import api from './api';
 import type {
+  AboutChapter,
   ContactInquiryType,
   ContactSubmission,
   ContactStatus,
@@ -11,6 +12,7 @@ import type {
   SiteContentEntry,
   TikTokFeature,
   Venue,
+  WallItem,
 } from '../types';
 
 export interface AdminContactListFilters {
@@ -123,6 +125,42 @@ export const adminTikTokFeatures = {
   },
   remove: async (id: string): Promise<void> => {
     await api.delete(`/admin/tiktok-features/${id}`);
+  },
+};
+
+export const adminAboutChapters = {
+  list: async (): Promise<AboutChapter[]> => {
+    const { data } = await api.get<{ chapters: AboutChapter[] }>('/admin/about-chapters');
+    return data.chapters;
+  },
+  create: async (payload: Partial<AboutChapter>): Promise<AboutChapter> => {
+    const { data } = await api.post<AboutChapter>('/admin/about-chapters', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<AboutChapter>): Promise<AboutChapter> => {
+    const { data } = await api.put<AboutChapter>(`/admin/about-chapters/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/about-chapters/${id}`);
+  },
+};
+
+export const adminWallItems = {
+  list: async (): Promise<WallItem[]> => {
+    const { data } = await api.get<{ items: WallItem[] }>('/admin/wall-items');
+    return data.items;
+  },
+  create: async (payload: Partial<WallItem>): Promise<WallItem> => {
+    const { data } = await api.post<WallItem>('/admin/wall-items', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<WallItem>): Promise<WallItem> => {
+    const { data } = await api.put<WallItem>(`/admin/wall-items/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/wall-items/${id}`);
   },
 };
 

@@ -6,6 +6,8 @@ export { Venue, VENUE_CATEGORY_ICONS } from './Venue';
 export type { VenueCategoryIcon } from './Venue';
 export { PressFeature } from './PressFeature';
 export { TikTokFeature } from './TikTokFeature';
+export { AboutChapter } from './AboutChapter';
+export { WallItem } from './WallItem';
 export { Faq } from './Faq';
 export { SiteContent } from './SiteContent';
 export { ContactSubmission } from './ContactSubmission';

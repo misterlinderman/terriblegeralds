@@ -105,6 +105,8 @@ Admin access is granted when either:
 | `Venue` | Home "Favorite Places" categories | Yes (active) | Yes |
 | `PressFeature` | Home press/interview cards | Yes (active) | Yes |
 | `TikTokFeature` | Home TikTok feature tiles | Yes (active) | Yes |
+| `AboutChapter` | About page saga + home timeline | Yes (active) | Yes |
+| `WallItem` | Home Wall of Gerald grid | Yes (active) | Yes |
 | `Faq` | Homepage FAQs | Yes (published) | Yes |
 | `SiteContent` | Key/value copy blocks | Yes | Yes |
 | `ContactSubmission` | Booking inquiries (general + catering) | No | Yes (read, status, delete) |
