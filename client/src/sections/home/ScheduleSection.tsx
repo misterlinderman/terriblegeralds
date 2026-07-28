@@ -19,9 +19,9 @@ export default function ScheduleSection() {
   useEffect(() => {
     fetchEvents()
       .then((data) => {
-        const upcoming = [...data].sort(
-          (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-        );
+        const upcoming = [...data]
+          .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+          .slice(0, 5);
         setEvents(upcoming);
         setHeading(formatScheduleHeading(upcoming));
         const now = new Date();

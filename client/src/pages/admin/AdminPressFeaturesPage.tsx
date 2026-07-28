@@ -1,7 +1,8 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { adminPressFeatures, adminTikTokFeatures } from '../../services/adminApi';
 import { getAdminRequestError } from '../../hooks/useAdminApiReady';
+import { useAdminLoad } from '../../hooks/useAdminLoad';
 import type { PressFeature, TikTokFeature } from '../../types';
 
 const emptyPress = {
@@ -41,9 +42,7 @@ export default function AdminPressFeaturesPage() {
       .catch((err) => setError(getAdminRequestError(err, user?.email)));
   };
 
-  useEffect(() => {
-    load();
-  }, []);
+  useAdminLoad(load);
 
   const handlePressSubmit = async (event: FormEvent) => {
     event.preventDefault();

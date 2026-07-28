@@ -532,6 +532,19 @@ section.pg {
   white-space: nowrap;
 }
 .sched-row2.now .time { background: var(--red); }
+
+@media (max-width: 640px) {
+  .sched-row2 {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 14px 16px;
+  }
+  .sched-row2 .cat,
+  .sched-row2 .time {
+    justify-self: start;
+  }
+}
+
 .empty-note {
   padding: 40px 20px;
   text-align: center;

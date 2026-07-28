@@ -1,6 +1,6 @@
 import { useState, type CSSProperties, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { useContactModal } from '../../context/ContactModalContext';
+import { useContactModal } from '../../hooks/useContactModal';
 
 export interface NavLink {
   label: string;
