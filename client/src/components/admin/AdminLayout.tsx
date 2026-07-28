@@ -9,6 +9,7 @@ const adminLinks = [
   { to: '/admin/events', label: 'Events' },
   { to: '/admin/menu', label: 'Menu' },
   { to: '/admin/catering-tiers', label: 'Catering Tiers' },
+  { to: '/admin/venues', label: 'Venues' },
   { to: '/admin/faqs', label: 'FAQs' },
   { to: '/admin/content', label: 'Site Content' },
   { to: '/admin/inquiries', label: 'Inquiries' },

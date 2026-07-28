@@ -96,6 +96,7 @@ Modal form with two inquiry types:
 | GET | `/api/events/:slug` | Single event by slug |
 | GET | `/api/menu` | Active menu items |
 | GET | `/api/catering-tiers` | Active catering tiers |
+| GET | `/api/venues` | Active home page venue categories |
 | GET | `/api/faqs` | Published FAQs |
 | GET | `/api/content` | All site content as key/value map |
 | GET | `/api/contact/validate-zip?zip=` | Catering zip validation |
@@ -134,6 +135,7 @@ Auth0-protected dashboard at `/admin/*`. Uses Tailwind styling separate from the
 | `/admin/events` | Event CRUD |
 | `/admin/menu` | Menu item CRUD |
 | `/admin/catering-tiers` | Catering tier CRUD |
+| `/admin/venues` | Home venue category CRUD |
 | `/admin/faqs` | FAQ CRUD |
 | `/admin/content` | Site content key/value CRUD |
 | `/admin/inquiries` | Contact submission inbox |
@@ -197,6 +199,8 @@ All require `Authorization: Bearer {access_token}` and admin authorization.
 | PUT/DELETE | `/api/admin/menu/:id` | Update / delete menu item |
 | GET/POST | `/api/admin/catering-tiers` | List / create catering tiers |
 | PUT/DELETE | `/api/admin/catering-tiers/:id` | Update / delete catering tier |
+| GET/POST | `/api/admin/venues` | List / create venue categories |
+| PUT/DELETE | `/api/admin/venues/:id` | Update / delete venue category |
 | GET/POST | `/api/admin/faqs` | List / create FAQs |
 | PUT/DELETE | `/api/admin/faqs/:id` | Update / delete FAQ |
 | GET/POST | `/api/admin/content` | List / create site content |

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { fetchVenueCategories } from '../../services/contentApi';
-import type { VenueCategory } from '../../types';
+import { fetchVenues } from '../../services/contentApi';
+import type { Venue, VenueCategoryIcon } from '../../types';
 
-const venueIconPaths: Record<VenueCategory['icon'], string> = {
+const venueIconPaths: Record<VenueCategoryIcon, string> = {
   brewery: '/icons/venue-brewery.svg',
   building: '/icons/venue-building.svg',
   park: '/icons/venue-park.svg',
@@ -10,10 +10,10 @@ const venueIconPaths: Record<VenueCategory['icon'], string> = {
 };
 
 export default function VenuesSection() {
-  const [venues, setVenues] = useState<VenueCategory[]>([]);
+  const [venues, setVenues] = useState<Venue[]>([]);
 
   useEffect(() => {
-    fetchVenueCategories()
+    fetchVenues()
       .then(setVenues)
       .catch((error) => console.error('Failed to load venues:', error));
   }, []);
@@ -55,9 +55,9 @@ export default function VenuesSection() {
           }}
           className="gerald-ven-grid"
         >
-          {venues.map((v, i) => (
+          {venues.map((venue) => (
             <div
-              key={i}
+              key={venue._id}
               style={{
                 background: 'var(--bone-2)',
                 border: '2px solid var(--ink)',
@@ -67,7 +67,7 @@ export default function VenuesSection() {
               }}
             >
               <img
-                src={venueIconPaths[v.icon]}
+                src={venueIconPaths[venue.categoryIcon]}
                 alt=""
                 style={{
                   width: 46,
@@ -77,7 +77,7 @@ export default function VenuesSection() {
                 }}
               />
               <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.15rem' }}>
-                {v.title}
+                {venue.name}
               </div>
               <div
                 style={{
@@ -86,7 +86,7 @@ export default function VenuesSection() {
                   marginTop: 4,
                 }}
               >
-                {v.description}
+                {venue.blurb}
               </div>
             </div>
           ))}
