@@ -102,6 +102,7 @@ Admin access is granted when either:
 | `Event` | Pop-up schedule | Yes (published, future) | Yes |
 | `MenuItem` | Pizza menu cards | Yes (active) | Yes |
 | `CateringTier` | Catering packages | Yes (active) | Yes |
+| `Venue` | Home "Favorite Places" categories | Yes (active) | Yes |
 | `Faq` | Homepage FAQs | Yes (published) | Yes |
 | `SiteContent` | Key/value copy blocks | Yes | Yes |
 | `ContactSubmission` | Booking inquiries (general + catering) | No | Yes (read, status, delete) |

@@ -8,6 +8,7 @@ import type {
   Faq,
   MenuItem,
   SiteContentEntry,
+  Venue,
 } from '../types';
 
 export interface AdminContactListFilters {
@@ -66,6 +67,24 @@ export const adminCateringTiers = {
   },
   remove: async (id: string): Promise<void> => {
     await api.delete(`/admin/catering-tiers/${id}`);
+  },
+};
+
+export const adminVenues = {
+  list: async (): Promise<Venue[]> => {
+    const { data } = await api.get<{ venues: Venue[] }>('/admin/venues');
+    return data.venues;
+  },
+  create: async (payload: Partial<Venue>): Promise<Venue> => {
+    const { data } = await api.post<Venue>('/admin/venues', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<Venue>): Promise<Venue> => {
+    const { data } = await api.put<Venue>(`/admin/venues/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/venues/${id}`);
   },
 };
 

@@ -8,6 +8,11 @@ const cards = [
     title: 'Catering Tiers',
     blurb: 'Edit catering package names, prices, and includes.',
   },
+  {
+    to: '/admin/venues',
+    title: 'Venues',
+    blurb: 'Edit home page venue category cards and icons.',
+  },
   { to: '/admin/faqs', title: 'FAQs', blurb: 'Edit homepage frequently asked questions.' },
   { to: '/admin/content', title: 'Site Content', blurb: 'Update hero copy, about text, and notices.' },
   {

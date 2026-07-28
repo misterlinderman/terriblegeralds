@@ -15,6 +15,7 @@ import type {
   PressFeature,
   ReviewQuote,
   TikTokFeature,
+  Venue,
   VenueCategory,
   ZipValidationResult,
 } from '../types';
@@ -140,13 +141,20 @@ export const fetchTikTokFeatures = async (): Promise<TikTokFeature[]> => [
   { handle: '@cheeseloveshim', views: '560K' },
 ];
 
-// TODO Phase 4: back with Venue API
-export const fetchVenueCategories = async (): Promise<VenueCategory[]> => [
-  { title: 'Breweries', description: 'Our natural habitat', icon: 'brewery' },
-  { title: 'Venues', description: 'Spaces for the chaos', icon: 'building' },
-  { title: 'Parks', description: 'Eat outside, weirdo', icon: 'park' },
-  { title: 'Event Spots', description: 'Book us together', icon: 'event' },
-];
+export const fetchVenues = async (): Promise<Venue[]> => {
+  const { data } = await api.get<{ venues: Venue[] }>('/venues');
+  return data.venues;
+};
+
+/** @deprecated use fetchVenues */
+export const fetchVenueCategories = async (): Promise<VenueCategory[]> => {
+  const venues = await fetchVenues();
+  return venues.map((venue) => ({
+    title: venue.name,
+    description: venue.blurb,
+    icon: venue.categoryIcon,
+  }));
+};
 
 // TODO Phase 4: back with WallItem API
 export const fetchWallMoods = async (): Promise<string[]> => [

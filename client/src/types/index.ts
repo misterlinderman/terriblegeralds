@@ -99,10 +99,22 @@ export interface TikTokFeature {
   views: string;
 }
 
+export type VenueCategoryIcon = 'brewery' | 'building' | 'park' | 'event';
+
+export interface Venue {
+  _id: string;
+  name: string;
+  categoryIcon: VenueCategoryIcon;
+  blurb: string;
+  sortOrder: number;
+  active: boolean;
+}
+
+/** @deprecated Prefer Venue from the API */
 export interface VenueCategory {
   title: string;
   description: string;
-  icon: 'brewery' | 'building' | 'park' | 'event';
+  icon: VenueCategoryIcon;
 }
 
 export interface AboutStop {
