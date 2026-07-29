@@ -1,4 +1,5 @@
 import type { ContactInquiryType } from '../models/ContactSubmission';
+import { formatCalendarDate } from '../utils/siteTimezone';
 
 export interface ContactInquiryDetails {
   inquiryType: ContactInquiryType;
@@ -16,16 +17,6 @@ export interface ContactInquiryDetails {
 const DEFAULT_NOTIFICATION_EMAIL = 'terriblegeralds@gmail.com';
 const DEFAULT_FROM_EMAIL = "Terrible Gerald's Pizza <inquiries@terriblegeralds.com>";
 
-function formatEventDate(date: Date): string {
-  return date.toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    timeZone: 'America/Chicago',
-  });
-}
-
 function buildEmailBody(details: ContactInquiryDetails): { subject: string; text: string } {
   const isCatering = details.inquiryType === 'catering';
   const intro = isCatering
@@ -42,7 +33,7 @@ function buildEmailBody(details: ContactInquiryDetails): { subject: string; text
   ];
 
   if (isCatering && details.eventDate) {
-    lines.push(`Event date: ${formatEventDate(details.eventDate)}`);
+    lines.push(`Event date: ${formatCalendarDate(details.eventDate)}`);
     lines.push(`Location: ${details.location || '—'}`);
     lines.push(`Event zip code: ${details.eventZip || '—'}`);
     lines.push(`Guest count: ${details.guestCount || '—'}`);

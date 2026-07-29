@@ -8,6 +8,7 @@ import {
   normalizeZipCode,
 } from '../services/travelRadius';
 import type { ContactInquiryType } from '../models/ContactSubmission';
+import { parseCalendarDate } from '../utils/siteTimezone';
 
 const router = Router();
 
@@ -77,9 +78,9 @@ router.post(
         throw createError(zipCheck.message || 'Event zip code is outside our travel area', 400);
       }
 
-      const parsedDate = new Date(cateringFields.eventDate);
+      const parsedDate = parseCalendarDate(cateringFields.eventDate);
       if (Number.isNaN(parsedDate.getTime())) {
-        throw createError('eventDate must be a valid date', 400);
+        throw createError('eventDate must be a valid date (YYYY-MM-DD)', 400);
       }
 
       Object.assign(trimmed, {
