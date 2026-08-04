@@ -53,8 +53,9 @@ binding visual spec — do not invent colors, fonts, spacing, or shadow styles o
   under ~15% of any screen, has `--red-deep` shadow pair), `--gold` (highlights/tape,
   `--gold-deep` shadow pair), `--teal` (rare tertiary, ~once per page). Never add a new
   saturated color.
-- **Type**: display = Tomarik Display (`var(--font-display)`, uppercase, `-.03em`
-  tracking) for headlines/buttons/pizza names; editorial/accent = New Spirit
+- **Type**: display = Tomarik Display (`var(--font-display)`, uppercase,
+  `var(--display-tracking)` / `-.1em`) for headlines/pizza names; buttons use
+  `var(--button-tracking)` / `-.07em`; editorial/accent = New Spirit
   (`var(--font-editorial)` italic for pull-quotes, `var(--font-accent)` for
   kickers/stamps/badges); body = Hanken Grotesk (`var(--font-body)`); mono = Space Mono,
   specs only. Never use Inter, Roboto, or Arial anywhere on the public site.

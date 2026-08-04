@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { adminContact } from '../../services/adminApi';
 import { getAdminRequestError } from '../../hooks/useAdminApiReady';
+import { useAdminLoad } from '../../hooks/useAdminLoad';
+import { formatCalendarDate } from '../../lib/siteTimezone';
 import type { ContactInquiryType, ContactStatus, ContactSubmission } from '../../types';
 
 type StatusFilter = ContactStatus | 'all';
@@ -37,9 +39,7 @@ export default function AdminInquiriesPage() {
       .then(setSubmissions)
       .catch((err) => setError(getAdminRequestError(err, user?.email)));
 
-  useEffect(() => {
-    load();
-  }, [statusFilter, typeFilter]);
+  useAdminLoad(load, [statusFilter, typeFilter]);
 
   return (
     <div>
@@ -110,7 +110,7 @@ export default function AdminInquiriesPage() {
                   </p>
                   {inquiryType === 'catering' && submission.eventDate && (
                     <p className="mt-2 text-sm">
-                      {new Date(submission.eventDate).toLocaleDateString()} at{' '}
+                      {formatCalendarDate(submission.eventDate)} at{' '}
                       {submission.location || '—'} · {submission.guestCount || '—'} guests
                       {submission.eventZip ? ` · Zip ${submission.eventZip}` : ''}
                     </p>

@@ -3,5 +3,177 @@
 @tailwind utilities;
 
 .admin-shell {
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--font-body, 'Hanken Grotesk', system-ui, sans-serif);
+  color: var(--ink, #17120d);
+  background: var(--bone, #f1e6d2);
+}
+
+@layer components {
+  .admin-panel {
+    @apply rounded-lg border-2 shadow-sm;
+    border-color: var(--ink);
+    background: var(--cream);
+  }
+
+  .admin-input {
+    @apply w-full rounded border-2 px-3 py-2 text-sm;
+    border-color: var(--ink);
+    background: var(--cream);
+    color: var(--ink);
+  }
+
+  .admin-input:focus {
+    outline: 2px solid var(--red);
+    outline-offset: 1px;
+  }
+
+  .admin-btn-primary {
+    @apply rounded px-4 py-2 text-sm font-semibold;
+    background: var(--red);
+    color: var(--cream);
+    box-shadow: 3px 3px 0 var(--red-deep);
+  }
+
+  .admin-btn-primary:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--red-deep);
+  }
+
+  .admin-btn-secondary {
+    @apply rounded border-2 px-4 py-2 text-sm font-medium;
+    border-color: var(--ink);
+    background: var(--cream);
+    color: var(--ink);
+  }
+
+  .admin-btn-secondary:hover {
+    background: var(--bone-2);
+  }
+
+  .admin-btn-danger {
+    @apply rounded border-2 px-3 py-1 text-sm;
+    border-color: var(--red-deep);
+    color: var(--red-deep);
+  }
+
+  .admin-nav-link {
+    @apply block rounded px-3 py-2 text-sm font-medium;
+    color: var(--ink-soft);
+  }
+
+  .admin-nav-link:hover {
+    background: var(--bone-2);
+    color: var(--ink);
+  }
+
+  .admin-nav-link-active {
+    background: var(--red);
+    color: var(--cream);
+    box-shadow: 2px 2px 0 var(--red-deep);
+  }
+
+  .admin-kicker {
+    @apply text-xs font-medium uppercase tracking-wide;
+    color: var(--red);
+    font-family: var(--font-accent);
+    font-style: italic;
+  }
+
+  .admin-heading {
+    @apply text-xl font-bold;
+    font-family: var(--font-display);
+    letter-spacing: var(--display-tracking, -0.1em);
+    color: var(--ink);
+  }
+
+  .admin-error {
+    @apply rounded border-2 p-4 text-sm;
+    border-color: var(--red-deep);
+    background: var(--cream);
+    color: var(--red-deep);
+  }
+
+  .admin-badge-active {
+    @apply inline-block rounded px-2 py-0.5 text-xs font-bold uppercase;
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  .admin-card-link {
+    @apply block rounded-lg border-2 p-4 transition;
+    border-color: var(--ink);
+    background: var(--cream);
+  }
+
+  .admin-card-link:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0 var(--red-deep);
+    border-color: var(--red);
+  }
+
+  .admin-page-title {
+    @apply mt-1 text-2xl font-bold;
+    font-family: var(--font-display);
+    letter-spacing: var(--display-tracking, -0.1em);
+    color: var(--ink);
+  }
+
+  .admin-muted {
+    color: var(--ink-soft);
+  }
+
+  .admin-link {
+    color: var(--ink-soft);
+  }
+
+  .admin-link:hover {
+    color: var(--red);
+    text-decoration: underline;
+  }
+}
+
+.admin-login-page {
+  @apply flex min-h-screen items-center justify-center px-4;
+  background: var(--bone);
+}
+
+.admin-login-card {
+  @apply w-full max-w-md p-8;
+}
+
+.admin-shell main form button[type='submit'] {
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  background: var(--red);
+  color: var(--cream);
+  box-shadow: 3px 3px 0 var(--red-deep);
+}
+
+.admin-shell main form button[type='button']:not(.admin-btn-primary):not(.admin-btn-danger) {
+  border-radius: 0.25rem;
+  border-width: 2px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  border-color: var(--ink);
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.admin-shell main input:not([type='color']):not([type='checkbox']),
+.admin-shell main textarea,
+.admin-shell main select {
+  width: 100%;
+  border-radius: 0.25rem;
+  border-width: 2px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  border-color: var(--ink);
+  background: var(--cream);
+  color: var(--ink);
 }

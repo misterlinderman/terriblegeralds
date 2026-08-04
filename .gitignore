@@ -50,3 +50,7 @@ coverage/
 .cache/
 .temp/
 .baseapp-ref/
+
+# Local hero video assets (see assets/hero/README.md)
+assets/hero/*
+!assets/hero/README.md

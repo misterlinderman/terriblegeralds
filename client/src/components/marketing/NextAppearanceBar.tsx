@@ -36,7 +36,7 @@ export default function NextAppearanceBar({
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: '1.05rem',
-            letterSpacing: '.04em',
+            letterSpacing: 'var(--display-tracking)',
             display: 'flex',
             alignItems: 'center',
             gap: 10,

@@ -88,21 +88,41 @@ export interface ReviewQuote {
 }
 
 export interface PressFeature {
-  by: string;
-  what: string;
-  cta: string;
+  _id: string;
+  outlet: string;
+  blurb: string;
+  ctaLabel: string;
   thumbLabel: string;
+  linkUrl?: string;
+  sortOrder: number;
+  active: boolean;
 }
 
 export interface TikTokFeature {
+  _id: string;
   handle: string;
   views: string;
+  linkUrl?: string;
+  sortOrder: number;
+  active: boolean;
 }
 
+export type VenueCategoryIcon = 'brewery' | 'building' | 'park' | 'event';
+
+export interface Venue {
+  _id: string;
+  name: string;
+  categoryIcon: VenueCategoryIcon;
+  blurb: string;
+  sortOrder: number;
+  active: boolean;
+}
+
+/** @deprecated Prefer Venue from the API */
 export interface VenueCategory {
   title: string;
   description: string;
-  icon: 'brewery' | 'building' | 'park' | 'event';
+  icon: VenueCategoryIcon;
 }
 
 export interface AboutStop {
@@ -112,9 +132,13 @@ export interface AboutStop {
 }
 
 export interface AboutChapter {
+  _id: string;
   year: string;
   title: string;
   description: string;
+  showOnHome: boolean;
+  sortOrder: number;
+  active: boolean;
 }
 
 export interface AboutValue {
@@ -125,6 +149,40 @@ export interface AboutValue {
 export interface AboutCrewMember {
   name: string;
   role: string;
+}
+
+export interface WallItem {
+  _id: string;
+  caption: string;
+  imageUrl?: string;
+  linkUrl?: string;
+  sortOrder: number;
+  active: boolean;
+}
+
+export interface ThemePreset {
+  _id?: string;
+  name: string;
+  bone: string;
+  bone2: string;
+  cream: string;
+  ink: string;
+  inkSoft: string;
+  red: string;
+  redDeep: string;
+  gold: string;
+  goldDeep: string;
+  teal: string;
+  paperLine: string;
+  fontDisplay: string;
+  fontEditorial: string;
+  fontAccent: string;
+  fontBody: string;
+  fontMono: string;
+  displayTracking: string;
+  buttonTracking: string;
+  active?: boolean;
+  sortOrder: number;
 }
 
 export interface MenuListItem {

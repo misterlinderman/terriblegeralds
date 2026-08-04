@@ -1,5 +1,6 @@
 import api from './api';
 import type {
+  AboutChapter,
   ContactInquiryType,
   ContactSubmission,
   ContactStatus,
@@ -7,7 +8,12 @@ import type {
   Event,
   Faq,
   MenuItem,
+  PressFeature,
   SiteContentEntry,
+  ThemePreset,
+  TikTokFeature,
+  Venue,
+  WallItem,
 } from '../types';
 
 export interface AdminContactListFilters {
@@ -66,6 +72,118 @@ export const adminCateringTiers = {
   },
   remove: async (id: string): Promise<void> => {
     await api.delete(`/admin/catering-tiers/${id}`);
+  },
+};
+
+export const adminVenues = {
+  list: async (): Promise<Venue[]> => {
+    const { data } = await api.get<{ venues: Venue[] }>('/admin/venues');
+    return data.venues;
+  },
+  create: async (payload: Partial<Venue>): Promise<Venue> => {
+    const { data } = await api.post<Venue>('/admin/venues', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<Venue>): Promise<Venue> => {
+    const { data } = await api.put<Venue>(`/admin/venues/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/venues/${id}`);
+  },
+};
+
+export const adminPressFeatures = {
+  list: async (): Promise<PressFeature[]> => {
+    const { data } = await api.get<{ features: PressFeature[] }>('/admin/press-features');
+    return data.features;
+  },
+  create: async (payload: Partial<PressFeature>): Promise<PressFeature> => {
+    const { data } = await api.post<PressFeature>('/admin/press-features', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<PressFeature>): Promise<PressFeature> => {
+    const { data } = await api.put<PressFeature>(`/admin/press-features/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/press-features/${id}`);
+  },
+};
+
+export const adminTikTokFeatures = {
+  list: async (): Promise<TikTokFeature[]> => {
+    const { data } = await api.get<{ features: TikTokFeature[] }>('/admin/tiktok-features');
+    return data.features;
+  },
+  create: async (payload: Partial<TikTokFeature>): Promise<TikTokFeature> => {
+    const { data } = await api.post<TikTokFeature>('/admin/tiktok-features', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<TikTokFeature>): Promise<TikTokFeature> => {
+    const { data } = await api.put<TikTokFeature>(`/admin/tiktok-features/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/tiktok-features/${id}`);
+  },
+};
+
+export const adminAboutChapters = {
+  list: async (): Promise<AboutChapter[]> => {
+    const { data } = await api.get<{ chapters: AboutChapter[] }>('/admin/about-chapters');
+    return data.chapters;
+  },
+  create: async (payload: Partial<AboutChapter>): Promise<AboutChapter> => {
+    const { data } = await api.post<AboutChapter>('/admin/about-chapters', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<AboutChapter>): Promise<AboutChapter> => {
+    const { data } = await api.put<AboutChapter>(`/admin/about-chapters/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/about-chapters/${id}`);
+  },
+};
+
+export const adminWallItems = {
+  list: async (): Promise<WallItem[]> => {
+    const { data } = await api.get<{ items: WallItem[] }>('/admin/wall-items');
+    return data.items;
+  },
+  create: async (payload: Partial<WallItem>): Promise<WallItem> => {
+    const { data } = await api.post<WallItem>('/admin/wall-items', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<WallItem>): Promise<WallItem> => {
+    const { data } = await api.put<WallItem>(`/admin/wall-items/${id}`, payload);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/wall-items/${id}`);
+  },
+};
+
+export const adminThemes = {
+  list: async (): Promise<ThemePreset[]> => {
+    const { data } = await api.get<{ themes: ThemePreset[] }>('/admin/themes');
+    return data.themes;
+  },
+  create: async (payload: Partial<ThemePreset>): Promise<ThemePreset> => {
+    const { data } = await api.post<ThemePreset>('/admin/themes', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<ThemePreset>): Promise<ThemePreset> => {
+    const { data } = await api.put<ThemePreset>(`/admin/themes/${id}`, payload);
+    return data;
+  },
+  activate: async (id: string): Promise<ThemePreset> => {
+    const { data } = await api.post<ThemePreset>(`/admin/themes/${id}/activate`);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/themes/${id}`);
   },
 };
 

@@ -1,0 +1,22 @@
+/** Default Season 3 · Vol. 6 tokens — matches client/src/styles/tokens/*.css */
+export const DEFAULT_THEME_TOKENS = {
+  name: 'Season 3 · Vol. 6',
+  bone: '#F1E6D2',
+  bone2: '#E8D8BC',
+  cream: '#FBF5E8',
+  ink: '#17120D',
+  inkSoft: '#2C241B',
+  red: '#C8341B',
+  redDeep: '#971F0F',
+  gold: '#E8A11E',
+  goldDeep: '#C9851A',
+  teal: '#2E7C78',
+  paperLine: 'rgba(23,18,13,.14)',
+  fontDisplay: '"tomarik-display","DM Serif Display",Georgia,serif',
+  fontEditorial: '"new-spirit","Fraunces",Georgia,serif',
+  fontAccent: '"new-spirit","Fraunces",Georgia,serif',
+  fontBody: '"Hanken Grotesk",system-ui,sans-serif',
+  fontMono: '"Space Mono",monospace',
+  displayTracking: '-.1em',
+  buttonTracking: '-.07em',
+} as const;

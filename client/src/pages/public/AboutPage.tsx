@@ -42,8 +42,8 @@ export default function AboutPage() {
         <div className="wrap">
           <SectionHeader kicker="est. 2018 · omaha, ne" title="The Saga" />
           <div className="saga">
-            {chapters.map((chapter, i) => (
-              <div className="chapter" key={i}>
+            {chapters.map((chapter) => (
+              <div className="chapter" key={chapter._id}>
                 <div className="yr">{chapter.year}</div>
                 <div>
                   <h3>{chapter.title}</h3>

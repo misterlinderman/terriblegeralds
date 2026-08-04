@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import PlaceholderBox from '../../components/marketing/PlaceholderBox';
+import HeroVideoBackground from './HeroVideoBackground';
 
 export default function Hero() {
   return (
@@ -12,24 +13,7 @@ export default function Hero() {
       }}
     >
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
-        <PlaceholderBox
-          dark
-          style={{ position: 'absolute', inset: 0, borderRadius: 0, border: 'none' }}
-        >
-          ▶ HERO REEL GOES HERE
-          <br />
-          (autoplay · muted · looped)
-          <br />
-          truck • flames • dough pulls
-        </PlaceholderBox>
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'linear-gradient(90deg,rgba(15,11,7,.92) 0%,rgba(15,11,7,.6) 50%,rgba(15,11,7,.25) 100%)',
-          }}
-        />
+        <HeroVideoBackground />
       </div>
       <div
         style={{
@@ -105,7 +89,7 @@ export default function Hero() {
               style={{
                 fontFamily: 'var(--font-display)',
                 textTransform: 'uppercase',
-                letterSpacing: '.04em',
+                letterSpacing: 'var(--button-tracking)',
                 fontSize: '1rem',
                 padding: '15px 26px',
                 borderRadius: 3,
@@ -124,7 +108,7 @@ export default function Hero() {
               style={{
                 fontFamily: 'var(--font-display)',
                 textTransform: 'uppercase',
-                letterSpacing: '.04em',
+                letterSpacing: 'var(--button-tracking)',
                 fontSize: '1rem',
                 padding: '15px 26px',
                 borderRadius: 3,

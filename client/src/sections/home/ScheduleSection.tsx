@@ -19,9 +19,9 @@ export default function ScheduleSection() {
   useEffect(() => {
     fetchEvents()
       .then((data) => {
-        const upcoming = [...data].sort(
-          (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
-        );
+        const upcoming = [...data]
+          .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+          .slice(0, 5);
         setEvents(upcoming);
         setHeading(formatScheduleHeading(upcoming));
         const now = new Date();
@@ -67,7 +67,14 @@ export default function ScheduleSection() {
                 gap: 10,
               }}
             >
-              <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.3rem' }}>
+              <div
+                style={{
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.3rem',
+                  letterSpacing: 'var(--display-tracking)',
+                  textTransform: 'uppercase',
+                }}
+              >
                 @terriblegeralds
                 <small
                   style={{
@@ -79,7 +86,7 @@ export default function ScheduleSection() {
                     textTransform: 'none',
                   }}
                 >
-                  the schedule lives on Instagram — pulled in live
+                  follow for day-of updates
                 </small>
               </div>
               <Stamp>follow</Stamp>
@@ -90,7 +97,8 @@ export default function ScheduleSection() {
               ))}
             </div>
             <p style={{ fontSize: '.82rem', color: 'var(--ink-soft)', margin: 0 }}>
-              Auto-syncs your latest Instagram posts so the weekly drop updates itself.
+              The schedule card is the official list. Instagram is where we post when the truck
+              actually shows up.
             </p>
           </div>
         </div>

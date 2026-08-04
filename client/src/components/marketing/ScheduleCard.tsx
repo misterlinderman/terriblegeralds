@@ -37,7 +37,7 @@ export default function ScheduleCard({
           color: 'var(--cream)',
           padding: '14px 20px',
           fontFamily: 'var(--font-display)',
-          letterSpacing: '.04em',
+          letterSpacing: 'var(--display-tracking)',
           display: 'flex',
           alignItems: 'center',
           gap: 10,

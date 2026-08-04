@@ -6,7 +6,7 @@ Stakeholder decisions required before certain phases. Update this file when reso
 
 ## D1 — Contact UX: modal vs. dedicated page
 
-**Status:** ⏳ Pending  
+**Status:** ✅ Resolved (default applied)  
 **Blocks:** Phase 3 (Contact implementation)  
 **Raised in:** [CONTEXT.md](./design_handoff_terrible_geralds_redesign/CONTEXT.md)
 
@@ -18,15 +18,15 @@ Stakeholder decisions required before certain phases. Update this file when reso
 
 **Default if no response before Phase 3:** Option A (restyle modal, no new route).
 
-**Decision:** _TBD_  
-**Decided by / date:** _TBD_
+**Decision:** Option A — global contact modal restyled with DS `.gform` / `.confirm-panel`; no `/contact` route.  
+**Decided by / date:** BUILD_PLAN default · 2026-07-25
 
 ---
 
 ## D2 — Wall section: social feed vs. curated static
 
-**Status:** ⏳ Pending  
-**Blocks:** Phase 4 (Wall content model) and copy in Phase 2  
+**Status:** ✅ Resolved  
+**Blocks:** Phase 4 (Wall content model)  
 **Raised in:** [CONTEXT.md](./design_handoff_terrible_geralds_redesign/CONTEXT.md)
 
 | Option | Description | Build impact |
@@ -37,8 +37,10 @@ Stakeholder decisions required before certain phases. Update this file when reso
 
 **Default if no response before Phase 2:** Option B for layout (stub data); revisit before Phase 4.
 
-**Decision:** _TBD_  
-**Decided by / date:** _TBD_
+**Decision:** Option A — admin-curated `WallItem` CRUD (image/caption/link, ordered grid); no live Instagram/TikTok integration.  
+**Decided by / date:** Stakeholder · 2026-07-28
+
+**Follow-ups for Phase 4/5:** ~~Rewrite Schedule section copy that implies live Instagram sync (`ScheduleSection.tsx`)~~ Done in Phase 4 WallItem PR. Wall stays `PlaceholderBox` until real assets are uploaded via admin.
 
 ---
 

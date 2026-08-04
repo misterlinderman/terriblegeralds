@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { useContactModal } from '../../context/ContactModalContext';
+import { useContactModal } from '../../hooks/useContactModal';
 import { IG_SVG, TT_SVG } from './siteChrome';
 
 const FOOT_COLS = [

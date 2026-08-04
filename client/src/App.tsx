@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
 import PublicLayout from './components/public/PublicLayout';
@@ -13,11 +14,25 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminEventsPage from './pages/admin/AdminEventsPage';
 import AdminMenuPage from './pages/admin/AdminMenuPage';
 import AdminCateringTiersPage from './pages/admin/AdminCateringTiersPage';
+import AdminVenuesPage from './pages/admin/AdminVenuesPage';
+import AdminPressFeaturesPage from './pages/admin/AdminPressFeaturesPage';
+import AdminAboutChaptersPage from './pages/admin/AdminAboutChaptersPage';
+import AdminWallItemsPage from './pages/admin/AdminWallItemsPage';
+import AdminThemesPage from './pages/admin/AdminThemesPage';
 import AdminFaqsPage from './pages/admin/AdminFaqsPage';
 import AdminContentPage from './pages/admin/AdminContentPage';
 import AdminInquiriesPage from './pages/admin/AdminInquiriesPage';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import { useApiAuth } from './hooks/useApiAuth';
+import { SiteThemeProvider } from './context/SiteThemeProvider';
+
+const Phase0VerifyPage = import.meta.env.DEV
+  ? lazy(() => import('./pages/dev/Phase0VerifyPage'))
+  : null;
+
+const Phase1DsDemoPage = import.meta.env.DEV
+  ? lazy(() => import('./pages/dev/Phase1DsDemoPage'))
+  : null;
 
 function App() {
   const { isLoading } = useAuth0();
@@ -28,13 +43,35 @@ function App() {
   }
 
   return (
-    <Routes>
+    <SiteThemeProvider>
+      <Routes>
+      {Phase1DsDemoPage ? (
+        <Route
+          path="/dev/phase-1"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Phase1DsDemoPage />
+            </Suspense>
+          }
+        />
+      ) : null}
+
       <Route element={<PublicLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/catering" element={<CateringPage />} />
         <Route path="/events" element={<EventsPage />} />
+        {Phase0VerifyPage ? (
+          <Route
+            path="/dev/phase-0"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Phase0VerifyPage />
+              </Suspense>
+            }
+          />
+        ) : null}
       </Route>
 
       <Route path="/admin/login" element={<AdminLoginPage />} />
@@ -51,11 +88,17 @@ function App() {
         <Route path="events" element={<AdminEventsPage />} />
         <Route path="menu" element={<AdminMenuPage />} />
         <Route path="catering-tiers" element={<AdminCateringTiersPage />} />
+        <Route path="venues" element={<AdminVenuesPage />} />
+        <Route path="press-features" element={<AdminPressFeaturesPage />} />
+        <Route path="about-chapters" element={<AdminAboutChaptersPage />} />
+        <Route path="wall-items" element={<AdminWallItemsPage />} />
+        <Route path="themes" element={<AdminThemesPage />} />
         <Route path="faqs" element={<AdminFaqsPage />} />
         <Route path="content" element={<AdminContentPage />} />
         <Route path="inquiries" element={<AdminInquiriesPage />} />
       </Route>
     </Routes>
+    </SiteThemeProvider>
   );
 }
 

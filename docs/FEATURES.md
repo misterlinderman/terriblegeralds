@@ -96,8 +96,14 @@ Modal form with two inquiry types:
 | GET | `/api/events/:slug` | Single event by slug |
 | GET | `/api/menu` | Active menu items |
 | GET | `/api/catering-tiers` | Active catering tiers |
+| GET | `/api/venues` | Active home page venue categories |
+| GET | `/api/press-features` | Active home page press cards |
+| GET | `/api/tiktok-features` | Active home page TikTok feature tiles |
+| GET | `/api/about-chapters` | Active about page chapters (`?home=true` for home timeline) |
+| GET | `/api/wall-items` | Active home page Wall of Gerald tiles |
 | GET | `/api/faqs` | Published FAQs |
 | GET | `/api/content` | All site content as key/value map |
+| GET | `/api/theme/active` | Active theme preset (CSS token values) |
 | GET | `/api/contact/validate-zip?zip=` | Catering zip validation |
 | POST | `/api/contact` | Submit contact / catering inquiry |
 
@@ -116,7 +122,7 @@ Modal form with two inquiry types:
 
 ## Admin CMS
 
-Auth0-protected dashboard at `/admin/*`. Uses Tailwind styling separate from the public brand site.
+Auth0-protected dashboard at `/admin/*`. Uses a clean CMS layout (`admin.css`) whose interactive elements inherit the active public-site theme via CSS variables.
 
 ### Access
 
@@ -134,8 +140,13 @@ Auth0-protected dashboard at `/admin/*`. Uses Tailwind styling separate from the
 | `/admin/events` | Event CRUD |
 | `/admin/menu` | Menu item CRUD |
 | `/admin/catering-tiers` | Catering tier CRUD |
+| `/admin/venues` | Home venue category CRUD |
+| `/admin/press-features` | Home press + TikTok feature CRUD |
+| `/admin/about-chapters` | About page saga chapters CRUD |
+| `/admin/wall-items` | Home Wall of Gerald grid CRUD |
 | `/admin/faqs` | FAQ CRUD |
 | `/admin/content` | Site content key/value CRUD |
+| `/admin/themes` | Theme preset CRUD + manual activation |
 | `/admin/inquiries` | Contact submission inbox |
 
 ### Events admin
@@ -159,6 +170,24 @@ Create, edit, delete pop-up events:
 - Name, price, includes (line items), optional blurb, sort order, active flag
 - Powers the public `/catering` packages section
 
+### Press & TikTok admin
+
+- **Press features:** outlet, blurb, CTA label, thumb label (placeholder text), optional link URL, sort order, active flag
+- **TikTok features:** handle, view count label, optional link URL, sort order, active flag
+- Powers the home page "Testimonials of Terrible" section
+
+### About chapters admin
+
+- Year, title, description, sort order, active flag
+- **Show on home** — includes chapter in the condensed home page timeline teaser
+- Powers `/about` saga section and home `AboutSection`
+
+### Wall items admin
+
+- Caption (emoji or short label), optional image URL (static path under `client/public/`), optional link URL, sort order, active flag
+- Empty image URL renders a placeholder tile with the caption
+- Powers home page "The Wall of Gerald" section
+
 ### FAQs admin
 
 - Question, answer, sort order, published flag
@@ -177,6 +206,16 @@ Key/value entries grouped by section. Seeded keys include:
 | `contact.licenseNotice`, `contact.bookingBlurb` | Contact modal |
 
 Private-events bullet list on the homepage is still hard-coded in `HomePage.tsx`.
+
+### Theme presets admin
+
+Manage visual presets for the public marketing site (Season 3 · Vol. 6 token set):
+
+- **Colors** — bone, bone-2, cream, ink, ink-soft, red, red-deep, gold, gold-deep, teal, paper-line
+- **Typography** — display, editorial, accent, body, mono font stacks; display and button letter-spacing
+- **Activation** — manual only; one preset is active at a time (`POST /api/admin/themes/:id/activate`)
+- **Scope** — active preset CSS variables apply site-wide (public pages + admin interactive elements)
+- Seeded default: `npm run seed` upserts “Season 3 · Vol. 6” as the active preset
 
 ### Inquiries admin
 
@@ -197,10 +236,23 @@ All require `Authorization: Bearer {access_token}` and admin authorization.
 | PUT/DELETE | `/api/admin/menu/:id` | Update / delete menu item |
 | GET/POST | `/api/admin/catering-tiers` | List / create catering tiers |
 | PUT/DELETE | `/api/admin/catering-tiers/:id` | Update / delete catering tier |
+| GET/POST | `/api/admin/venues` | List / create venue categories |
+| PUT/DELETE | `/api/admin/venues/:id` | Update / delete venue category |
+| GET/POST | `/api/admin/press-features` | List / create press features |
+| PUT/DELETE | `/api/admin/press-features/:id` | Update / delete press feature |
+| GET/POST | `/api/admin/tiktok-features` | List / create TikTok features |
+| PUT/DELETE | `/api/admin/tiktok-features/:id` | Update / delete TikTok feature |
+| GET/POST | `/api/admin/about-chapters` | List / create about chapters |
+| PUT/DELETE | `/api/admin/about-chapters/:id` | Update / delete about chapter |
+| GET/POST | `/api/admin/wall-items` | List / create wall items |
+| PUT/DELETE | `/api/admin/wall-items/:id` | Update / delete wall item |
 | GET/POST | `/api/admin/faqs` | List / create FAQs |
 | PUT/DELETE | `/api/admin/faqs/:id` | Update / delete FAQ |
 | GET/POST | `/api/admin/content` | List / create site content |
 | PUT/DELETE | `/api/admin/content/:id` | Update / delete content entry |
+| GET/POST | `/api/admin/themes` | List / create theme presets |
+| PUT/DELETE | `/api/admin/themes/:id` | Update / delete theme preset |
+| POST | `/api/admin/themes/:id/activate` | Set active preset (deactivates others) |
 | GET | `/api/admin/contact` | List inquiries (optional `status`, `inquiryType` query) |
 | PATCH | `/api/admin/contact/:id` | Update inquiry status |
 | DELETE | `/api/admin/contact/:id` | Delete inquiry |
@@ -213,8 +265,15 @@ All require `Authorization: Bearer {access_token}` and admin authorization.
 |-------|-------------|-------------|-------|
 | `Event` | Published, future dates | Full CRUD | Slug, map URL, featured |
 | `MenuItem` | Active items only | Full CRUD | Image paths, not uploads |
+| `CateringTier` | Active tiers only | Full CRUD | Catering packages |
+| `Venue` | Active categories only | Full CRUD | Home "Favorite Places" |
+| `PressFeature` | Active items only | Full CRUD | Home press cards |
+| `TikTokFeature` | Active items only | Full CRUD | Home TikTok tiles |
+| `AboutChapter` | Active items only | Full CRUD | About saga + home timeline |
+| `WallItem` | Active items only | Full CRUD | Home Wall of Gerald grid |
 | `Faq` | Published | Full CRUD | |
 | `SiteContent` | All keys | Full CRUD | Key/value copy blocks |
+| `ThemePreset` | Active preset only | Full CRUD + activate | Public + admin CSS variables |
 | `ContactSubmission` | No | Read, status, delete | General + catering types |
 | `User` | — | Optional Auth0 sync | Not used by admin UI |
 

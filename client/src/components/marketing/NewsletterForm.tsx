@@ -51,7 +51,7 @@ export default function NewsletterForm({
         style={{
           fontFamily: 'var(--font-display)',
           textTransform: 'uppercase',
-          letterSpacing: '.04em',
+          letterSpacing: 'var(--button-tracking)',
           fontSize: '1rem',
           padding: '15px 26px',
           border: 'none',

@@ -15,7 +15,10 @@ import type {
   PressFeature,
   ReviewQuote,
   TikTokFeature,
+  ThemePreset,
+  Venue,
   VenueCategory,
+  WallItem,
   ZipValidationResult,
 } from '../types';
 
@@ -117,102 +120,52 @@ export const fetchReviews = async (): Promise<ReviewQuote[]> => [
   { tone: 'teal', quote: '"Thanks. You\'re terrible."', source: 'Gerald, probably' },
 ];
 
-// TODO Phase 4: back with PressFeature API
-export const fetchPressFeatures = async (): Promise<PressFeature[]> => [
-  { by: 'Hoppen Interview', what: 'Sit-down with the homies', cta: '▶ Listen Now', thumbLabel: '🎙 photo' },
-  { by: 'Meat Locker Pod', what: 'Podcast appearance', cta: '▶ Listen Now', thumbLabel: '🎙 podcast' },
-  { by: 'KELOLAND', what: 'TV feature', cta: '▶ Watch', thumbLabel: '📺 clip' },
-  {
-    by: 'Omaha World-Herald',
-    what: '"Food truck serving up unique pies in Omaha"',
-    cta: '▶ Read',
-    thumbLabel: '📰 clipping',
-  },
-];
+export const fetchPressFeatures = async (): Promise<PressFeature[]> => {
+  const { data } = await api.get<{ features: PressFeature[] }>('/press-features');
+  return data.features;
+};
 
-// TODO Phase 4: back with PressFeature API (TikTok embeds)
-export const fetchTikTokFeatures = async (): Promise<TikTokFeature[]> => [
-  { handle: '@emiliestrumlcin', views: '116K' },
-  { handle: '@hr.doods', views: '67K' },
-  { handle: '@piecewayforfood', views: '82K' },
-  { handle: '@hangryhoppers', views: '71K' },
-  { handle: '@tiktoktodelats', views: '91K' },
-  { handle: '@cheeseloveshim', views: '560K' },
-];
+export const fetchTikTokFeatures = async (): Promise<TikTokFeature[]> => {
+  const { data } = await api.get<{ features: TikTokFeature[] }>('/tiktok-features');
+  return data.features;
+};
 
-// TODO Phase 4: back with Venue API
-export const fetchVenueCategories = async (): Promise<VenueCategory[]> => [
-  { title: 'Breweries', description: 'Our natural habitat', icon: 'brewery' },
-  { title: 'Venues', description: 'Spaces for the chaos', icon: 'building' },
-  { title: 'Parks', description: 'Eat outside, weirdo', icon: 'park' },
-  { title: 'Event Spots', description: 'Book us together', icon: 'event' },
-];
+export const fetchVenues = async (): Promise<Venue[]> => {
+  const { data } = await api.get<{ venues: Venue[] }>('/venues');
+  return data.venues;
+};
 
-// TODO Phase 4: back with WallItem API
-export const fetchWallMoods = async (): Promise<string[]> => [
-  '😐', '😑', '🍕', '😋', '😵', '★', '😬', '🤨', '😎', '😶', '🍕', '😴', '😏', '😮', '★', '😐',
-];
+/** @deprecated use fetchVenues */
+export const fetchVenueCategories = async (): Promise<VenueCategory[]> => {
+  const venues = await fetchVenues();
+  return venues.map((venue) => ({
+    title: venue.name,
+    description: venue.blurb,
+    icon: venue.categoryIcon,
+  }));
+};
 
-// TODO Phase 4: back with AboutChapter API
-export const fetchAboutStops = async (): Promise<AboutStop[]> => [
-  { year: '2018', title: 'Bad Ideas', description: 'It begins, regrettably.' },
-  { year: '2019', title: 'First Truck', description: 'Wheels acquired.' },
-  { year: '2020', title: 'Gerald Is Born', description: 'A face for the chaos.' },
-  { year: '2021', title: "Gettin' Weird", description: 'Names get worse. Pies get better.' },
-  { year: 'NOW', title: 'Terrible Legend', description: 'Season 3 · Vol. 6.' },
-];
+export const fetchActiveTheme = async (): Promise<ThemePreset> => {
+  const { data } = await api.get<{ theme: ThemePreset }>('/theme/active');
+  return data.theme;
+};
 
-// TODO Phase 4: back with AboutChapter API
-export const fetchAboutChapters = async (): Promise<AboutChapter[]> => [
-  {
-    year: '2018',
-    title: 'Bad Ideas',
-    description:
-      "It starts with a secondhand pizza oven, a half-finished trailer, and a group chat titled 'do NOT tell our spouses.' Nobody involved had run a restaurant. That felt like an advantage at the time.",
-  },
-  {
-    year: '2019',
-    title: 'First Truck',
-    description:
-      'Wheels acquired — barely. The first service was a Tuesday, in a gravel lot, for eleven people, three of whom were related to us. We sold out of dough by 6:40.',
-  },
-  {
-    year: '2020',
-    title: 'Gerald Is Born',
-    description:
-      "The mascot shows up as a joke on a sandwich board and refuses to leave. Nobody remembers whose idea he was. Everybody agrees he's the reason people started following us on purpose.",
-  },
-  {
-    year: '2021',
-    title: "Gettin' Weird",
-    description:
-      "Pizza names start getting worse on purpose, pies start getting better on accident. We figure out that 'unorthodox' just means we do what tastes good and apologize for the branding later.",
-  },
-  {
-    year: '2022',
-    title: 'Breweries Notice',
-    description:
-      'Someone at a brewery lets us park for a Friday. We never really leave. Turns out beer and wood-fired pizza want to be at the same party.',
-  },
-  {
-    year: '2023',
-    title: 'The First Wedding',
-    description:
-      "We cater our first wedding by accident (a regular's cousin got engaged at one of our stops). It goes well enough that we accidentally start a whole side of the business.",
-  },
-  {
-    year: '2024',
-    title: 'Somebody Filmed Us',
-    description:
-      "A TikTok of dough getting launched across the trailer gets 500K views overnight. We still don't fully understand why. We are not mad about it.",
-  },
-  {
-    year: 'NOW',
-    title: 'Terrible Legend',
-    description:
-      "Season 3 · Vol. 6. Same terrible names, same wood fire, slightly nicer truck. We still don't know what we're doing, but the pizza's really good, so it's fine.",
-  },
-];
+export const fetchWallItems = async (): Promise<WallItem[]> => {
+  const { data } = await api.get<{ items: WallItem[] }>('/wall-items');
+  return data.items;
+};
+
+export const fetchAboutStops = async (): Promise<AboutStop[]> => {
+  const { data } = await api.get<{ chapters: AboutChapter[] }>('/about-chapters', {
+    params: { home: true },
+  });
+  return data.chapters.map(({ year, title, description }) => ({ year, title, description }));
+};
+
+export const fetchAboutChapters = async (): Promise<AboutChapter[]> => {
+  const { data } = await api.get<{ chapters: AboutChapter[] }>('/about-chapters');
+  return data.chapters;
+};
 
 // TODO Phase 4: back with AboutChapter API
 export const fetchAboutValues = async (): Promise<AboutValue[]> => [

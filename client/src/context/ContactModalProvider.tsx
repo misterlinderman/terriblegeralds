@@ -1,14 +1,6 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import type { ContactInquiryType } from '../types';
-
-interface ContactModalContextValue {
-  isOpen: boolean;
-  inquiryType: ContactInquiryType;
-  openContact: (type?: ContactInquiryType) => void;
-  closeContact: () => void;
-}
-
-const ContactModalContext = createContext<ContactModalContextValue | undefined>(undefined);
+import { ContactModalContext } from './contactModalContext';
 
 export function ContactModalProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,12 +22,4 @@ export function ContactModalProvider({ children }: { children: ReactNode }) {
   return (
     <ContactModalContext.Provider value={value}>{children}</ContactModalContext.Provider>
   );
-}
-
-export function useContactModal() {
-  const context = useContext(ContactModalContext);
-  if (!context) {
-    throw new Error('useContactModal must be used within ContactModalProvider');
-  }
-  return context;
 }

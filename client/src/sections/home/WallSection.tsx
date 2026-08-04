@@ -1,14 +1,52 @@
 import { useEffect, useState } from 'react';
 import PlaceholderBox from '../../components/marketing/PlaceholderBox';
-import { fetchWallMoods } from '../../services/contentApi';
+import { fetchWallItems } from '../../services/contentApi';
+import type { WallItem } from '../../types';
+
+function WallTile({ item }: { item: WallItem }) {
+  const tile = item.imageUrl ? (
+    <div
+      style={{
+        position: 'relative',
+        aspectRatio: '1',
+        borderRadius: 6,
+        overflow: 'hidden',
+        border: '2px dashed rgba(233,220,196,.35)',
+      }}
+    >
+      <img
+        src={item.imageUrl}
+        alt={item.caption}
+        style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+      />
+    </div>
+  ) : (
+    <PlaceholderBox dark label={item.caption} aspect="1" style={{ fontSize: '.6rem' }} />
+  );
+
+  if (item.linkUrl) {
+    return (
+      <a
+        href={item.linkUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ textDecoration: 'none', color: 'inherit' }}
+      >
+        {tile}
+      </a>
+    );
+  }
+
+  return tile;
+}
 
 export default function WallSection() {
-  const [moods, setMoods] = useState<string[]>([]);
+  const [items, setItems] = useState<WallItem[]>([]);
 
   useEffect(() => {
-    fetchWallMoods()
-      .then(setMoods)
-      .catch((error) => console.error('Failed to load wall moods:', error));
+    fetchWallItems()
+      .then(setItems)
+      .catch((error) => console.error('Failed to load wall items:', error));
   }, []);
 
   return (
@@ -40,16 +78,7 @@ export default function WallSection() {
             >
               the people demanded it
             </span>
-            <h2
-              style={{
-                fontFamily: 'var(--font-display)',
-                textTransform: 'uppercase',
-                fontSize: 'clamp(2rem,4.4vw,3.3rem)',
-                margin: 0,
-              }}
-            >
-              The Wall of Gerald
-            </h2>
+            <h2 className="gerald-display-h2">The Wall of Gerald</h2>
           </div>
         </div>
         <div
@@ -60,14 +89,8 @@ export default function WallSection() {
           }}
           className="gerald-wall"
         >
-          {moods.map((m, i) => (
-            <PlaceholderBox
-              key={i}
-              dark
-              label={m}
-              aspect="1"
-              style={{ fontSize: '.6rem' }}
-            />
+          {items.map((item) => (
+            <WallTile key={item._id} item={item} />
           ))}
         </div>
         <p
