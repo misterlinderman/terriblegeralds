@@ -109,6 +109,7 @@ Admin access is granted when either:
 | `WallItem` | Home Wall of Gerald grid | Yes (active) | Yes |
 | `Faq` | Homepage FAQs | Yes (published) | Yes |
 | `SiteContent` | Key/value copy blocks | Yes | Yes |
+| `ThemePreset` | Public + admin CSS variables | Yes (active preset) | Yes (CRUD + activate) |
 | `ContactSubmission` | Booking inquiries (general + catering) | No | Yes (read, status, delete) |
 | `User` | Auth0 profile sync | — | Optional |
 
@@ -137,8 +138,22 @@ Vite proxies `/api` to `http://localhost:3001` (`client/vite.config.ts`).
 | Static menu HTML | `MenuItem` + seed script |
 | Static FAQ HTML | `Faq` + seed script |
 | Inline copy | `SiteContent` entries |
+| Static CSS tokens | `ThemePreset` + `SiteThemeProvider` (runtime CSS vars) |
 
 Reference build: `legacy/astro-dist/`
+
+## Theme system
+
+Public marketing pages and admin interactive elements share CSS custom properties from the active `ThemePreset`:
+
+```
+Browser load → GET /api/theme/active
+SiteThemeProvider → applyThemeToDocument() on :root
+Public components + admin.css → var(--red), var(--font-display), etc.
+Admin → CRUD /api/admin/themes → POST /:id/activate (manual rotation)
+```
+
+Default tokens live in `client/src/lib/themeTokens.ts` and `server/src/constants/defaultTheme.ts`. Only one preset may be `active: true` at a time. Base token definitions remain in `client/src/styles/tokens/*.css`; runtime overrides win on `:root`.
 
 ## Extending the system
 

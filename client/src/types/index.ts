@@ -160,6 +160,31 @@ export interface WallItem {
   active: boolean;
 }
 
+export interface ThemePreset {
+  _id?: string;
+  name: string;
+  bone: string;
+  bone2: string;
+  cream: string;
+  ink: string;
+  inkSoft: string;
+  red: string;
+  redDeep: string;
+  gold: string;
+  goldDeep: string;
+  teal: string;
+  paperLine: string;
+  fontDisplay: string;
+  fontEditorial: string;
+  fontAccent: string;
+  fontBody: string;
+  fontMono: string;
+  displayTracking: string;
+  buttonTracking: string;
+  active?: boolean;
+  sortOrder: number;
+}
+
 export interface MenuListItem {
   name: string;
   description: string;

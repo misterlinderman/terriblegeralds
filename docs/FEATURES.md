@@ -103,6 +103,7 @@ Modal form with two inquiry types:
 | GET | `/api/wall-items` | Active home page Wall of Gerald tiles |
 | GET | `/api/faqs` | Published FAQs |
 | GET | `/api/content` | All site content as key/value map |
+| GET | `/api/theme/active` | Active theme preset (CSS token values) |
 | GET | `/api/contact/validate-zip?zip=` | Catering zip validation |
 | POST | `/api/contact` | Submit contact / catering inquiry |
 
@@ -121,7 +122,7 @@ Modal form with two inquiry types:
 
 ## Admin CMS
 
-Auth0-protected dashboard at `/admin/*`. Uses Tailwind styling separate from the public brand site.
+Auth0-protected dashboard at `/admin/*`. Uses a clean CMS layout (`admin.css`) whose interactive elements inherit the active public-site theme via CSS variables.
 
 ### Access
 
@@ -145,6 +146,7 @@ Auth0-protected dashboard at `/admin/*`. Uses Tailwind styling separate from the
 | `/admin/wall-items` | Home Wall of Gerald grid CRUD |
 | `/admin/faqs` | FAQ CRUD |
 | `/admin/content` | Site content key/value CRUD |
+| `/admin/themes` | Theme preset CRUD + manual activation |
 | `/admin/inquiries` | Contact submission inbox |
 
 ### Events admin
@@ -205,6 +207,16 @@ Key/value entries grouped by section. Seeded keys include:
 
 Private-events bullet list on the homepage is still hard-coded in `HomePage.tsx`.
 
+### Theme presets admin
+
+Manage visual presets for the public marketing site (Season 3 · Vol. 6 token set):
+
+- **Colors** — bone, bone-2, cream, ink, ink-soft, red, red-deep, gold, gold-deep, teal, paper-line
+- **Typography** — display, editorial, accent, body, mono font stacks; display and button letter-spacing
+- **Activation** — manual only; one preset is active at a time (`POST /api/admin/themes/:id/activate`)
+- **Scope** — active preset CSS variables apply site-wide (public pages + admin interactive elements)
+- Seeded default: `npm run seed` upserts “Season 3 · Vol. 6” as the active preset
+
 ### Inquiries admin
 
 - List contact submissions with filters by **type** (general / private event) and **status** (new / read / archived)
@@ -238,6 +250,9 @@ All require `Authorization: Bearer {access_token}` and admin authorization.
 | PUT/DELETE | `/api/admin/faqs/:id` | Update / delete FAQ |
 | GET/POST | `/api/admin/content` | List / create site content |
 | PUT/DELETE | `/api/admin/content/:id` | Update / delete content entry |
+| GET/POST | `/api/admin/themes` | List / create theme presets |
+| PUT/DELETE | `/api/admin/themes/:id` | Update / delete theme preset |
+| POST | `/api/admin/themes/:id/activate` | Set active preset (deactivates others) |
 | GET | `/api/admin/contact` | List inquiries (optional `status`, `inquiryType` query) |
 | PATCH | `/api/admin/contact/:id` | Update inquiry status |
 | DELETE | `/api/admin/contact/:id` | Delete inquiry |
@@ -258,6 +273,7 @@ All require `Authorization: Bearer {access_token}` and admin authorization.
 | `WallItem` | Active items only | Full CRUD | Home Wall of Gerald grid |
 | `Faq` | Published | Full CRUD | |
 | `SiteContent` | All keys | Full CRUD | Key/value copy blocks |
+| `ThemePreset` | Active preset only | Full CRUD + activate | Public + admin CSS variables |
 | `ContactSubmission` | No | Read, status, delete | General + catering types |
 | `User` | — | Optional Auth0 sync | Not used by admin UI |
 

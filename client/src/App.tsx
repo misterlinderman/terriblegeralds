@@ -18,11 +18,13 @@ import AdminVenuesPage from './pages/admin/AdminVenuesPage';
 import AdminPressFeaturesPage from './pages/admin/AdminPressFeaturesPage';
 import AdminAboutChaptersPage from './pages/admin/AdminAboutChaptersPage';
 import AdminWallItemsPage from './pages/admin/AdminWallItemsPage';
+import AdminThemesPage from './pages/admin/AdminThemesPage';
 import AdminFaqsPage from './pages/admin/AdminFaqsPage';
 import AdminContentPage from './pages/admin/AdminContentPage';
 import AdminInquiriesPage from './pages/admin/AdminInquiriesPage';
 import AdminLoginPage from './pages/admin/AdminLoginPage';
 import { useApiAuth } from './hooks/useApiAuth';
+import { SiteThemeProvider } from './context/SiteThemeProvider';
 
 const Phase0VerifyPage = import.meta.env.DEV
   ? lazy(() => import('./pages/dev/Phase0VerifyPage'))
@@ -41,7 +43,8 @@ function App() {
   }
 
   return (
-    <Routes>
+    <SiteThemeProvider>
+      <Routes>
       {Phase1DsDemoPage ? (
         <Route
           path="/dev/phase-1"
@@ -89,11 +92,13 @@ function App() {
         <Route path="press-features" element={<AdminPressFeaturesPage />} />
         <Route path="about-chapters" element={<AdminAboutChaptersPage />} />
         <Route path="wall-items" element={<AdminWallItemsPage />} />
+        <Route path="themes" element={<AdminThemesPage />} />
         <Route path="faqs" element={<AdminFaqsPage />} />
         <Route path="content" element={<AdminContentPage />} />
         <Route path="inquiries" element={<AdminInquiriesPage />} />
       </Route>
     </Routes>
+    </SiteThemeProvider>
   );
 }
 

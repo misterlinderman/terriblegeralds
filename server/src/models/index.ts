@@ -8,6 +8,7 @@ export { PressFeature } from './PressFeature';
 export { TikTokFeature } from './TikTokFeature';
 export { AboutChapter } from './AboutChapter';
 export { WallItem } from './WallItem';
+export { ThemePreset } from './ThemePreset';
 export { Faq } from './Faq';
 export { SiteContent } from './SiteContent';
 export { ContactSubmission } from './ContactSubmission';

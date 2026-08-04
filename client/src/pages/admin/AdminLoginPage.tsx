@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
+import '../../styles/admin.css';
 
 export default function AdminLoginPage() {
   const { loginWithRedirect, isAuthenticated } = useAuth0();
@@ -17,11 +18,11 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-sm">
-        <p className="text-sm uppercase tracking-wide text-slate-500">Terrible Gerald&apos;s</p>
-        <h1 className="mt-1 text-2xl font-semibold text-slate-900">Admin Login</h1>
-        <p className="mt-3 text-sm text-slate-600">
+    <div className="admin-login-page">
+      <div className="admin-login-card admin-panel">
+        <p className="admin-kicker">Terrible Gerald&apos;s</p>
+        <h1 className="admin-page-title">Admin Login</h1>
+        <p className="admin-muted mt-3 text-sm">
           Sign in with your authorized account to manage events, menu items, and site content.
         </p>
         <button
@@ -35,11 +36,11 @@ export default function AdminLoginPage() {
               },
             })
           }
-          className="mt-6 w-full rounded bg-red-700 px-4 py-2.5 text-white"
+          className="admin-btn-primary mt-6 w-full"
         >
           Log in with Auth0
         </button>
-        <a href="/" className="mt-4 block text-center text-sm text-slate-600 hover:underline">
+        <a href="/" className="admin-link mt-4 block text-center text-sm">
           Back to website
         </a>
       </div>

@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom';
 
 const cards = [
+  {
+    to: '/admin/themes',
+    title: 'Theme',
+    blurb: 'Colors, fonts, and accents for the public site — manual preset rotation.',
+  },
   { to: '/admin/events', title: 'Events', blurb: 'Schedule pop-ups, venues, and ticket links.' },
   { to: '/admin/menu', title: 'Menu', blurb: 'Manage pizza names, descriptions, and images.' },
   {
@@ -40,20 +45,19 @@ const cards = [
 export default function AdminDashboard() {
   return (
     <div>
-      <h2 className="mb-2 text-2xl font-semibold text-slate-900">Dashboard</h2>
-      <p className="mb-6 text-slate-600">
-        Manage Terrible Gerald&apos;s public website content. Changes appear on the live site
-        immediately after saving.
+      <p className="admin-kicker mb-1">content admin</p>
+      <h2 className="admin-heading mb-2 text-2xl">Dashboard</h2>
+      <p className="mb-6 text-sm" style={{ color: 'var(--ink-soft)' }}>
+        Manage Terrible Gerald&apos;s public website content. Most changes appear on the live
+        site immediately after saving. Theme changes apply when you activate a preset.
       </p>
       <div className="grid gap-4 md:grid-cols-2">
         {cards.map((card) => (
-          <Link
-            key={card.to}
-            to={card.to}
-            className="rounded-lg border border-slate-200 p-4 transition hover:border-red-700 hover:shadow-sm"
-          >
-            <h3 className="text-lg font-medium text-slate-900">{card.title}</h3>
-            <p className="mt-1 text-sm text-slate-600">{card.blurb}</p>
+          <Link key={card.to} to={card.to} className="admin-card-link">
+            <h3 className="admin-heading text-lg">{card.title}</h3>
+            <p className="mt-1 text-sm" style={{ color: 'var(--ink-soft)' }}>
+              {card.blurb}
+            </p>
           </Link>
         ))}
       </div>

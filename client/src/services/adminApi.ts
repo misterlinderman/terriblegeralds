@@ -10,6 +10,7 @@ import type {
   MenuItem,
   PressFeature,
   SiteContentEntry,
+  ThemePreset,
   TikTokFeature,
   Venue,
   WallItem,
@@ -161,6 +162,28 @@ export const adminWallItems = {
   },
   remove: async (id: string): Promise<void> => {
     await api.delete(`/admin/wall-items/${id}`);
+  },
+};
+
+export const adminThemes = {
+  list: async (): Promise<ThemePreset[]> => {
+    const { data } = await api.get<{ themes: ThemePreset[] }>('/admin/themes');
+    return data.themes;
+  },
+  create: async (payload: Partial<ThemePreset>): Promise<ThemePreset> => {
+    const { data } = await api.post<ThemePreset>('/admin/themes', payload);
+    return data;
+  },
+  update: async (id: string, payload: Partial<ThemePreset>): Promise<ThemePreset> => {
+    const { data } = await api.put<ThemePreset>(`/admin/themes/${id}`, payload);
+    return data;
+  },
+  activate: async (id: string): Promise<ThemePreset> => {
+    const { data } = await api.post<ThemePreset>(`/admin/themes/${id}/activate`);
+    return data;
+  },
+  remove: async (id: string): Promise<void> => {
+    await api.delete(`/admin/themes/${id}`);
   },
 };
 

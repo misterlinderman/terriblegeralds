@@ -36,7 +36,7 @@ export default {
         accent: ['var(--font-accent)'],
         body: ['var(--font-body)'],
         mono: ['var(--font-mono)'],
-        sans: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-body)', 'Hanken Grotesk', 'system-ui', 'sans-serif'],
       },
     },
   },

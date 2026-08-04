@@ -15,6 +15,7 @@ import type {
   PressFeature,
   ReviewQuote,
   TikTokFeature,
+  ThemePreset,
   Venue,
   VenueCategory,
   WallItem,
@@ -142,6 +143,11 @@ export const fetchVenueCategories = async (): Promise<VenueCategory[]> => {
     description: venue.blurb,
     icon: venue.categoryIcon,
   }));
+};
+
+export const fetchActiveTheme = async (): Promise<ThemePreset> => {
+  const { data } = await api.get<{ theme: ThemePreset }>('/theme/active');
+  return data.theme;
 };
 
 export const fetchWallItems = async (): Promise<WallItem[]> => {

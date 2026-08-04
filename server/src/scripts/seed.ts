@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import { connectDatabase } from '../config/database';
-import { Event, MenuItem, CateringTier, Venue, PressFeature, TikTokFeature, AboutChapter, WallItem, Faq, SiteContent } from '../models';
+import { Event, MenuItem, CateringTier, Venue, PressFeature, TikTokFeature, AboutChapter, WallItem, ThemePreset, Faq, SiteContent } from '../models';
+import { DEFAULT_THEME_TOKENS } from '../constants/defaultTheme';
 
 dotenv.config();
 
@@ -343,6 +344,7 @@ async function seed() {
     TikTokFeature.deleteMany({}),
     AboutChapter.deleteMany({}),
     WallItem.deleteMany({}),
+    ThemePreset.deleteMany({}),
     Faq.deleteMany({}),
     SiteContent.deleteMany({}),
   ]);
@@ -354,12 +356,13 @@ async function seed() {
   await TikTokFeature.insertMany(tikTokFeatures);
   await AboutChapter.insertMany(aboutChapters);
   await WallItem.insertMany(wallItems);
+  await ThemePreset.create({ ...DEFAULT_THEME_TOKENS, active: true, sortOrder: 1 });
   await Faq.insertMany(faqs);
   await SiteContent.insertMany(siteContent);
 
   const eventCount = await Event.countDocuments();
   console.log(
-    `✅ Seeded ${menuItems.length} menu items, ${cateringTiers.length} catering tiers, ${venues.length} venues, ${pressFeatures.length} press features, ${tikTokFeatures.length} TikTok features, ${aboutChapters.length} about chapters, ${wallItems.length} wall items, ${faqs.length} FAQs, ${siteContent.length} content entries`
+    `✅ Seeded ${menuItems.length} menu items, ${cateringTiers.length} catering tiers, ${venues.length} venues, ${pressFeatures.length} press features, ${tikTokFeatures.length} TikTok features, ${aboutChapters.length} about chapters, ${wallItems.length} wall items, 1 theme preset, ${faqs.length} FAQs, ${siteContent.length} content entries`
   );
   console.log(`ℹ️  Events unchanged (${eventCount} existing). Add events via admin or API.`);
 
