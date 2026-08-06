@@ -16,6 +16,7 @@ export interface NavSocial {
 
 interface NavBarProps {
   logoSrc?: string;
+  logoVariant?: 'mark' | 'wordmark';
   links?: NavLink[];
   seasonLabel?: string;
   socials?: NavSocial[];
@@ -53,6 +54,7 @@ function NavAnchor({
 
 export default function NavBar({
   logoSrc,
+  logoVariant = 'mark',
   links = [],
   seasonLabel = 'S3 · VOL.6',
   socials = [],
@@ -108,42 +110,50 @@ export default function NavBar({
             <img
               src={logoSrc}
               alt="Terrible Gerald's Pizza logo"
-              style={{ width: 42, height: 42, flex: 'none' }}
+              width={logoVariant === 'wordmark' ? 300 : 42}
+              height={logoVariant === 'wordmark' ? 136 : 42}
+              style={
+                logoVariant === 'wordmark'
+                  ? { height: 85, width: 'auto', flex: 'none', display: 'block' }
+                  : { width: 42, height: 42, flex: 'none' }
+              }
             />
           )}
-          <span style={{ lineHeight: 0.82 }}>
-            <span
-              style={{
-                display: 'block',
-                fontFamily: 'var(--font-display)',
-                fontSize: '.95rem',
-                letterSpacing: '.06em',
-              }}
-            >
-              TERRIBLE
+          {logoVariant !== 'wordmark' && (
+            <span style={{ lineHeight: 0.82 }}>
+              <span
+                style={{
+                  display: 'block',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '.95rem',
+                  letterSpacing: '.06em',
+                }}
+              >
+                TERRIBLE
+              </span>
+              <span
+                style={{
+                  display: 'block',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '1.5rem',
+                  color: 'var(--red)',
+                }}
+              >
+                GERALD&apos;S
+              </span>
+              <span
+                style={{
+                  display: 'block',
+                  fontFamily: 'var(--font-display)',
+                  fontSize: '.7rem',
+                  letterSpacing: '.32em',
+                  color: 'var(--ink-soft)',
+                }}
+              >
+                PIZZA
+              </span>
             </span>
-            <span
-              style={{
-                display: 'block',
-                fontFamily: 'var(--font-display)',
-                fontSize: '1.5rem',
-                color: 'var(--red)',
-              }}
-            >
-              GERALD&apos;S
-            </span>
-            <span
-              style={{
-                display: 'block',
-                fontFamily: 'var(--font-display)',
-                fontSize: '.7rem',
-                letterSpacing: '.32em',
-                color: 'var(--ink-soft)',
-              }}
-            >
-              PIZZA
-            </span>
-          </span>
+          )}
         </NavAnchor>
 
         <nav
